@@ -1,0 +1,122 @@
+# Bandeja de la S19: reponer antes de quedarse sin género (sector cervecero).
+#
+# Las marcas {{producto:}}, {{proveedor:}} y {{empresa}} resuelven a los datos de
+# la variante de cada alumno. Ojo: {{precio:}} devuelve el PVP de venta, y las
+# materias primas del catálogo lo tienen a 0,00 € porque no se venden; por eso en
+# esta bandeja los precios de compra se dan en porcentaje sobre lo pactado.
+
+titulo: S19 · Compras e inventario
+intro: |
+  Segunda semana de noviembre en {{empresa}}. La malta entra justa, el proveedor
+  avisa de que no llega a todo y en el almacén se ha roto género. Hay que decidir
+  qué se pide, qué se regulariza y qué se reclama, sin dejar el almacén a cero ni
+  pagar de más.
+
+sucesos:
+  - clave: S19-01
+    dia: lunes
+    hora: "08:35"
+    medio: nota
+    de: Almacén
+    asunto: "Quedan cuatro sacos de pale ale"
+    texto: |
+      Aviso de almacén: de {{producto:CER-001}} solo quedan **cuatro** en el
+      almacén y esta semana entran dos cocimientos. El mínimo que tenemos puesto
+      es de ocho y {{proveedor:PRV-MALTA}} tarda unos diez días en servir.
+
+      Si esperamos a que el planificador avise, llegamos tarde. Habría que lanzar
+      el pedido hoy, y no de cuatro sacos: hay que cubrir lo que se gasta hasta
+      que llegue el siguiente.
+
+  - clave: S19-02
+    dia: lunes
+    hora: "12:20"
+    medio: correo
+    de: "{{proveedor:PRV-MALTA}}"
+    asunto: "Confirmación del pedido de malta: os servimos la mitad"
+    texto: |
+      Buenos días:
+
+      Pedido confirmado, pero tenemos que avisaros de que esta semana solo
+      podemos servir **la mitad de los sacos**. La malteadora ha parado dos días
+      por una avería y vamos con retraso en todos los pedidos.
+
+      El resto sale de fábrica el viernes y os lo entregamos la semana del 23.
+      El precio no cambia: se mantiene el que teníais.
+
+      Si os hace falta el género antes, os lo decimos claro: no lo vamos a tener.
+
+    incidencia: true
+
+  - clave: S19-03
+    dia: martes
+    hora: "09:15"
+    medio: nota
+    de: Almacén
+    asunto: "Palé de botellas volcado en el muelle"
+    texto: |
+      Al mover un palé de {{producto:CER-007}} con la carretilla, la horquilla
+      enganchó la esquina y volcó. Se han roto **dos palés enteros**: el vidrio
+      está barrido y en el contenedor, no se puede aprovechar nada.
+
+      En el sistema siguen contando como stock. ¿Cómo lo dejamos cuadrado? El
+      jefe de turno ha firmado el parte, y las fotos están en el móvil del
+      almacén.
+
+    incidencia: true
+
+  - clave: S19-04
+    dia: miércoles
+    hora: "11:10"
+    medio: correo
+    de: "{{proveedor:PRV-MALTA}}"
+    asunto: "Factura de la malta: precio de tarifa nueva"
+    texto: |
+      Adjuntamos la factura de los sacos servidos. Veréis que el precio unitario
+      no es el del pedido: nos han actualizado la tarifa este mes y os hemos
+      aplicado la nueva, un 7 % más.
+
+      Si preferís mantener el precio que teníais pactado hasta final de año,
+      avisadnos y os mandamos el abono. Nosotros, por nuestra parte, no vamos a
+      reclamaros nada.
+
+    incidencia: true
+
+  - clave: S19-05
+    dia: jueves
+    hora: "10:05"
+    medio: llamada
+    de: "{{proveedor:PRV-MAQUINARIA}}"
+    asunto: "Revisión anual de la llenadora"
+    texto: |
+      Llaman del servicio técnico: la llenadora cumple un año y toca la revisión
+      anual, que va incluida en el contrato de mantenimiento. Pueden venir el
+      martes por la mañana y dejarla parada solo cuatro horas.
+
+      Es mano de obra y desplazamiento; si en la revisión ven las boquillas
+      gastadas, os pasan presupuesto aparte del {{producto:CER-010}}.
+
+      Quieren que les confirmemos la visita esta semana para cuadrar la ruta.
+
+  - clave: S19-06
+    dia: viernes
+    hora: "16:30"
+    medio: nota
+    de: Dirección
+    asunto: "Los mínimos están puestos a ojo"
+    texto: |
+      Me ha llamado la atención lo de esta semana: el sistema no nos avisó de la
+      malta hasta que quedaban cuatro sacos, y el proveedor tarda diez días.
+
+      Revisad las reglas de reabastecimiento de las materias primas y dejad unos
+      mínimos que aguanten el plazo de entrega, no los que se pusieron el primer
+      día. Y comprobad que el máximo no nos llene la nave: el dinero parado en
+      sacos también cuesta.
+
+comprobacion:
+  - "Hay un pedido de compra a {{proveedor:PRV-MALTA}} por {{producto:CER-001}}, confirmado, con fecha prevista de recepción y con una cantidad que cubre el consumo hasta que llegue el género."
+  - "La recepción de ese pedido está hecha solo por la mitad de lo pedido y queda un albarán pendiente con el resto; el pedido no consta como recibido del todo."
+  - "Los dos palés rotos de {{producto:CER-007}} están descontados con un ajuste de inventario que lleva el motivo escrito, y el stock no ha quedado negativo."
+  - "La factura de {{proveedor:PRV-MALTA}} está registrada con el precio que has decidido aceptar, y si has reclamado consta la nota o el abono pedido."
+  - "El mantenimiento de la llenadora está como compra de servicio, sin movimiento de almacén ni entrada de stock."
+  - "Las reglas de mínimo y máximo de las materias primas están actualizadas y se ve el cambio en la ficha del producto; ningún producto queda por debajo de su mínimo sin pedido abierto."

@@ -1,0 +1,113 @@
+# Bandeja de la S19 del vivero: reponer antes de la campaña.
+#
+# Mismas marcas que la bandeja de ventas: {{producto:}}, {{proveedor:}},
+# {{precio:}}… para que cada alumno vea sus referencias y sus precios.
+
+titulo: S19 · Compras e inventario
+intro: |
+  Segunda semana de noviembre en {{empresa}}. Arranca la campaña de plantación
+  de otoño, el invernadero ha pasado la primera helada y los proveedores no
+  van finos. Hay que decidir qué se compra, qué se regulariza y qué se reclama
+  antes de que el género se acabe o se eche a perder.
+
+sucesos:
+  - clave: S19-01
+    dia: lunes
+    hora: "08:40"
+    medio: nota
+    de: Almacén
+    asunto: "Quedan dos palés de sustrato"
+    texto: |
+      Aviso de almacén: de {{producto:VIV-101}} quedan **dos palés** y de
+      {{producto:VIV-102}} no llega a uno. La semana que viene empieza la
+      campaña de plantación y con lo que hay no aguantamos ni hasta el puente.
+
+      El proveedor sirve en cuatro días si el pedido entra antes del mediodía.
+      Propongo lanzar la compra hoy mismo.
+
+  - clave: S19-02
+    dia: lunes
+    hora: "12:10"
+    medio: correo
+    de: "{{proveedor:PRV-VIVERO}}"
+    asunto: "Confirmación del pedido de planta de temporada"
+    texto: |
+      Buenos días:
+
+      Confirmamos el pedido, pero os tenemos que avisar de que esta semana solo
+      podemos servir **la mitad** de los {{producto:VIV-003}}: el resto de la
+      partida no ha terminado de enraizar y no sale del vivero hasta la semana
+      del 24. Los {{producto:VIV-004}} sí os los mandamos completos.
+
+      El resto de la planta os lo servimos en cuanto esté lista.
+
+      Disculpad las molestias.
+
+    incidencia: true
+
+  - clave: S19-03
+    dia: martes
+    hora: "09:30"
+    medio: nota
+    de: Almacén
+    asunto: "Se han helado las colgantes del invernadero"
+    texto: |
+      La helada del domingo ha dejado el invernadero a bajo cero y se han
+      helado 34 {{producto:VIV-002}}. Están mustias y no se pueden vender; las
+      hemos apartado en el pasillo de la derecha.
+
+      En el sistema siguen contando como si estuvieran. ¿Cómo lo regularizamos,
+      con un ajuste de inventario?
+
+    incidencia: true
+
+  - clave: S19-04
+    dia: miércoles
+    hora: "11:05"
+    medio: correo
+    de: "{{proveedor:PRV-SUSTRATOS}}"
+    asunto: "Factura del sustrato de la campaña"
+    texto: |
+      Adjuntamos la factura del pedido de sustrato. Ojo: os hemos aplicado el
+      precio nuevo de tarifa, que ha subido este mes un 8 % sobre lo que
+      teníamos pactado para el año. Si preferís mantener el precio anterior
+      hasta fin de año, avisadnos y os emitimos el abono.
+
+    incidencia: true
+
+  - clave: S19-05
+    dia: jueves
+    hora: "10:00"
+    medio: llamada
+    de: "{{proveedor:PRV-TRANSPORTE}}"
+    asunto: "Porte de los olivos y el arce"
+    texto: |
+      Llaman para cerrar el porte de la semana que viene: pueden recoger el
+      jueves los dos {{producto:VIV-010}} y el {{producto:VIV-012}} que salen
+      para la comunidad y entregarlos el viernes por la mañana.
+
+      Es el transporte, no la planta: la planta ya está vendida y solo hay que
+      pagar el porte.
+
+  - clave: S19-06
+    dia: viernes
+    hora: "16:20"
+    medio: nota
+    de: Dirección
+    asunto: "El sustrato sube y hay que mirar el margen"
+    texto: |
+      El proveedor nos ha subido el sustrato. Revisad el coste de
+      {{producto:VIV-101}} en el sistema y mirad si el precio de venta de
+      {{precio:VIV-101}} nos sigue dejando margen. Si toca subirlo, que sea a
+      partir del mes que viene.
+
+      No quiero que nos coma el margen sin darnos cuenta, y menos en plena
+      campaña.
+
+comprobacion:
+  - "Hay un pedido de compra a {{proveedor:PRV-VIVERO}} con la cantidad que has decidido, confirmado y con su recepción."
+  - "La recepción del pedido de planta está hecha por la mitad y queda una recepción pendiente con el resto de los geranios."
+  - "Hay un pedido de compra a {{proveedor:PRV-SUSTRATOS}} con la cantidad que has decidido y con su recepción."
+  - "La planta helada está descontada del stock mediante un ajuste de inventario con su motivo, y el stock no ha quedado negativo."
+  - "La factura del proveedor de sustratos está registrada al precio que has decidido aceptar, y si has reclamado, consta la nota."
+  - "El porte de los ejemplares grandes está como compra de servicio al 21 %, sin movimiento de almacén, y el coste de {{producto:VIV-101}} actualizado se ve en la ficha del producto sin tocar los pedidos ya confirmados."

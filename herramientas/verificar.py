@@ -167,6 +167,13 @@ def comprobar_stock(api: Odoo, inf: Informe) -> None:
                 "Revisa las entregas: se ha vendido más de lo que había")
     else:
         inf.bien("ningún producto con stock negativo")
+    reglas = api.buscar_ids("stock.warehouse.orderpoint", [["active", "=", True]])
+    if reglas:
+        inf.bien(f"{len(reglas)} reglas de reabastecimiento (mínimo/máximo)")
+    else:
+        inf.ojo("no hay reglas de reabastecimiento",
+                "Las crea cargar_historico.py; sin ellas el planificador no propone compras (S19)")
+
     con_stock = sum(1 for q in quants if q["quantity"] > 0)
     if con_stock:
         inf.bien(f"{con_stock} productos con existencias")

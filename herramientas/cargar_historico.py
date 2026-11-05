@@ -147,6 +147,39 @@ def _stock_inicial(api: Odoo, plan: historico.Plan, productos: dict[str, dict],
                         ultimo_movimiento[0] if ultimo_movimiento else 0)
 
 
+def _reglas_reabastecimiento(api: Odoo, m) -> None:
+    """Crea las reglas de mínimo/máximo del catálogo (las que usa el planificador).
+
+    Sin ellas, la pantalla de Abastecimiento no propone nada y el ejercicio de la
+    S19 no se puede hacer. Se crean una sola vez: si ya existe la regla para ese
+    producto y ubicación, no se duplica.
+    """
+    ubicacion = api.buscar("stock.location", [["usage", "=", "internal"]], ["name"], limite=1)
+    if not ubicacion:
+        return
+    ubicacion_id = ubicacion[0]["id"]
+    for p in m.productos:
+        if not p.get("minimo") or p["tipo"] == "servicio":
+            continue
+        producto = api.buscar("product.product", [["default_code", "=", p["ref"]]],
+                              ["id"], limite=1)
+        if not producto:
+            continue
+        existente = api.buscar_ids("stock.warehouse.orderpoint", [
+            ["product_id", "=", producto[0]["id"]],
+            ["location_id", "=", ubicacion_id],
+        ], limite=1)
+        if existente:
+            continue
+        api.crear("stock.warehouse.orderpoint", {
+            "product_id": producto[0]["id"],
+            "location_id": ubicacion_id,
+            "product_min_qty": p["minimo"],
+            "product_max_qty": p.get("maximo") or (p["minimo"] * 3),
+            "trigger": "auto",
+        })
+
+
 def _validar_albaran(api: Odoo, picking_id: int, fecha: str) -> None:
     """Cantidades completas, validar y volver a poner la fecha histórica."""
     movimientos = api.buscar("stock.move", [["picking_id", "=", picking_id]],
@@ -256,6 +289,7 @@ def cargar(api: Odoo, e: catalogo.Empresa, m: maestros.Maestros, plan: historico
     if verboso:
         print("Fijando el stock inicial al 30/07/2026…")
     _stock_inicial(api, plan, productos, empresa["id"])
+    _reglas_reabastecimiento(api, m)
 
     # ---- 3. Compras ------------------------------------------------------
     if verboso:

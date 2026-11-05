@@ -1,0 +1,139 @@
+# Bandeja de la S19 del sector aceite: reponer envase en plena campaña.
+#
+# Mismas marcas que la bandeja de ventas: {{producto:}}, {{proveedor:}},
+# {{precio:}} y {{empresa}} para que cada alumno vea sus referencias y sus
+# precios, no los del catálogo base.
+#
+# El eje de la sesión es el aprovisionamiento de una almazara que moltura y
+# envasa a la vez: el vidrio que falta, el palé que llega a medias, las botellas
+# que se rompen en el muelle, la factura que no cuadra con lo pactado y un
+# servicio que se compra sin que se mueva ni una caja del almacén.
+
+titulo: S19 · Compras e inventario
+intro: |
+  Segunda semana de noviembre. La almazara está en plena campaña: entra
+  aceituna todo el día, la línea de envasado no para y las tiendas ya están
+  cerrando pedidos de Navidad.
+
+  El problema no es la aceituna, es el envase. Estos son los mensajes que han
+  entrado en el despacho de {{empresa}}. Hay que decidir qué se compra, qué se
+  regulariza, qué se reclama y qué no debe tocar el almacén.
+
+sucesos:
+  - clave: S19-01
+    dia: lunes
+    hora: "08:20"
+    medio: nota
+    de: Almacén
+    asunto: "Quedan dieciocho botellas vacías"
+    texto: |
+      Aviso de almacén: de {{producto:ACI-034}} quedan **dieciocho unidades** y
+      el mínimo que tenemos marcado son veinticuatro. La línea está envasando
+      {{producto:ACI-002}} y {{producto:ACI-008}} a dos turnos para servir los
+      pedidos de Navidad, así que en tres días nos quedamos sin vidrio.
+
+      El proveedor tarda una semana. Si no pedimos hoy, paramos la línea justo
+      la semana que más vendemos.
+
+  - clave: S19-02
+    dia: lunes
+    hora: "12:40"
+    medio: correo
+    de: "{{proveedor:PRV-VIDRIO}}"
+    asunto: "Confirmación del palé y plazo de entrega"
+    texto: |
+      Buenos días:
+
+      Confirmamos el pedido, pero os tenemos que avisar de que esta semana solo
+      podemos servir **una parte del palé**: el horno de la línea 2 está parado
+      por mantenimiento y no tenemos género suficiente para cubrir el total.
+
+      El resto os lo mandamos en el siguiente camión, en unos quince días. Si os
+      corre prisa, podemos completar la diferencia con la referencia de un litro
+      de otra serie, aunque el gollete no es igual y os puede dar problemas en
+      la encajonadora.
+
+      Disculpad las molestias.
+
+    incidencia: true
+
+  - clave: S19-03
+    dia: martes
+    hora: "09:35"
+    medio: nota
+    de: Almacén
+    asunto: "Botellas rotas al descargar el palé"
+    texto: |
+      Al bajar el palé del camión se ha volcado una caja y se han roto **veinticuatro
+      botellas** de {{producto:ACI-034}}. Están barridas y tiradas al contenedor
+      del vidrio: no se puede aprovechar ninguna.
+
+      En el sistema siguen contando como si estuvieran en el almacén.
+
+      ¿Cómo lo regularizamos? No quiero que la próxima recepción me cuadre mal
+      por esto.
+
+    incidencia: true
+
+  - clave: S19-04
+    dia: miércoles
+    hora: "11:10"
+    medio: correo
+    de: "{{proveedor:PRV-VIDRIO}}"
+    asunto: "Factura del palé de botellas"
+    texto: |
+      Adjuntamos la factura del palé servido.
+
+      Ojo con el precio: os hemos aplicado la tarifa nueva, que salió este mes.
+      La unidad de {{producto:ACI-034}} nos quedaba pactada a {{precio:ACI-034}}
+      y en la factura va por encima de esa cifra. Nos dijeron en la feria que el
+      precio se mantenía hasta final de año, pero dirección nos ha mandado
+      actualizar tarifa a todos los clientes por el coste de la energía.
+
+      Si preferís mantener el precio pactado, avisadnos y os emitimos el abono
+      de la diferencia.
+
+    incidencia: true
+
+  - clave: S19-05
+    dia: jueves
+    hora: "10:00"
+    medio: llamada
+    de: "{{proveedor:PRV-TRANSPORTE}}"
+    asunto: "Portes del primer envío de campaña"
+    texto: |
+      Llaman para cerrar el reparto del primer envío de Navidad. Nos dejan el
+      camión frigorífico para el jueves de la semana que viene, con carga a las
+      siete de la mañana y reparto en dos días por la provincia.
+
+      Nos pasan el porte por {{producto:ACI-043}} más un suplemento por la
+      espera en muelle si el palé no está preparado a la hora.
+
+      Es un servicio: no nos traen mercancía, se llevan la nuestra. En el
+      almacén no entra ni sale nada.
+
+  - clave: S19-06
+    dia: viernes
+    hora: "16:30"
+    medio: nota
+    de: Dirección
+    asunto: "El vidrio sube y la campaña ya está vendida"
+    texto: |
+      El proveedor de vidrio nos ha mandado la tarifa nueva. Antes de pagar la
+      factura, reclamad el precio pactado: nosotros cerramos los pedidos de
+      Navidad con el coste anterior y no podemos repercutirlo a estas alturas.
+
+      Si al final hay que aceptar la subida, dejad el coste actualizado en la
+      ficha de {{producto:ACI-034}}, pero que no se toque ningún precio de los
+      pedidos que ya están confirmados.
+
+      No quiero que la subida nos coma el margen de toda la campaña sin darnos
+      cuenta.
+
+comprobacion:
+  - "Hay un pedido de compra a {{proveedor:PRV-VIDRIO}} por {{producto:ACI-034}} con la cantidad que has decidido, confirmado y con su recepción."
+  - "La recepción del palé está hecha solo por la parte servida y queda una recepción pendiente con el resto, con la fecha de entrega acordada."
+  - "Las veinticuatro botellas rotas están descontadas del stock mediante un ajuste de inventario con su motivo, y el stock no ha quedado negativo."
+  - "La factura del vidrio está registrada con el precio que has decidido aceptar y, si has reclamado, la reclamación consta como nota en el proveedor."
+  - "El porte de {{proveedor:PRV-TRANSPORTE}} está como compra de servicio y no ha generado ningún movimiento de almacén."
+  - "El coste actualizado de {{producto:ACI-034}} se ve en la ficha del producto y el precio nuevo no afecta a los pedidos ya confirmados."

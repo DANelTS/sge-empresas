@@ -1,0 +1,149 @@
+# Bandeja de la S19 del sector oficina: reponer folio antes del cierre de mes.
+#
+# Mismas marcas que la bandeja de ventas: {{producto:}}, {{proveedor:}},
+# {{precio:}} y {{empresa}} para que cada alumno vea sus referencias y sus
+# precios, no los del catálogo base.
+#
+# El eje de la sesión es el aprovisionamiento de una distribuidora: el folio que
+# se queda bajo mínimo, el palé que llega a medias, las cajas que se mojan en el
+# muelle, la factura que no cuadra con lo pactado y un porte urgente que se paga
+# sin que entre ni una caja en el almacén.
+
+titulo: S19 · Compras e inventario
+intro: |
+  Segunda semana de noviembre. En la nave de {{empresa}} no se para: los
+  colegios han cerrado los pedidos del trimestre y el reparto sale a diario,
+  pero el almacén se está quedando sin lo más básico.
+
+  Estos son los mensajes que han entrado en el departamento de compras. Hay que
+  decidir qué se pide, qué se recepciona, qué se regulariza, qué se reclama y
+  qué no debe mover ni una caja del almacén.
+
+sucesos:
+  - clave: S19-01
+    dia: lunes
+    hora: "08:35"
+    medio: nota
+    de: Almacén
+    asunto: "Quedan nueve cajas de folio A4"
+    texto: |
+      Aviso de almacén: de {{producto:OFI-002}} quedan **nueve cajas** y el
+      mínimo que tenemos marcado son doce. Con los pedidos de colegios que hay
+      en cartera y el reparto diario, en una semana nos quedamos sin folio.
+
+      El proveedor tarda una semana en servir y el máximo que nos cabe en la
+      estantería son ochenta cajas.
+
+      Propongo lanzar la compra hoy mismo, que luego no hay quien pare el
+      mostrador para ir a buscar papel a otro sitio.
+
+  - clave: S19-02
+    dia: lunes
+    hora: "12:20"
+    medio: correo
+    de: "{{proveedor:PRV-PAPEL}}"
+    asunto: "Pedido confirmado: esta semana servimos parte"
+    texto: |
+      Buenos días:
+
+      Confirmamos el pedido de {{producto:OFI-002}}, pero os tenemos que avisar
+      de que el palé sale **incompleto**. El transportista ha cargado cuarenta y
+      cinco cajas y no ha podido meter las quince que faltan: el camión venía
+      con otro reparto y no daba el peso.
+
+      Las quince restantes van en el camión del martes de la semana que viene.
+      Recepcionad lo que os llegue y dejad el pedido abierto, que no se pierde
+      nada: os lo servimos a la misma tarifa.
+
+      Disculpad las molestias.
+
+    incidencia: true
+
+  - clave: S19-03
+    dia: martes
+    hora: "09:50"
+    medio: nota
+    de: Almacén
+    asunto: "Cuatro cajas mojadas en la descarga"
+    texto: |
+      Al abrir el palé que acaba de llegar, **cuatro cajas** de
+      {{producto:OFI-002}} vienen mojadas: el plástico exterior estaba roto y
+      han dormido a la lluvia en el muelle de carga. El papel está ondulado y
+      las cajas, abiertas por abajo; no se puede vender así.
+
+      Las hemos apartado en el pasillo. En el sistema cuentan como recibidas,
+      así que si no lo tocamos el inventario va a decir que tenemos más folio
+      del que hay.
+
+      ¿Lo regularizamos como merma? No sé si merece la pena reclamar cuatro
+      cajas al transportista, pero el almacén tiene que cuadrar.
+
+    incidencia: true
+
+  - clave: S19-04
+    dia: miércoles
+    hora: "11:40"
+    medio: correo
+    de: "{{proveedor:PRV-INFO}}"
+    asunto: "Factura del pedido de tóner: hay dos cosas que no cuadran"
+    texto: |
+      Adjuntamos la factura del pedido de tóner. Antes de que la paguéis, dos
+      avisos:
+
+      - Nos han aplicado la tarifa nueva, que subió este mes. El
+        {{producto:OFI-016}} nos quedaba pactado a {{precio:OFI-016}} y en la
+        factura va por encima de esa cifra. Si preferís el precio anterior,
+        emitimos el abono de la diferencia.
+      - En el palé han entrado **tres cajas** de {{producto:OFI-019}} que no
+        venían en el pedido: las metió el mozo «por si acaso». Si no las
+        queréis, las recogemos en el próximo reparto sin coste; si os quedan,
+        os las facturamos aparte.
+
+      Decidnos una cosa y otra para cerrar el albarán.
+
+    incidencia: true
+
+  - clave: S19-05
+    dia: jueves
+    hora: "09:55"
+    medio: llamada
+    de: "{{proveedor:PRV-MENSAJERIA}}"
+    asunto: "Recogida urgente para el colegio"
+    texto: |
+      Llaman para cerrar la recogida urgente de esta tarde: pasan por la nave a
+      las cinco, cargan los dos palés del pedido del colegio y los entregan
+      antes de las nueve de la mañana del viernes, que tienen la reunión de
+      padres.
+
+      El porte va según la tarifa del contrato marco y nos lo facturan a fin de
+      mes, junto con el resto de los repartos.
+
+      Es un servicio: no nos traen ni se llevan mercancía nuestra del almacén,
+      solo el porte. Que no se líe nadie con el albarán.
+
+  - clave: S19-06
+    dia: viernes
+    hora: "16:15"
+    medio: nota
+    de: Dirección
+    asunto: "El papel sube en enero y el precio de los colegios está cerrado"
+    texto: |
+      El proveedor de papel nos ha mandado la tarifa nueva para enero: sube un
+      7 % y dice que no hay marcha atrás. Los contratos de los colegios están
+      firmados hasta junio con el precio de septiembre, así que la subida nos la
+      comemos nosotros si no movemos nada.
+
+      Revisad el coste del folio en la ficha del producto y, si al final hay que
+      aceptarlo, ajustad también el precio de venta, pero **sin tocar** los
+      pedidos que ya están confirmados.
+
+      Y de paso mirad el inventario de la familia de papel: me dicen en el
+      almacén que el sistema y las estanterías no cuentan lo mismo.
+
+comprobacion:
+  - "Hay un pedido de compra a {{proveedor:PRV-PAPEL}} por {{producto:OFI-002}} con la cantidad que has decidido, confirmado y con su recepción."
+  - "La recepción del palé está hecha solo por las cuarenta y cinco cajas servidas y queda una recepción pendiente por las quince que faltan, con su fecha."
+  - "Las cuatro cajas mojadas están descontadas del stock mediante un ajuste de inventario con su motivo, y el stock no ha quedado negativo."
+  - "La factura de {{proveedor:PRV-INFO}} está registrada con el precio que has decidido aceptar y sin las tres cajas que no se pidieron; si has reclamado, la reclamación consta como nota."
+  - "El porte de {{proveedor:PRV-MENSAJERIA}} está como compra de servicio y no ha generado ningún movimiento de almacén."
+  - "El coste actualizado de {{producto:OFI-002}} se ve en la ficha del producto y el precio nuevo no afecta a los pedidos ya confirmados."

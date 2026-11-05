@@ -1,0 +1,129 @@
+# Bandeja de la S19: compras, recepciones y servicios (sector bicicletas).
+#
+# Mismas marcas que la bandeja de ventas ({{producto:}}, {{proveedor:}},
+# {{precio:}}, {{empresa}}) para que cada alumno vea sus referencias y sus
+# precios. Las cantidades y los plazos sí van escritos.
+
+titulo: S19 · Compras e inventario
+intro: |
+  Segunda semana de noviembre. La campaña de Navidad aprieta, el taller tiene
+  lista de espera y el almacén se ha quedado corto justo en el modelo que más
+  sale. Esta semana toca decidir qué se compra, qué se rechaza en el muelle y
+  qué se reclama al proveedor, sin perder de vista que una reparación externa
+  no es mercancía.
+
+sucesos:
+  - clave: S19-01
+    dia: lunes
+    hora: "08:35"
+    medio: nota
+    de: Almacén
+    asunto: "Aviso: quedan dos eléctricas urbanas"
+    texto: |
+      Aviso de almacén: de {{producto:BIC-006}} solo quedan **dos unidades** y
+      una está reservada para el pedido de la flota. {{proveedor:PRV-ELECTRICAS}}
+      avisa de que el plazo habitual se ha ido a **tres semanas**: el contenedor
+      de motores viene con retraso y no sirven sueltas hasta que descargue.
+
+      Con lo que hay en la bandeja de pedidos no llegamos a diciembre. Propongo
+      lanzar hoy la compra de cuatro unidades y no esperar al recuento del viernes.
+
+  - clave: S19-02
+    dia: lunes
+    hora: "11:50"
+    medio: correo
+    de: "{{proveedor:PRV-ELECTRICAS}}"
+    asunto: "Confirmación del pedido: esta semana solo salen dos"
+    texto: |
+      Buenos días:
+
+      Os confirmamos el pedido de {{producto:BIC-006}}, pero tenemos que avisaros
+      de que esta semana solo podemos servir **dos de las cuatro**: el resto del
+      contenedor no llega hasta el día 12 y hasta entonces no tenemos motores
+      para montar.
+
+      Las dos que salen van en el camión del miércoles. El resto os lo servimos
+      en cuanto descargue, sin cambiar el precio pactado.
+
+      Disculpad las molestias.
+
+    incidencia: true
+
+  - clave: S19-03
+    dia: martes
+    hora: "09:25"
+    medio: nota
+    de: Recepción
+    asunto: "Bici golpeada: la devolvemos, no la recepcionamos"
+    texto: |
+      Al abrir el palé de {{proveedor:PRV-CUADROS}} viene una
+      {{producto:BIC-003}} con el tubo diagonal hundido y la horquilla girada.
+      El golpe es de transporte: la caja está reventada por la esquina y el
+      precinto del transportista ya venía roto.
+
+      No la meto en almacén: se queda en el muelle, se fotografía y se devuelve
+      con el mismo camión. Hay que pedir a {{proveedor:PRV-CUADROS}} la
+      reposición y el abono de esa unidad, y abrir la reclamación al transporte
+      antes de firmar el albarán de descarga.
+
+      Que no se quede como stock: físicamente no la tenemos y no la podemos
+      vender.
+
+    incidencia: true
+
+  - clave: S19-04
+    dia: miércoles
+    hora: "10:15"
+    medio: correo
+    de: "{{proveedor:PRV-NEUMATICOS}}"
+    asunto: "Factura: nos habéis aplicado la tarifa nueva"
+    texto: |
+      Adjuntamos la factura del pedido de cubiertas y cámaras. Ojo con una
+      línea: os hemos facturado la {{producto:CMP-001}} al precio de tarifa
+      nueva, que subió este mes, y no al precio que quedó pactado en el pedido.
+
+      Si preferís mantener el precio del pedido, decídnoslo y os emitimos el
+      abono por la diferencia. Si aceptáis la subida, necesitamos que nos lo
+      confirméis por escrito antes de contabilizarla, porque el pedido sigue
+      abierto y no queremos que el coste del almacén baile solo.
+
+    incidencia: true
+
+  - clave: S19-05
+    dia: jueves
+    hora: "10:40"
+    medio: llamada
+    de: "{{proveedor:PRV-ELECTRICAS}}"
+    asunto: "Reparación del motor de la bici de alquiler"
+    texto: |
+      Llaman para decir que el motor de la {{producto:BIC-006}} que tenemos en
+      alquiler ya está diagnosticado: el rodamiento está gripado y la batería no
+      aguanta la carga. Nos lo reparan en su taller y nos la devuelven la semana
+      que viene, con el presupuesto por correo antes de tocar nada.
+
+      Es una reparación externa de una bici de la flota de alquiler, no una
+      compra de mercancía: no entra ni sale nada del almacén. Ellos nos facturan
+      el servicio y nosotros lo pagamos como cualquier otra compra.
+
+  - clave: S19-06
+    dia: viernes
+    hora: "16:00"
+    medio: nota
+    de: Dirección
+    asunto: "El coste sube: revisad el margen de las eléctricas"
+    texto: |
+      Con la subida de tarifa del proveedor, revisad el coste de las eléctricas
+      en el sistema y mirad si el margen de {{producto:BIC-006}} sigue siendo el
+      que decidimos en septiembre. Si hay que subir el precio de venta, se sube,
+      pero a partir del mes que viene y sin tocar los pedidos ya confirmados.
+
+      No quiero que nos coma el margen sin darnos cuenta, y menos en el modelo
+      que más rotación tiene.
+
+comprobacion:
+  - "Hay un pedido de compra a {{proveedor:PRV-ELECTRICAS}} con las cuatro unidades de {{producto:BIC-006}}, confirmado y con su recepción."
+  - "La recepción del pedido está hecha por dos unidades y queda pendiente el resto, sin que el stock refleje unidades que no han llegado."
+  - "La {{producto:BIC-003}} golpeada no está en existencias: consta la devolución al proveedor, la reclamación al transporte y, si toca, el abono o la reposición."
+  - "La factura de {{proveedor:PRV-NEUMATICOS}} está registrada al precio pactado o reclamada, y la diferencia consta en una nota o en el abono."
+  - "La reparación del motor está como compra de servicio, sin movimiento de almacén y sin dar de baja la bici de alquiler como si se hubiera vendido."
+  - "El coste actualizado de {{producto:BIC-006}} se ve en la ficha del producto y el precio de venta nuevo no afecta a los pedidos ya confirmados."
