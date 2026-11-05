@@ -9,8 +9,8 @@ hay que haber hecho una vez en frío.
 
 | Base | Para qué | Cómo se crea |
 |---|---|---|
-| `demo` | Demo de la **S16**: compañía vacía que se configura en directo. | `./instalar.sh --bd demo` |
-| `demo-cargada` | Demos de **S17 a S19**: maestros, stock e histórico ya cargados. | `./instalar.sh --sector _demo-tostadero --alumno 0 --completo --bd demo-cargada` |
+| `demo-vacia` | Demo de la **S16**: compañía vacía que se configura en directo. | `./instalar.sh --bd demo-vacia` |
+| `demo` | Demos de **S17 a S19**: maestros, stock e histórico ya cargados. | `./instalar.sh --sector _demo-tostadero --alumno 0 --completo --bd demo` |
 
 La primera tarda un minuto; la segunda, cuatro o cinco (importa 29 productos, 18
 clientes, 72 ventas y 18 compras).
@@ -22,20 +22,20 @@ clientes, 72 ventas y 18 compras).
 ## Antes de clase (10 minutos)
 
 ```bash
-./instalar.sh --bd demo
-./instalar.sh --sector _demo-tostadero --alumno 0 --completo --bd demo-cargada
+./instalar.sh --bd demo-vacia
+./instalar.sh --sector _demo-tostadero --alumno 0 --completo --bd demo
 ```
 
 Comprobaciones rápidas:
 
 - [ ] `docker compose ps` muestra `db` y `odoo` en marcha.
 - [ ] Las dos bases aparecen en <http://localhost:8069/web/database/selector>.
-- [ ] En `demo-cargada`, **Ventas → Pedidos** tiene 72 pedidos y **Facturación →
+- [ ] En `demo`, **Ventas → Pedidos** tiene 72 pedidos y **Facturación →
       Clientes → Facturas** tiene 72 facturas publicadas.
 - [ ] En `demo-cargada`, **Inventario → Operaciones → Abastecimiento** propone
       reposiciones (hay cinco productos bajo mínimo).
 - [ ] Las copias de seguridad de partida están en `salida/`:
-      `docker compose run --rm odoo db dump demo-cargada /repo/salida/demo-cargada.zip`
+      `docker compose run --rm odoo db dump demo /repo/salida/demo-cargada.zip`
 
 ## Recorrido de la demo de S16 (25 min)
 
