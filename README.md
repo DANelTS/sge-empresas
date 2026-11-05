@@ -21,9 +21,9 @@ que ir resolviendo. Este repositorio pone el entorno, los datos y las guías.
 
 ## Puesta en marcha (5 minutos)
 
-**Lo más rápido:** el instalador hace todo (comprueba Docker, crea `.env` con
-contraseñas aleatorias, arranca, crea la base con la localización española y, si
-le dices tu sector, genera tu variante).
+**Lo más rápido:** el instalador hace todo (comprueba Docker, crea tu
+`config/odoo.conf` a partir del ejemplo, arranca, crea la base con la
+localización española y, si le dices tu sector, genera tu variante).
 
 Windows (PowerShell, en la carpeta del repositorio):
 
@@ -41,26 +41,29 @@ cd sge-empresas
 ./instalar.sh --sector cerveceria --alumno 7
 ```
 
-Al terminar te dice la URL (http://localhost:8069, usuario `admin`) y la
-contraseña maestra que ha generado. Sigue la guía
+Al terminar te dice la URL (http://localhost:8069, usuario `admin`, contraseña
+`admin`) y dónde está tu variante. Sigue la guía
 `guias/ud3/S16-puesta-en-marcha.md`.
 
 <details>
 <summary>Si prefieres hacerlo a mano (o el instalador falla)</summary>
 
 ```powershell
-copy .env.example .env
-notepad .env                     # cambia las dos contraseñas
+copy config\odoo.conf.example config\odoo.conf
 docker compose up -d
-docker compose run --rm odoo db init empresa --country ES --language es_ES --username admin --password admin
-docker compose run --rm odoo module install -d empresa account sale_management purchase stock crm
+docker compose run --rm odoo odoo db init empresa --country ES --language es_ES --username admin --password admin
+docker compose run --rm odoo odoo module install -d empresa account sale_management purchase stock crm
 docker compose run --rm herramientas generar.py --empresa cerveceria --alumno 7
 ```
 
-En `.env`: sin espacios, sin `#` y sin `$` en las contraseñas.
+El `odoo` repetido en `odoo odoo db init` no es una errata: la primera palabra es
+el servicio del compose y la segunda, el comando dentro de la imagen. En
+Windows/macOS hay que generar `config/odoo.conf` antes de arrancar; si no, Odoo
+busca la base en `localhost` y falla.
 </details>
 
-> La contraseña de `admin` tiene que ser la misma que `ODOO_CLAVE` en `.env`.
+> La contraseña de `admin` tiene que ser la misma que `admin_passwd` en
+> `config/odoo.conf`: los scripts del repositorio la usan para conectarse.
 
 ## Elige tu empresa y genera tu variante
 
@@ -114,8 +117,8 @@ harían sin tocar nada.
 ```
 sge-empresas/
 ├── docker-compose.yml        Odoo 19 + PostgreSQL 17 + servicio de herramientas
-├── config/odoo.conf          configuración de Odoo (plantilla)
-├── docker/entrada.sh         genera la configuración desde .env al arrancar
+├── config/odoo.conf.example  configuración de Odoo (se copia a odoo.conf)
+├── config/odoo.conf          la tuya: NO se sube al repositorio
 ├── herramientas/             scripts en Python (corren en contenedor)
 │   ├── generar.py            datos maestros y documentos de una variante
 │   ├── cargar_historico.py   histórico en Odoo por API
@@ -147,7 +150,8 @@ sge-empresas/
 1. `docker compose ps` — ¿están los dos servicios en marcha?
 2. `docker compose logs --tail 50 odoo` — el error suele estar en las últimas líneas.
 3. `docker compose down` y `docker compose up -d` — reinicio limpio, sin perder datos.
-4. Si el puerto 8069 está ocupado: cambia `ODOO_PUERTO=8070` en `.env`.
+4. Si el puerto 8069 está ocupado: cambia el mapeo a `127.0.0.1:8070:8069` en
+   `docker-compose.yml`.
 
 Los problemas concretos de cada sesión están en el apartado «Si algo falla» de su
 guía.

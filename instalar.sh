@@ -86,33 +86,24 @@ fi
 verde "Motor disponible: $MOTOR (${COMPOSE[*]})"
 
 # ---------------------------------------------------------------------------
-paso "2. Fichero .env"
+paso "2. Configuración de Odoo (config/odoo.conf)"
 # ---------------------------------------------------------------------------
-if [[ -f .env ]]; then
-  verde ".env ya existe; no lo toco"
+if [[ -f config/odoo.conf ]]; then
+  verde "config/odoo.conf ya existe; no lo toco"
 else
-  # Sin tuberías que cierren antes de tiempo: con "set -o pipefail" un head que
-  # corta a tr le hace devolver 141 y el script aborta.
-  nueva_clave() {
-    if command -v openssl >/dev/null 2>&1; then
-      openssl rand -hex 16 | cut -c1-20
-    else
-      od -An -N20 -tx1 /dev/urandom | tr -d ' \n'
-    fi
-  }
-  CLAVE_BD="$(nueva_clave)"
-  CLAVE_ADMIN="$(nueva_clave)"
-  sed -e "s|^POSTGRES_PASSWORD=.*|POSTGRES_PASSWORD=${CLAVE_BD}|" \
-      -e "s|^ADMIN_PASSWD=.*|ADMIN_PASSWD=${CLAVE_ADMIN}|" \
-      -e "s|^ODOO_CLAVE=.*|ODOO_CLAVE=${CLAVE_ADMIN}|" \
-      .env.example > .env
-  verde ".env creado con contraseñas aleatorias"
-  echo "  Guárdalas: la maestra del gestor es ADMIN_PASSWD."
+  cp config/odoo.conf.example config/odoo.conf
+  verde "config/odoo.conf creado a partir del ejemplo"
+  echo "  Si quieres, cambia dentro la contraseña maestra (admin_passwd)."
 fi
 
 # ---------------------------------------------------------------------------
 paso "3. Arrancando PostgreSQL y Odoo"
 # ---------------------------------------------------------------------------
+# El contenedor de Odoo corre como usuario 100 y necesita escribir las copias de
+# seguridad en salida/copias (montada como /copias). En Docker Desktop da igual;
+# en Linux hay que darle permiso.
+mkdir -p salida/copias
+chmod 777 salida/copias 2>/dev/null || true
 "${COMPOSE[@]}" up -d
 
 echo -n "  Esperando a que Odoo responda"
@@ -133,15 +124,15 @@ fi
 # ---------------------------------------------------------------------------
 paso "4. Base de datos '${BD}'"
 # ---------------------------------------------------------------------------
-CLAVE="$(grep -E '^ODOO_CLAVE=' .env | cut -d= -f2-)"
+CLAVE="$(grep -E '^admin_passwd' config/odoo.conf | head -1 | cut -d= -f2- | tr -d ' ')"
 if "${COMPOSE[@]}" exec -T db psql -U odoo -lqt 2>/dev/null | cut -d'|' -f1 | grep -qw "$BD"; then
   verde "La base '${BD}' ya existe"
 else
   echo "  Creando la base (país España, idioma español)…"
-  "${COMPOSE[@]}" run --rm odoo db init "$BD" --country ES --language es_ES \
+  "${COMPOSE[@]}" run --rm odoo odoo db init "$BD" --country ES --language es_ES \
       --username admin --password "$CLAVE" >/dev/null
   echo "  Instalando CRM, Ventas, Compras, Inventario y Facturación…"
-  "${COMPOSE[@]}" run --rm odoo module install -d "$BD" \
+  "${COMPOSE[@]}" run --rm odoo odoo module install -d "$BD" \
       account sale_management purchase stock crm >/dev/null
   verde "Base creada con la localización española"
 fi

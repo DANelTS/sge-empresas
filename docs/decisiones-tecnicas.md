@@ -31,11 +31,21 @@ existe**: si se pasa, el servidor ni arranca (`no such option: --admin-passwd`).
 La contraseña maestra del gestor de bases de datos solo se lee del fichero de
 configuración (`admin_passwd`).
 
-Solución: `docker/entrada.sh`. Genera `/tmp/odoo.conf` a partir de
-`config/odoo.conf` sustituyendo las marcas `@DB_PASSWORD@` y `@ADMIN_PASSWD@`
-por lo que venga de `.env`, y luego delega en el script de arranque de la
-imagen. Así no hay contraseñas en el repositorio y el `.env` sigue siendo el
-único sitio donde se tocan.
+Solución elegida: `config/odoo.conf.example` se copia a `config/odoo.conf`, que
+está en `.gitignore`, y se monta en `/etc/odoo` en solo lectura. Odoo arranca con
+su entrypoint oficial y lee de ahí `db_password` y `admin_passwd`.
+
+Se probó antes un `docker/entrada.sh` que renderizaba la configuración al
+arrancar desde un `.env`. Funcionaba, pero obligaba a montar el repositorio
+entero dentro del contenedor de Odoo, añadía una pieza propia que podía fallar
+antes que Odoo y, a cambio, el secreto seguía apareciendo en `docker inspect`. Se
+descartó por acoplamiento, no por seguridad: en un aula la contraseña es conocida
+a propósito.
+
+El coste de la solución actual es un paso manual (copiar el fichero) y que
+`db_password` debe coincidir con `POSTGRES_PASSWORD` del compose. Si algún día
+esto se despliega en un servidor, la configuración se renderiza desde un gestor
+de secretos y se monta en solo lectura.
 
 ## 3. La 19 estrenó subórdenes en la línea de comandos
 

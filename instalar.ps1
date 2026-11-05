@@ -49,26 +49,19 @@ try {
 Bien "Docker y compose disponibles"
 
 # ---------------------------------------------------------------------------
-Paso "2. Fichero .env"
+Paso "2. Configuración de Odoo (config\odoo.conf)"
 # ---------------------------------------------------------------------------
-if (Test-Path ".env") {
-    Bien ".env ya existe; no lo toco"
+if (Test-Path "config\odoo.conf") {
+    Bien "config\odoo.conf ya existe; no lo toco"
 } else {
-    $claveBd = Nueva-Clave
-    $claveAdmin = Nueva-Clave
-    $contenido = Get-Content ".env.example"
-    $contenido = $contenido -replace '^POSTGRES_PASSWORD=.*', "POSTGRES_PASSWORD=$claveBd"
-    $contenido = $contenido -replace '^ADMIN_PASSWD=.*', "ADMIN_PASSWD=$claveAdmin"
-    $contenido = $contenido -replace '^ODOO_CLAVE=.*', "ODOO_CLAVE=$claveAdmin"
-    # ASCII y LF: el compose lee mejor sin BOM ni CRLF.
-    $contenido | Set-Content -Path ".env" -Encoding ascii
-    Bien ".env creado con contraseñas aleatorias"
-    Write-Host "  Contraseña maestra del gestor (ADMIN_PASSWD): $claveAdmin"
+    Copy-Item "config\odoo.conf.example" "config\odoo.conf"
+    Bien "config\odoo.conf creado a partir del ejemplo"
+    Write-Host "  Si quieres, cambia dentro la contraseña maestra (admin_passwd)."
 }
 
+# Puerto publicado en docker-compose.yml (127.0.0.1:8069:8069). Si lo cambias
+# allí, cambia también esta línea.
 $puerto = "8069"
-$envPuerto = Select-String -Path ".env" -Pattern '^ODOO_PUERTO=' | Select-Object -First 1
-if ($envPuerto) { $puerto = ($envPuerto.Line -split "=")[1].Trim() }
 
 # ---------------------------------------------------------------------------
 Paso "3. Arrancando PostgreSQL y Odoo"
@@ -97,7 +90,7 @@ Bien "Odoo en marcha en http://localhost:$puerto"
 # ---------------------------------------------------------------------------
 Paso "4. Base de datos '$Bd'"
 # ---------------------------------------------------------------------------
-$lineaClave = Select-String -Path ".env" -Pattern '^ODOO_CLAVE=' | Select-Object -First 1
+$lineaClave = Select-String -Path "config\odoo.conf" -Pattern '^admin_passwd' | Select-Object -First 1
 $clave = ($lineaClave.Line -split "=", 2)[1].Trim()
 
 $existe = $false
@@ -112,9 +105,9 @@ if ($existe) {
     Bien "La base '$Bd' ya existe"
 } else {
     Write-Host "  Creando la base (país España, idioma español)…"
-    docker compose run --rm odoo db init $Bd --country ES --language es_ES --username admin --password $clave | Out-Null
+    docker compose run --rm odoo odoo db init $Bd --country ES --language es_ES --username admin --password $clave | Out-Null
     Write-Host "  Instalando CRM, Ventas, Compras, Inventario y Facturación…"
-    docker compose run --rm odoo module install -d $Bd account sale_management purchase stock crm | Out-Null
+    docker compose run --rm odoo odoo module install -d $Bd account sale_management purchase stock crm | Out-Null
     Bien "Base creada con la localización española"
 }
 

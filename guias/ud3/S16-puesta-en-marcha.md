@@ -33,20 +33,22 @@ está puesto antes de instalar Facturación.
 - Docker Desktop arrancado (el icono de la ballena, en verde).
 - Git instalado.
 - 4 GB de RAM libres. La primera vez hay que descargar unos 2 GB de imágenes.
-- El repositorio clonado y el fichero `.env` creado.
+- El repositorio clonado y tu `config/odoo.conf` creado a partir del ejemplo.
 
 ```powershell
 git clone https://github.com/TU-USUARIO/sge-empresas.git
 cd sge-empresas
-copy .env.example .env
-notepad .env
+copy config\odoo.conf.example config\odoo.conf
+notepad config\odoo.conf
 ```
 
-En `.env` cambia `POSTGRES_PASSWORD` y `ADMIN_PASSWD` (sin espacios, sin `#`, sin
-`$`). Deja el resto como está.
+Ese fichero trae la conexión con PostgreSQL y la contraseña maestra del gestor de
+bases de datos (`admin_passwd`). Para el aula funciona tal cual; si quieres
+cambiarla, hazlo ahora y apúntala.
 
-> **En Linux o macOS** el comando de copia es `cp .env.example .env` y los
-> permisos de los volúmenes pueden necesitar `:z` al final (SELinux).
+> **En Linux o macOS** el comando de copia es `cp config/odoo.conf.example
+> config/odoo.conf`, y los permisos de los volúmenes pueden necesitar `:z` al
+> final (SELinux).
 
 ## Paso 1 · Arrancar el entorno
 
@@ -59,8 +61,8 @@ Deben aparecer `sge-db-1` y `sge-odoo-1` en estado `running` (el de base de dato
 primero, `healthy`). Abre <http://localhost:8069>: tiene que salir la pantalla de
 Odoo, aún sin base de datos.
 
-Si el puerto 8069 está ocupado, cambia `ODOO_PUERTO=8070` en `.env` y vuelve a
-levantar.
+Si el puerto 8069 está ocupado, cambia el mapeo en `docker-compose.yml`
+(`127.0.0.1:8070:8069`) y vuelve a levantar.
 
 ## Paso 2 · Crear la base de datos `empresa`
 
@@ -70,7 +72,7 @@ hace el gestor por dentro. Haz el A y lee el B.
 ### Camino A · por línea de comandos (recomendado)
 
 ```powershell
-docker compose run --rm odoo db init empresa --country ES --language es_ES --username admin --password admin
+docker compose run --rm odoo odoo db init empresa --country ES --language es_ES --username admin --password admin
 ```
 
 Ese comando crea la base **sin datos de demostración**, con **país España**,
@@ -80,19 +82,19 @@ Tarda menos de un minuto.
 Después instala las cinco aplicaciones del módulo:
 
 ```powershell
-docker compose run --rm odoo module install -d empresa account sale_management purchase stock crm
+docker compose run --rm odoo odoo module install -d empresa account sale_management purchase stock crm
 ```
 
 Tarda uno o dos minutos. Cuando termine, recarga <http://localhost:8069> y entra
 con `admin` y tu contraseña.
 
-> La contraseña que pongas aquí tiene que coincidir con `ODOO_CLAVE` en `.env`:
-> los scripts la usan para conectarse.
+> La contraseña que pongas aquí tiene que coincidir con `admin_passwd` de
+> `config/odoo.conf`: los scripts del repositorio la usan para conectarse.
 
 ### Camino B · desde la pantalla (para entender qué hemos hecho)
 
 1. Entra en <http://localhost:8069/web/database/manager>.
-2. **Crear base de datos**: nombre `empresa`, contraseña la de `ADMIN_PASSWD`,
+2. **Crear base de datos**: nombre `empresa`, contraseña la de `admin_passwd`,
    **desmarca** «Cargar datos de demostración».
 3. Entra. Ve a **Ajustes → Usuarios y compañías → Compañías**, abre «Mi
    compañía» y pon **País: España**. Guarda.
@@ -186,7 +188,7 @@ de más es un riesgo (y un suspenso en la UD2).
 Sigue `herramientas/copia_seguridad.md`. En resumen:
 
 ```powershell
-docker compose run --rm odoo db dump empresa /repo/salida/copia-S16.zip
+docker compose exec odoo odoo db dump empresa /copias/copia-S16.zip
 ```
 
 Guarda ese ZIP fuera del repositorio (por ejemplo en tu carpeta de clase) y
@@ -210,12 +212,12 @@ la S22.
 **1. `docker compose up` se queda en «starting» y Odoo no responde.**
 Mira el registro: `docker compose logs -f odoo`. Casi siempre es que PostgreSQL
 todavía no acepta conexiones; espera un minuto. Si dice
-`password authentication failed`, la contraseña de `.env` no coincide con la que
+`password authentication failed`, la contraseña de `odoo.conf` no coincide con la que
 se usó al crear el volumen: `docker compose down -v` y empieza de cero (perderás
 la base).
 
 **2. El puerto 8069 está ocupado.**
-Cambia `ODOO_PUERTO=8070` en `.env`, `docker compose down` y `up -d`.
+Cambia el mapeo a `127.0.0.1:8070:8069` en `docker-compose.yml`, `docker compose down` y `up -d`.
 
 **3. La moneda es USD y los impuestos son «15%» y «0% Exports».**
 Instalaste Facturación antes de poner el país. No se arregla desde la interfaz:

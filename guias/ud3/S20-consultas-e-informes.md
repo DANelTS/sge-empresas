@@ -80,7 +80,7 @@ docker compose exec db psql -U odoo -d empresa
 **Opción B, DBeaver o pgAdmin** desde tu equipo:
 
 - Host `localhost`, puerto `5433` (el que publica el compose), base `empresa`,
-  usuario `odoo`, la contraseña de `.env`.
+  usuario `odoo`, contraseña `odoo`.
 
 ### Primeras consultas
 
@@ -156,7 +156,7 @@ Para cada respuesta entrega:
 **`psql: FATAL: database "empresa" does not exist`.** Estás en otra base o el
 nombre está mal. `docker compose exec db psql -U odoo -l` lista las bases.
 
-**El puerto 5433 está ocupado.** Cambia `PG_PUERTO` en `.env` y reinicia.
+**El puerto 5433 está ocupado.** Cambia el mapeo de `db` en `docker-compose.yml` y reinicia.
 
 **Los números de SQL no coinciden con la interfaz.** Casi siempre es una de tres:
 borradores contados, fechas en UTC (un pedido del día 1 a las 00:30 en Madrid es

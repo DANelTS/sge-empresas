@@ -1,0 +1,55 @@
+[options]
+; ---------------------------------------------------------------------------
+; Configuración de Odoo para el repositorio sge-empresas.
+;
+; CÓMO SE USA
+;   1. Copia este fichero a `config/odoo.conf`:
+;        cp config/odoo.conf.example config/odoo.conf        (Linux/macOS)
+;        copy config\odoo.conf.example config\odoo.conf      (Windows)
+;   2. Si quieres, cambia la contraseña maestra (`admin_passwd`). Si la cambias,
+;      apúntala: es la que pide el gestor de bases de datos para crear,
+;      duplicar, hacer copia de seguridad o restaurar.
+;
+; `config/odoo.conf` NO se sube al repositorio (está en .gitignore); este
+; ejemplo sí, para que cada alumno tenga el suyo.
+;
+; Si no creas `config/odoo.conf`, el contenedor arranca con la configuración por
+; defecto de la imagen: busca la base en `localhost` y no encuentra nada. El
+; error en el registro es "connection refused".
+; ---------------------------------------------------------------------------
+
+; Módulos propios (a partir de la UD4). La carpeta `addons/` del repositorio.
+addons_path = /mnt/extra-addons
+
+; Filestore: logos, adjuntos y PDF. Va en un volumen, no en el repositorio.
+data_dir = /var/lib/odoo
+
+; ---------------------------------------------------------------------------
+; Conexión con PostgreSQL.
+; El usuario y la contraseña tienen que coincidir con los del servicio `db`
+; del docker-compose.yml. Si cambias uno, cambia el otro.
+; ---------------------------------------------------------------------------
+db_host = db
+db_port = 5432
+db_user = odoo
+db_password = odoo
+
+; Contraseña maestra del gestor de bases de datos (/web/database/manager).
+; Es lo que protege crear, duplicar, borrar y restaurar bases. En un aula se
+; deja conocida a propósito; en un servidor real no se escribe aquí.
+admin_passwd = admin
+
+; Ver el gestor de bases de datos. Necesario en la S16.
+list_db = True
+
+; Sin servidor de correo en el aula: los envíos quedan en cola.
+; (No se pone `email_from`: el valor por defecto ya es vacío.)
+
+; Todas las fechas se guardan en UTC. TZ (en el compose) solo cambia cómo se
+; escriben las horas en el registro.
+log_level = info
+log_handler = [':INFO']
+
+; Límites holgados: en un portátil de aula no hay concurrencia real.
+limit_time_cpu = 300
+limit_time_real = 300

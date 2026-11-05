@@ -3,6 +3,30 @@
 Notas para el profesor: qué hay nuevo en cada entrega y qué conviene revisar.
 Corresponde a los hitos del plan de trabajo de la UD3 (§7).
 
+## 2026-11-05 · Cambio de diseño del entorno
+
+A petición del profesor: menos acoplamiento y menos piezas propias.
+
+- **Se retira el entrypoint** (`docker/entrada.sh`) **y el `.env`**. Ahora
+  `config/odoo.conf.example` se copia a `config/odoo.conf` (que está en
+  `.gitignore`) y se monta en `/etc/odoo` en solo lectura. Odoo arranca con el
+  entrypoint oficial de la imagen.
+- **El contenedor de Odoo deja de ver el repositorio**: solo monta `config/`,
+  `addons/` y `salida/copias/`. Ya no puede leer catálogos, bandejas ni las
+  variantes de otros alumnos.
+- **Odoo y PostgreSQL escuchan solo en `127.0.0.1`**. Con la contraseña maestra
+  conocida, publicarlos en la red del aula permitiría a cualquiera borrar la base
+  del compañero desde el gestor de bases de datos.
+- **Comandos nuevos**: `docker compose run --rm odoo odoo db init …` (el primer
+  `odoo` es el servicio, el segundo el comando) y las copias con
+  `docker compose exec odoo odoo db dump … /copias/…`.
+- Instaladores actualizados: crean `config/odoo.conf` si falta y dan permisos a
+  `salida/copias` (hace falta en Linux; en Windows y macOS no).
+
+Probado con podman-compose: stack arriba con la configuración montada, base
+`demo` creada y cargada (72 ventas, 18 compras, `verificar.py` en verde), copia de
+seguridad escrita en `/copias` y restauración con `cp` + `db load`.
+
 ## 2026-11-05 · Segunda entrega (S18 y S19)
 
 ### Qué hay

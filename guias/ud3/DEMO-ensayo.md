@@ -35,7 +35,7 @@ Comprobaciones rápidas:
 - [ ] En `demo-cargada`, **Inventario → Operaciones → Abastecimiento** propone
       reposiciones (hay cinco productos bajo mínimo).
 - [ ] Las copias de seguridad de partida están en `salida/`:
-      `docker compose run --rm odoo db dump demo /repo/salida/demo-cargada.zip`
+      `docker compose exec odoo odoo db dump demo /copias/demo-cargada.zip`
 
 ## Recorrido de la demo de S16 (25 min)
 
@@ -45,7 +45,7 @@ no está.
 1. **Crear la base delante de ellos** (2 min). Si se hace por línea de comandos,
    que vean la orden y qué significa `--country ES`:
    ```bash
-   docker compose run --rm odoo db init demo --country ES --language es_ES --password admin
+   docker compose run --rm odoo odoo db init demo --country ES --language es_ES --password admin
    ```
    Y después instalar las cinco aplicaciones. Mientras carga, se explica qué es
    una localización.
@@ -60,8 +60,8 @@ no está.
    *Comercial* (Ventas: «Usuario: Mostrar todos los documentos» + Facturación) y
    *Almacén* (Inventario: Usuario). Cerrar sesión y entrar con cada uno para
    enseñar que ven menús distintos.
-5. **Copia de seguridad** (3 min): `docker compose run --rm odoo db dump demo
-   /repo/salida/copia-S16-demo.zip`. Explicar qué lleva dentro (base + filestore).
+5. **Copia de seguridad** (3 min): `docker compose exec odoo odoo db dump demo
+   /copias/copia-S16-demo.zip`. Explicar qué lleva dentro (base + filestore).
 
 ## Recorrido de la demo de S18 (30 min), sobre `demo-cargada`
 
@@ -83,8 +83,8 @@ Lo que **debe verse** al final, para saber que la demo va bien:
 
 - **Odoo no arranca**: `docker compose up -d` y esperar. Si sigue, `docker
   compose logs --tail 30 odoo`.
-- **Una demo se ha quedado a medias**: `docker compose run --rm odoo db load
-  demo /repo/salida/demo-cargada.zip --force` y se vuelve al punto de partida.
+- **Una demo se ha quedado a medias**: `docker compose exec odoo odoo db load
+  demo /copias/demo-cargada.zip --force` y se vuelve al punto de partida.
   Tener el ZIP hecho **antes** de clase es lo que salva la sesión.
 - **No hay internet**: las imágenes ya están descargadas; el compose no necesita
   red salvo la primera vez.

@@ -11,7 +11,7 @@ de una vez, en un ZIP.
 Con el entorno levantado:
 
 ```powershell
-docker compose run --rm odoo db dump empresa /repo/salida/copia-S16.zip
+docker compose exec odoo odoo db dump empresa /copias/copia-S16.zip
 ```
 
 Cambia el nombre del fichero por el que quieras: `copia-S16.zip`,
@@ -26,6 +26,11 @@ tar -tf salida/copia-S16.zip
 
 Debe contener un `dump.sql` y una carpeta `filestore/`.
 
+> **Si da `Permission denied` en `/copias`** (pasa en Linux, no en Windows ni en
+> macOS), dale permiso a la carpeta desde el anfitrión:
+> `chmod 777 salida/copias`. El contenedor de Odoo corre con el usuario 100 y
+> necesita escribir ahí.
+
 **Cuánto ocupa.** Una base de la UD3 ronda los 30–60 MB con filestore, según
 cuántos PDF hayas generado. Si te sale mucho más, mira cuántas copias has dejado
 en `salida/`.
@@ -34,7 +39,7 @@ en `salida/`.
 
 ```powershell
 docker compose stop odoo
-docker compose run --rm odoo db load empresa /repo/salida/copia-S16.zip --force
+docker compose exec odoo odoo db load empresa /copias/copia-S16.zip --force
 docker compose start odoo
 ```
 
@@ -47,7 +52,7 @@ docker compose start odoo
 Puedes restaurar con **otro nombre** para no pisar tu trabajo actual:
 
 ```powershell
-docker compose run --rm odoo db load empresa-pruebas /repo/salida/copia-S16.zip
+docker compose exec odoo odoo db load empresa-pruebas /copias/copia-S16.zip
 ```
 
 Sale una base nueva, `empresa-pruebas`, que puedes abrir desde el selector de
@@ -58,7 +63,7 @@ restaura y abre, la copia está bien.
 
 1. Entra en <http://localhost:8069/web/database/manager>.
 2. **Backup** (Respaldo) de la base `empresa`, formato ZIP, con la contraseña
-   maestra de `ADMIN_PASSWD`.
+   maestra de `config/odoo.conf` (`admin_passwd`).
 3. El navegador descarga el ZIP; guárdalo donde quieras.
 
 Para restaurar: **Restore** en esa misma pantalla, subiendo el ZIP y poniendo el
@@ -85,13 +90,13 @@ la base; la copia es lo único que te salva.
 **«database already exists».** Falta `--force`, o el nombre de la base está mal
 escrito.
 
-**La copia pesa 0 bytes.** El contenedor no pudo escribir en `/repo/salida`.
-Comprueba que existe la carpeta `salida/` en tu repositorio y que el
-`docker-compose.yml` la monta (es la línea `./salida:/repo/salida`).
+**La copia pesa 0 bytes.** El contenedor no pudo escribir en `/copias`.
+Comprueba que existe la carpeta `salida/copias/` en tu repositorio: es la que el
+compose monta (línea `./salida/copias:/copias`).
 
 **Al restaurar, Odoo arranca con otra base.** Odoo abre la última base usada.
 Selecciona la correcta en el selector (`/web/database/selector`) o pon su nombre
-en `ODOO_BD` dentro de `.env`.
+en el servicio `odoo` o en el parámetro `--database`.
 
 **Restauro y no veo mis datos.** Has cargado el ZIP en otra base con otro
 nombre. Mira la lista de bases en `/web/database/manager`.

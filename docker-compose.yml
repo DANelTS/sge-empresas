@@ -1,11 +1,14 @@
 # docker-compose.yml — entorno de trabajo de SGE (Odoo 19 Community + PostgreSQL)
 #
-# Uso normal del alumnado:
-#   docker compose up -d          → arranca PostgreSQL y Odoo
-#   docker compose logs -f odoo   → ver el registro de Odoo
-#   docker compose down           → parar (los datos se conservan en volúmenes)
+# Antes de arrancar la primera vez:
+#   cp config/odoo.conf.example config/odoo.conf      (Linux/macOS)
+#   copy config\odoo.conf.example config\odoo.conf    (Windows)
 #
-# Las credenciales NO están en este fichero: se leen de .env (copia .env.example).
+# Uso normal:
+#   docker compose up -d          arranca PostgreSQL y Odoo
+#   docker compose logs -f odoo   ver el registro
+#   docker compose down           parar (los datos se conservan en volúmenes)
+#
 # Los datos de la base y el filestore viven en volúmenes con nombre, así que
 # "docker compose down" no borra nada. Para borrarlo todo: "docker compose down -v".
 
@@ -20,22 +23,23 @@ services:
     restart: unless-stopped
     environment:
       POSTGRES_DB: postgres
-      POSTGRES_USER: "${POSTGRES_USER:-odoo}"
-      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:?Falta POSTGRES_PASSWORD en .env}"
+      POSTGRES_USER: odoo
+      # Tiene que coincidir con db_password de config/odoo.conf.
+      POSTGRES_PASSWORD: odoo
     volumes:
       - datos-bd:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d postgres"]
+      test: ["CMD-SHELL", "pg_isready -U odoo -d postgres"]
       interval: 5s
       timeout: 5s
       retries: 24
     ports:
-      # Solo accesible desde tu propio equipo. Sirve para conectarse con DBeaver
-      # o psql desde el anfitrión (sesión S20).
-      - "127.0.0.1:${PG_PUERTO:-5433}:5432"
+      # Solo desde este equipo. Sirve para DBeaver o psql (sesión S20).
+      - "127.0.0.1:5433:5432"
 
   # ---------------------------------------------------------------------------
-  # Odoo 19 Community.
+  # Odoo 19 Community. Sin entrypoint propio: la imagen arranca tal cual y lee
+  # su configuración de config/odoo.conf.
   # ---------------------------------------------------------------------------
   odoo:
     image: odoo:19.0
@@ -44,26 +48,22 @@ services:
       db:
         condition: service_healthy
     ports:
-      - "${ODOO_PUERTO:-8069}:8069"
+      # 127.0.0.1: solo desde este equipo. Con la contraseña maestra conocida,
+      # publicarlo en la red del aula dejaría las bases de los demás al alcance
+      # de cualquiera.
+      - "127.0.0.1:8069:8069"
     environment:
-      # El script de arranque de la imagen traduce estas cuatro variables a
-      # --db_host/--db_port/--db_user/--db_password.
-      HOST: db
-      PORT: 5432
-      USER: "${POSTGRES_USER:-odoo}"
-      PASSWORD: "${POSTGRES_PASSWORD:?Falta POSTGRES_PASSWORD en .env}"
-      ADMIN_PASSWD: "${ADMIN_PASSWD:?Falta ADMIN_PASSWD en .env}"
       TZ: Europe/Madrid
-    entrypoint: ["/bin/sh", "/repo/docker/entrada.sh"]
-    command: ["server", "--http-interface=0.0.0.0"]
     volumes:
       - datos-odoo:/var/lib/odoo
-      # El repositorio, para leer config/odoo.conf y docker/entrada.sh
-      - ./:/repo:ro
-      # La carpeta de salida sí se puede escribir: ahí van las copias de seguridad
-      - ./salida:/repo/salida
-      # Aquí irán los módulos propios a partir de la UD4/UD5.
+      # La configuración del alumno. Se monta la CARPETA, no el fichero: montar
+      # un fichero que no existe crea un directorio con ese nombre y el error
+      # que sale después no hay quien lo lea.
+      - ./config:/etc/odoo:ro
+      # Módulos propios a partir de la UD4 (vacío por ahora).
       - ./addons:/mnt/extra-addons
+      # Solo esta carpeta, y solo para las copias de seguridad.
+      - ./salida/copias:/copias
     healthcheck:
       test: ["CMD-SHELL", "curl -fsS http://localhost:8069/web/login >/dev/null || exit 1"]
       interval: 15s
@@ -75,6 +75,8 @@ services:
   # Servicio de herramientas: un Python con las dependencias ya instaladas.
   # No hay que instalar Python en Windows. Se usa con "docker compose run":
   #   docker compose run --rm herramientas generar.py --empresa cerveceria --alumno 07
+  # Es el único servicio que ve el repositorio, porque lee empresas/ y escribe
+  # en salida/. Odoo no lo ve.
   # ---------------------------------------------------------------------------
   herramientas:
     build:
@@ -89,12 +91,11 @@ services:
     command: ["-c", "print('Servicio de herramientas. Uso: docker compose run --rm herramientas <script> --ayuda')"]
     environment:
       ODOO_URL: http://odoo:8069
-      ODOO_BD: "${ODOO_BD:-empresa}"
-      ODOO_USUARIO: "${ODOO_USUARIO:-admin}"
-      ODOO_CLAVE: "${ODOO_CLAVE:-admin}"
+      ODOO_BD: empresa
+      ODOO_USUARIO: admin
+      ODOO_CLAVE: admin
       TZ: Europe/Madrid
     volumes:
-      # El repositorio entero, para poder leer empresas/ y escribir en salida/.
       - ./:/repo
 
 volumes:
