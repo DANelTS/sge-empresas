@@ -179,3 +179,26 @@ JSON-RPC.
 No hay SMTP. Las acciones «Enviar por correo» dejan el mensaje en la cola de
 `mail.mail` en estado `exception` o `outgoing`. No es un fallo: está explicado en
 las guías para que nadie pierda la mañana buscando el problema.
+
+## 12. Dos bloqueos de la 19 que aparecen al automatizar
+
+Ninguno de los dos se ve en los tutoriales, y los dos paran la carga a mitad:
+
+- **Confirmación de entrega por SMS.** Si el contacto del albarán tiene teléfono,
+  `button_validate()` no valida: devuelve el asistente `confirm.stock.sms`, que
+  espera un código enviado por SMS. En el aula no hay pasarela de SMS. La salida
+  está en el propio código de Odoo: llamar a `button_validate()` con
+  `context={'skip_sms': True}`.
+- **Cuenta bancaria «no verificada».** Desde la 19, una factura de cliente no se
+  puede confirmar si la cuenta bancaria de la empresa no está marcada como
+  verificada (`res.partner.bank.allow_out_payment`). El aviso habla de «haz clic
+  en Enviar dinero para validarla», que no es lo que uno espera al importar. Al
+  crear la cuenta de la empresa hay que poner ese campo a `True`.
+
+## 13. Nada de `type='product'`
+
+En la 19 un producto almacenable es `type='consu'` **con** `is_storable=True`.
+Filtrar por `type == 'product'` (como se hacía en la 15) devuelve cero
+resultados y el script sigue adelante **sin dar error**: es exactamente el fallo
+que dejó dieciséis productos con stock negativo en la primera prueba de la carga
+del histórico. Si algo «no hace nada» con productos, mira ese filtro.
