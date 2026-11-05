@@ -42,8 +42,10 @@ una vez.
 
 ## Paso 1 · Importar las familias de producto
 
-**Inventario → Configuración → Categorías → Importar registros** (o el botón
-*Importar* de la vista de lista).
+**Ventas → Configuración → Productos → Categorías → botón *Importar registros***.
+
+> Ojo con la ruta: en la 19 las categorías de producto cuelgan de **Ventas**, no
+> de Inventario, aunque se usen en el almacén.
 
 Fichero: `maestros/1-categorias-producto.csv`.
 
