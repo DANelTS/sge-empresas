@@ -154,17 +154,23 @@ def construir(e: Empresa, v: Variante) -> Maestros:
         })
 
     # -- Clientes ----------------------------------------------------------
-    bolsa = list(e.nombres["clientes"]["empresas"]) + list(e.nombres["clientes"]["particulares"])
-    v.rnd.shuffle(bolsa)
-    if len(bolsa) < len(e.clientes):
+    # Los nombres se reparten respetando el tipo: una empresa no puede llamarse
+    # «Sergio Núñez Cabrera» ni un particular «Bar El Cruce».
+    empresas_bolsa = list(e.nombres["clientes"]["empresas"])
+    particulares_bolsa = list(e.nombres["clientes"]["particulares"])
+    v.rnd.shuffle(empresas_bolsa)
+    v.rnd.shuffle(particulares_bolsa)
+    necesitan_empresa = sum(1 for c in e.clientes if c.get("tipo") != "particular")
+    if len(empresas_bolsa) < necesitan_empresa or len(particulares_bolsa) < (len(e.clientes) - necesitan_empresa):
         raise ValueError(
-            f"{e.clave}: hay {len(e.clientes)} clientes en el catálogo y solo "
-            f"{len(bolsa)} nombres en nombres.yaml"
+            f"{e.clave}: faltan nombres en nombres.yaml para "
+            f"{necesitan_empresa} empresas y {len(e.clientes) - necesitan_empresa} particulares"
         )
 
     clientes = []
-    for i, (c, nombre) in enumerate(zip(e.clientes, bolsa), start=1):
+    for i, c in enumerate(e.clientes, start=1):
         particular = c.get("tipo") == "particular"
+        nombre = (particulares_bolsa if particular else empresas_bolsa).pop(0)
         if particular:
             documento = nif.dni(v.entero(10_000_000, 79_999_999))
         else:

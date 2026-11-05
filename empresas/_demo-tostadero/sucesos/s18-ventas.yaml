@@ -1,0 +1,140 @@
+# Bandeja de la S18: el ciclo de venta completo (demo del profesor).
+#
+# Los importes salen de marcas {{precio_tarifa:CLIENTE:PRODUCTO}} para que cada
+# alumno vea SUS precios, no los de la demo. El texto no debe llevar cifras
+# escritas a mano: si cambia el catálogo, la bandeja cambia sola.
+
+titulo: S18 · Del interés al cobro
+intro: |
+  Es la primera semana de noviembre. Estos son los mensajes que han entrado en el
+  despacho en los últimos días. Ninguno viene con el trabajo hecho: hay que
+  decidir qué documento se crea en cada caso.
+
+sucesos:
+  - clave: S18-01
+    dia: lunes
+    hora: "09:12"
+    medio: correo
+    de: "{{cliente:CLI-03}}"
+    asunto: "Pedido de noviembre"
+    texto: |
+      Buenos días:
+
+      Como todos los meses, os paso el pedido para reponer. Necesitamos
+      {{producto:TOS-013}} y {{producto:TOS-016}}. Servidnos lo de siempre, en la
+      entrega del jueves si puede ser.
+
+      Un saludo,
+      La gerencia
+
+  - clave: S18-02
+    dia: lunes
+    hora: "11:40"
+    medio: llamada
+    de: "{{cliente:CLI-11}}"
+    asunto: "Piden presupuesto para el buffet de desayunos"
+    texto: |
+      Llama el jefe de sala del hotel. Quieren cambiar de proveedor de café para
+      el buffet y piden un presupuesto para el trimestre: 40 kg de
+      {{producto:TOS-010}} y 20 kg de {{producto:TOS-011}}, con entrega mensual.
+
+      Dice que se lo envíes por correo y que lo decide la dirección del hotel la
+      semana que viene.
+
+  - clave: S18-03
+    dia: martes
+    hora: "08:55"
+    medio: correo
+    de: "{{cliente:CLI-11}}"
+    asunto: "Respuesta al presupuesto del buffet"
+    texto: |
+      Gracias por el presupuesto. Finalmente la dirección ha decidido seguir con
+      el proveedor actual hasta fin de año. Lo dejamos para enero.
+
+      Un saludo.
+
+  - clave: S18-04
+    dia: martes
+    hora: "13:20"
+    medio: correo
+    de: "{{cliente:CLI-07}}"
+    asunto: "Cambio en el pedido de esta semana"
+    texto: |
+      Hola:
+
+      El pedido que os mandé ayer cambia: al final necesitamos el doble de
+      {{producto:TOS-015}} (que sean 24 bolsas, no 12) y añadid 6 kg de
+      {{producto:TOS-012}} para la carta de postres. El resto igual.
+
+      Todavía no nos habéis servido, así que entiendo que se puede cambiar sin
+      problema.
+
+  - clave: S18-05
+    dia: miércoles
+    hora: "10:05"
+    medio: correo
+    de: "{{cliente:CLI-04}}"
+    asunto: "Nos falta género en el albarán"
+    texto: |
+      Buenos días:
+
+      Acabamos de recibir el albarán y venían 4 bolsas de
+      {{producto:TOS-015}}, no las 12 que pedimos. Entendemos que no teníais
+      existencias, pero necesitamos el resto esta misma semana: nos quedamos sin
+      género para el fin de semana.
+
+      Confirmadme cuándo llega lo que falta.
+
+  - clave: S18-06
+    dia: miércoles
+    hora: "17:45"
+    medio: nota
+    de: Dirección
+    asunto: "Subida de precio de la mezcla de la casa"
+    texto: |
+      A partir del 1 de diciembre la {{producto:TOS-013}} sube 0,60 € por kilo.
+      El café verde ha subido dos veces este trimestre y no lo podemos seguir
+      absorbiendo.
+
+      Importante: **no** se tocan los presupuestos ya enviados. El precio nuevo
+      se aplica a lo que se presupueste a partir del 1 de diciembre.
+
+  - clave: S18-07
+    dia: jueves
+    hora: "12:30"
+    medio: correo
+    de: "{{cliente:CLI-09}}"
+    asunto: "Transferencia a cuenta de la factura de octubre"
+    texto: |
+      Hola:
+
+      Os hemos hecho una transferencia de 300 € a cuenta de la factura de
+      octubre. El resto lo pagamos cuando cerremos el mes, que hemos tenido un
+      mes flojo.
+
+      Perdonad las molestias.
+
+  - clave: S18-08
+    dia: viernes
+    hora: "09:00"
+    medio: correo
+    de: "{{cliente:CLI-02}}"
+    asunto: "Precio equivocado en la factura de esta semana"
+    texto: |
+      Buenas:
+
+      En la factura de esta semana nos habéis cobrado la
+      {{producto:TOS-016}} a {{precio:TOS-016}} la bolsa, cuando con nuestra
+      tarifa tendría que salir más barata. No os discutimos el resto, pero esa
+      línea está mal y preferimos arreglarlo antes de pagar.
+
+      Mandadnos el documento corregido, por favor.
+
+comprobacion:
+  - "En el pedido de {{cliente:CLI-03}} aparecen dos líneas y el pedido está confirmado."
+  - "El presupuesto del hotel se ha enviado y después se ha marcado como perdido, con el motivo escrito."
+  - "El pedido de {{cliente:CLI-07}} lleva las cantidades corregidas, no las originales."
+  - "La entrega de {{cliente:CLI-04}} está cerrada con 4 bolsas y queda un albarán pendiente por las 8 restantes."
+  - "El precio nuevo de la mezcla consta en la tarifa o en el producto, pero los presupuestos anteriores no se han tocado."
+  - "La factura de {{cliente:CLI-09}} está parcialmente cobrada y se ve el importe pendiente."
+  - "La factura de {{cliente:CLI-02}} está corregida con una rectificativa y la original sigue emitida."

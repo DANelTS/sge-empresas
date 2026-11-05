@@ -18,7 +18,7 @@ import argparse
 import pathlib
 import sys
 
-from sge import bandejas, catalogo, maestros, salida
+from sge import bandejas, catalogo, maestros, salida, sucesos
 from sge.variante import Variante
 
 RAIZ = pathlib.Path(__file__).resolve().parents[1]
@@ -68,6 +68,8 @@ def main(argv=None) -> int:
     salida.escribir_leeme(destino, empresa, m)
     salida.copiar_ficha(destino, empresa, m, args.alumno)
     bandejas.escribir(destino, empresa, m, variante)
+    for sesion in ("s18-ventas", "s19-compras"):
+        sucesos.escribir_en(destino, empresa, m, sesion)
 
     print(f"Variante generada: {m.empresa['nombre']}")
     print(f"  carpeta:    {destino}")
