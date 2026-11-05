@@ -70,7 +70,7 @@ precio distinto), se reclama antes de pagar.
 **Stock** o **existencias**. Unidades disponibles de un producto en una
 ubicación.
 
-**Ubicación** (Inventario → Configuración → Ubicaciones). Dónde está físicamente
+**Ubicación** (Inventario → Configuración → Gestión de almacenes → Ubicaciones). Dónde está físicamente
 la mercancía: el almacén, una estantería, una nave. Odoo distingue ubicaciones
 internas, de cliente, de proveedor y virtuales (inventario, producción,
 existencias perdidas).

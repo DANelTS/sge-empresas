@@ -196,8 +196,8 @@ vuelves a generar tu variante se sobrescribe.
 El orden **no es opcional**: los productos necesitan las categorías y los
 clientes necesitan las tarifas.
 
-1. `1-categorias-producto.csv` → menú **Inventario → Configuración → Categorías**
-   (botón *Importar registros*).
+1. `1-categorias-producto.csv` → menú **Ventas → Configuración → Productos →
+   Categorías** (botón *Importar registros*).
 2. `2-tarifas.csv` y `3-reglas-tarifa.csv` → **Ventas → Productos → Listas de precios**.
 3. `4-productos.csv` → **Ventas → Productos → Productos**.
 4. `5-proveedores.csv` y `6-clientes.csv` → **Contactos**.
