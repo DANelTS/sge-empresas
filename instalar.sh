@@ -156,8 +156,13 @@ fi
 if [[ "$COMPLETO" == "1" ]]; then
   paso "6. Cargando datos (camino del profesor)"
   export ODOO_BD="$BD"
-  "${COMPOSE[@]}" run --rm herramientas importar_maestros.py \
-      --empresa "$SECTOR" --alumno "${ALUMNO:-0}" --bd "$BD" --url http://odoo:8069
+  if ! "${COMPOSE[@]}" run --rm herramientas importar_maestros.py \
+      --empresa "$SECTOR" --alumno "${ALUMNO:-0}" --bd "$BD" --url http://odoo:8069; then
+    rojo "La importación de maestros ha fallado."
+    echo "  La base '$BD' puede haber quedado a medias. Lo más rápido:"
+    echo "    ./instalar.sh --bd ${BD}-2 --sector $SECTOR --alumno ${ALUMNO:-0} --completo"
+    exit 1
+  fi
   "${COMPOSE[@]}" run --rm herramientas configurar_compania.py \
       --empresa "$SECTOR" --alumno "${ALUMNO:-0}" --bd "$BD" --url http://odoo:8069
   "${COMPOSE[@]}" run --rm herramientas cargar_historico.py \
