@@ -122,6 +122,9 @@ productos:
   - ref: CER-001
     nombre: Malta pale ale (saco 25 kg)
     categoria: MATERIAS
+    # La malta es un alimento de cereales: 10 % (art. 91.Uno.1.1.º LIVA).
+    iva_venta: 10
+    iva_compra: 10
     coste: 34.00
     pvp: 0.00
     venta: false
@@ -131,6 +134,9 @@ productos:
   - ref: CER-002
     nombre: Malta Munich (saco 25 kg)
     categoria: MATERIAS
+    # La malta es un alimento de cereales: 10 % (art. 91.Uno.1.1.º LIVA).
+    iva_venta: 10
+    iva_compra: 10
     coste: 38.50
     pvp: 0.00
     venta: false
@@ -140,6 +146,9 @@ productos:
   - ref: CER-003
     nombre: Malta carabelo (saco 25 kg)
     categoria: MATERIAS
+    # La malta es un alimento de cereales: 10 % (art. 91.Uno.1.1.º LIVA).
+    iva_venta: 10
+    iva_compra: 10
     coste: 42.00
     pvp: 0.00
     venta: false
@@ -167,6 +176,9 @@ productos:
   - ref: CER-006
     nombre: Levadura ale inglesa (caja 10 × 500 g)
     categoria: MATERIAS
+    # La levadura también es alimento: 10 % (DGT V0238-15).
+    iva_venta: 10
+    iva_compra: 10
     coste: 265.00
     pvp: 0.00
     venta: false

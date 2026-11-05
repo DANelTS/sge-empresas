@@ -153,6 +153,13 @@ Abre uno de ellos y mira sus pestañas: **venta** o **compra** (`type_tax_use`),
 cuenta contable que usa, y si el impuesto está incluido en el precio
 (`price_include`) o se suma.
 
+> **Cuidado con los impuestos «zombi».** La localización trae todavía los tipos
+> temporales de 2023 y 2024 (`2% B`, `5% B`, `7.5% B`, `7.5% S`), que ya no
+> existen: eran las bajadas temporales del IVA de los alimentos y decayeron. No
+> los uses. Si quieres que no molesten, selecciónalos en la lista
+> (**Acción → Archivar**) y desaparecen del desplegable. Los tipos válidos en
+> noviembre de 2026 son 21 %, 10 %, 4 % y los 0 % de las operaciones exentas.
+
 ## Paso 5 · Dos usuarios con permisos distintos
 
 **Ajustes → Usuarios y compañías → Usuarios → Nuevo.**

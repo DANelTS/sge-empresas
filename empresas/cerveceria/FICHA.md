@@ -109,7 +109,8 @@ previsto.
 | Familia | IVA | Por qué |
 |---|---|---|
 | Cerveza (barril, botella y packs) | 21 % | Es una bebida alcohólica: la ley la excluye de los tipos reducidos aunque sea un alimento. |
-| Materias primas (malta, lúpulo, levadura, botellas, etiquetas) | 21 % | Compras corrientes para la producción; tipo general. |
+| Malta y levadura (materias primas) | 10 % | Son alimentos de cereales y levaduras (art. 91.Uno.1.1.º LIVA; DGT V0238-15), no porque se usen para hacer cerveza. |
+| Lúpulo, botellas, etiquetas y cajas | 21 % | El lúpulo no es alimento y los envases tampoco: tipo general. |
 | Merchandising (vasos, camisetas, growlers) | 21 % | No es alimento ni servicio cultural: tipo general. |
 | Servicios (visita, alquiler de grifo, formación) | 21 % | Tipo general de servicios. |
 
