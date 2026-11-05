@@ -107,6 +107,7 @@ sucesos:
     medio: llamada
     de: "{{cliente:CLI-06}}"
     asunto: "En la entrega no vienen los pensamientos"
+    incidencia: true
     texto: |
       Llama la presidenta. Ha recibido el albarán y llegan las photinias y el
       sustrato, pero no los {{producto:VIV-001}}: el transportista les dice que
@@ -122,6 +123,7 @@ sucesos:
     medio: correo
     de: "{{cliente:CLI-09}}"
     asunto: "Transferencia de la factura de octubre"
+    incidencia: true
     texto: |
       Buenas:
 

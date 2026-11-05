@@ -1,0 +1,178 @@
+# Bandeja de la S18: el ciclo de venta completo (sector bicicletas).
+#
+# Los importes salen de marcas {{precio:...}} y {{precio_tarifa:CLIENTE:PRODUCTO}}
+# para que cada alumno vea SUS precios, no los del catálogo base. El texto no
+# debe llevar cifras escritas a mano: si cambia el catálogo, la bandeja cambia
+# sola. Las cantidades (unidades, días) sí van escritas.
+
+titulo: S18 · Del interés al cobro
+intro: |
+  Es la primera semana de noviembre y la tienda va como siempre: el mostrador
+  atiende, el taller tiene la bancada llena y administración persigue facturas.
+  Estos son los mensajes y las visitas de los últimos días. Ninguno viene con el
+  trabajo hecho: hay que decidir qué documento se crea en cada caso, y en el
+  taller acordarse de que la mano de obra y el recambio no se comportan igual.
+
+sucesos:
+  - clave: S18-01
+    dia: lunes
+    hora: "09:20"
+    medio: visita
+    de: "{{cliente:CLI-05}}"
+    asunto: "Se lleva una urbana y pregunta por la financiación"
+    texto: |
+      Entra en la tienda con la idea clara: quiere la {{producto:BIC-002}} y un
+      {{producto:ACC-001}} para el niño. Se lo enseña el compañero de mostrador y
+      se lo deja apalabrado, pero pide el presupuesto por escrito «para pensarlo
+      el fin de semana».
+
+      La pregunta de siempre: si se puede pagar a plazos. Ha visto en la web de
+      la marca lo de «hasta 12 meses sin intereses» y cree que lo hacemos
+      nosotros. Le hemos explicado que no financiamos: si es particular, se paga
+      al contado; si quiere plazos, quien estudia la operación es la financiera
+      de la marca, que nos paga a nosotros y luego le cobra a él. Que quede claro
+      en el presupuesto, con su validez y sin condiciones de pago inventadas.
+
+  - clave: S18-02
+    dia: lunes
+    hora: "12:10"
+    medio: correo
+    de: "{{cliente:CLI-16}}"
+    asunto: "Presupuesto de flota: 6 bicis eléctricas para reparto"
+    texto: |
+      Buenas:
+
+      Este año queremos electrificar el reparto del centro. Necesitamos 6
+      {{producto:BIC-006}}, con la puesta a punto inicial incluida, para tenerlas
+      en la calle en enero.
+
+      Somos clientes vuestros y tenemos la tarifa de flotas: aplicadnos el
+      descuento que nos corresponde y no el precio de la web
+      ({{precio:BIC-006}}). Mandadme el presupuesto con la entrega escalonada,
+      que no tenemos sitio para las 6 a la vez.
+
+      Gracias.
+
+  - clave: S18-03
+    dia: martes
+    hora: "10:35"
+    medio: correo
+    de: "{{cliente:CLI-09}}"
+    asunto: "Cambio en el pedido de recambios"
+    texto: |
+      Hola:
+
+      El pedido que os mandé ayer cambia, y todavía no me lo habéis servido, así
+      que entiendo que no hay problema: al final quiero 8 {{producto:CMP-004}} en
+      lugar de las 12 que pedí, y añadidme 4 {{producto:CMP-005}}. Es para dos
+      bicis que tenemos que entregar el jueves.
+
+      El resto igual. Aplicadnos lo de siempre.
+
+  - clave: S18-04
+    dia: martes
+    hora: "16:40"
+    medio: visita
+    de: "{{cliente:CLI-07}}"
+    asunto: "Deja la gravel: ruido en la rueda y el freno trasero esponjoso"
+    texto: |
+      Trae la {{producto:BIC-005}} colgada del coche. La rueda trasera «hace un
+      ruido» desde la última salida y la maneta del freno trasero se va al fondo.
+      El mecánico la sube al soporte y la mira delante de él: la llanta tiene un
+      golpe y las pastillas están cristalizadas.
+
+      Se le hace el presupuesto allí mismo, con el cliente delante: dos líneas
+      de servicio, {{producto:SRV-003}} y {{producto:SRV-007}}, y una de
+      recambio, {{producto:CMP-006}}, que es la pieza que hay que sustituir. Dos
+      servicios, que son horas de mecánico, y un recambio, que sale del almacén.
+      Lo aprueba y firma la orden de reparación, pero avisa de que la bici la
+      necesita el fin de semana.
+
+  - clave: S18-05
+    dia: miércoles
+    hora: "09:15"
+    medio: correo
+    de: "Taller · {{empresa}}"
+    asunto: "Tu bici: las pastillas no están en stock"
+    texto: |
+      Buenos días:
+
+      Ayer te dejamos el presupuesto aprobado y la bici ya está en el soporte,
+      pero al desmontar hemos visto que no queda ninguna pareja de
+      {{producto:CMP-006}}: la última salió el sábado y el almacén está a cero.
+      Lo hemos pedido a {{proveedor:PRV-ACCESORIOS}} y llega el viernes por la
+      mañana, así que la bici podría estar lista el viernes por la tarde.
+
+      Ojo, que aquí hay dos cosas distintas: la mano de obra no depende de
+      existencias —el hueco del mecánico está reservado para ti— y lo que falta
+      es la pieza. Si prefieres no esperar, podemos centrarte la rueda ahora y
+      dejarte las pastillas para la semana que viene, pero entonces el trabajo
+      queda a medias y no te lo vamos a cobrar entero.
+
+      Dime qué prefieres.
+
+    incidencia: true
+
+  - clave: S18-06
+    dia: miércoles
+    hora: "08:40"
+    medio: correo
+    de: "{{cliente:CLI-16}}"
+    asunto: "Descartamos el presupuesto de la flota"
+    texto: |
+      Hola:
+
+      Gracias por la rapidez. Finalmente la dirección ha cerrado el acuerdo con
+      el distribuidor de la marca: nos deja las 6 al mismo precio que vosotros
+      con el mantenimiento incluido dos años, y a estas alturas del año pesa más
+      el servicio que el descuento.
+
+      Nos ha pesado el precio, aunque con nuestra tarifa os habéis quedado
+      cerca: {{precio_tarifa:CLI-16:BIC-006}} la unidad. No descartéis volver a
+      llamarnos en la renovación de 2028.
+
+      Un saludo.
+
+  - clave: S18-07
+    dia: jueves
+    hora: "11:50"
+    medio: correo
+    de: "{{cliente:CLI-14}}"
+    asunto: "Transferencia a cuenta de la factura de octubre"
+    texto: |
+      Buenos días:
+
+      Os hemos hecho una transferencia por la mitad de la factura de octubre. El
+      resto lo pagamos a primeros del mes que viene: hemos tenido dos meses de
+      mucho gasto en el taller y preferimos ir poco a poco antes que dejaros la
+      factura entera sin cobrar.
+
+      Perdonad las molestias y gracias por la paciencia.
+
+  - clave: S18-08
+    dia: viernes
+    hora: "12:20"
+    medio: correo
+    de: "{{cliente:CLI-12}}"
+    asunto: "El recambio nos lo habéis cobrado a precio de tarifa general"
+    texto: |
+      Hola:
+
+      Estamos repasando la factura de esta semana y hay una línea mal: la
+      {{producto:CMP-001}} nos la habéis cobrado a {{precio:CMP-001}}, el precio
+      de escaparate, cuando nosotros compramos con la tarifa de taller. La mano
+      de obra y el resto de líneas están bien, no os discutimos nada más.
+
+      ¿Nos emitís el documento corregido? Preferimos arreglarlo antes de pagar,
+      que luego el banco no perdona.
+
+    incidencia: true
+
+comprobacion:
+  - "El presupuesto de {{cliente:CLI-05}} lleva la bici y el casco, se ha enviado y sigue abierto: no se ha convertido en pedido antes de que el cliente confirme."
+  - "El presupuesto de {{cliente:CLI-16}} está marcado como perdido, con el motivo escrito, y no ha generado ningún pedido de venta."
+  - "El pedido de {{cliente:CLI-09}} lleva las cantidades del último correo —8 cadenas y 4 cassettes—, no las 12 cadenas del pedido original."
+  - "La orden de reparación de {{cliente:CLI-07}} mezcla líneas de servicio y una línea de recambio, y se distingue cuál mueve existencias y cuál no."
+  - "El recambio pendiente de {{cliente:CLI-07}} aparece como producto agotado o con la entrega pendiente, y la mano de obra no se ha facturado por separado como si el trabajo estuviera terminado."
+  - "La factura de {{cliente:CLI-14}} está parcialmente cobrada y se ve el importe que sigue pendiente."
+  - "La factura de {{cliente:CLI-12}} está corregida con una rectificativa y la original sigue emitida, sin tocar."

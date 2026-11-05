@@ -232,9 +232,15 @@ def _stock_inicial(m: Maestros, plan: Plan) -> dict[str, float]:
         ref = p["ref"]
         saldo = 0.0
         minimo = 0.0
+        salido = 0.0
         for _, delta in sorted(movimientos.get(ref, [])):
             saldo += delta
+            if delta < 0:
+                salido += -delta
             minimo = min(minimo, saldo)
-        margen = 12 + int(p["pvp"] and 10 or 5)
+        # Colchón proporcional a lo que se vende de verdad: 25 % de las salidas
+        # del trimestre, con un mínimo de 2 y un techo de 24. Así una bici de
+        # 3.000 € no acumula 22 unidades en el almacén.
+        margen = max(2, min(24, int(salido * 0.25) + 2))
         stock[ref] = round(max(0.0, -minimo) + margen, 2)
     return stock

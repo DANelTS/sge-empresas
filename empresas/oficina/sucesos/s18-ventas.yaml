@@ -27,14 +27,14 @@ sucesos:
       Os paso el pedido del primer trimestre. Este año lo hemos juntado todo en
       uno para no ir haciendo llamadas sueltas cada semana:
 
-      - 40 cajas de {{producto:OFI-001}}
-      - 60 {{producto:OFI-005}}
-      - 25 cajas de {{producto:OFI-012}}
-      - 10 cajas de {{producto:OFI-034}}
+      - 40 × {{producto:OFI-001}}
+      - 60 × {{producto:OFI-005}}
+      - 25 × {{producto:OFI-012}}
+      - 10 × {{producto:OFI-034}}
 
       Aplicadnos la tarifa de colegios como siempre. La última vez la caja de
       folios nos salió a {{precio_tarifa:CLI-11:OFI-001}} y nos pareció
-      correcto, así que entiendo que el precio no ha cambiado.
+      correcto, así que entiendo que el precio sigue igual.
 
       Lo necesitamos en el colegio el jueves por la mañana, antes de que
       empiecen las clases.
@@ -52,9 +52,9 @@ sucesos:
       Llama la administradora. Están montando una sala de reuniones en la
       segunda planta y quieren presupuesto de:
 
-      - 8 {{producto:OFI-024}}
-      - 2 {{producto:OFI-028}}
-      - 4 {{producto:OFI-029}}
+      - 8 × {{producto:OFI-024}}
+      - 2 × {{producto:OFI-028}}
+      - 4 × {{producto:OFI-029}}
 
       Sin instalación: lo monta su gente un sábado. Pide que se lo mandemos por
       correo, con validez de un mes, y avisa de que lo tiene que aprobar la
@@ -90,9 +90,9 @@ sucesos:
       Hola:
 
       El pedido que os pasé ayer cambia. El tóner compatible se nos queda corto
-      con la campaña de renovaciones: poned 10 cajas de {{producto:OFI-016}} en
-      vez de 5. Y añadid 6 cajas de {{producto:OFI-019}} para las impresoras
-      pequeñas del mostrador. El resto, igual.
+      con la campaña de renovaciones: poned 10 unidades de {{producto:OFI-016}}
+      en vez de 5. Y añadid 6 unidades de {{producto:OFI-019}} para las
+      impresoras pequeñas del mostrador. El resto, igual.
 
       Entiendo que todavía no ha salido de la nave. Si ya estuviera preparado,
       decidme y lo que venga de más lo devolvemos.
@@ -164,9 +164,10 @@ sucesos:
     de: "{{cliente:CLI-17}}"
     asunto: "Dos sillas para casa"
     texto: |
-      Llama un particular: quiere dos {{producto:OFI-025}} para el despacho de
-      casa. Pregunta el precio y si se las podemos tener hoy. Se le dice el de
-      catálogo, {{precio:OFI-025}}, sin descuento, porque no tiene tarifa.
+      Llama un particular: quiere dos unidades de {{producto:OFI-025}} para el
+      despacho de casa. Pregunta el precio y si se las podemos tener hoy. Se le
+      dice el de catálogo, {{precio:OFI-025}}, sin descuento, porque no tiene
+      tarifa.
 
       Viene a recogerlas a la nave esta tarde y paga con tarjeta en el
       mostrador. Pide justificante de la compra a su nombre.

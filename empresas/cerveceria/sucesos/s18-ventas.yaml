@@ -1,0 +1,164 @@
+# Bandeja de la S18: el ciclo de venta completo (sector cervecero).
+#
+# Los importes salen de marcas {{precio:...}} y {{precio_tarifa:CLIENTE:PRODUCTO}}
+# para que cada alumno vea SUS precios. No se escribe ninguna cifra a mano: si
+# cambia el catálogo o la tarifa, la bandeja cambia sola.
+
+titulo: S18 · Del interés al cobro
+intro: |
+  Primera semana de noviembre. Estos son los mensajes que han llegado al despacho
+  entre el lunes y el viernes. Ninguno trae el trabajo hecho: en cada uno hay que
+  decidir qué documento se crea, cuál se modifica y cuál no se toca.
+
+sucesos:
+  - clave: S18-01
+    dia: lunes
+    hora: "09:05"
+    medio: correo
+    de: "{{cliente:CLI-07}}"
+    asunto: "Pedido para el fin de semana"
+    texto: |
+      Buenos días:
+
+      Os paso el pedido de la semana: 10 barriles de {{producto:CER-020}} y 8 de
+      {{producto:CER-022}}. El barril de rubia lo teníamos a
+      {{precio_tarifa:CLI-07:CER-020}} en la última factura; aplicadnos eso
+      mismo, que ya sabéis que no somos de pagar tarifa completa.
+
+      Entregad el jueves por la mañana, antes de abrir. Si no llegáis, avisadme
+      el miércoles, que tengo que buscar sustituto.
+
+      Gracias.
+
+  - clave: S18-02
+    dia: lunes
+    hora: "11:35"
+    medio: llamada
+    de: "{{cliente:CLI-13}}"
+    asunto: "Presupuesto para la cena de empresa del 12 de diciembre"
+    texto: |
+      Llama la responsable de compras. Tienen una cena de empresa el 12 de
+      diciembre, unos 90 comensales, y quieren poner cerveza de barril además de
+      la carta.
+
+      Piden presupuesto para 10 barriles de {{producto:CER-022}}, 2 de
+      {{producto:CER-025}}, el alquiler de un grifo para el fin de semana y 48
+      botellas de {{producto:CER-041}} para la mesa de la dirección.
+
+      Quieren el presupuesto por correo esta semana: lo lleva su comité el
+      jueves y ese mismo día deciden. Si no lo tienen antes, contratan con el
+      distribuidor que les sirve ahora.
+
+  - clave: S18-03
+    dia: martes
+    hora: "09:20"
+    medio: correo
+    de: "{{cliente:CLI-13}}"
+    asunto: "RE: Presupuesto cena de empresa"
+    texto: |
+      Gracias por la rapidez. Lo hemos pasado a comité y finalmente seguimos con
+      nuestro distribuidor habitual: nos deja el barril más barato y nos lo
+      reparte el mismo día del evento, sin coste aparte.
+
+      Nos ha pesado el precio, la verdad. Si el año que viene podemos igualar
+      esas condiciones, hablamos.
+
+  - clave: S18-04
+    dia: martes
+    hora: "13:45"
+    medio: correo
+    de: "{{cliente:CLI-07}}"
+    asunto: "Cambio en el pedido del jueves"
+    texto: |
+      Hola:
+
+      El pedido del jueves cambia. De rubia al final solo 6 barriles, que la
+      semana pasada nos sobró género. Y de los de IPA dejadlo en 4: los otros 4
+      me los cambiáis por tostada ({{producto:CER-023}}), que se nos está
+      vendiendo sola.
+
+      Resumiendo: 6 de rubia, 4 de IPA y 4 de tostada. Todavía no nos habéis
+      servido, así que entiendo que se puede tocar sin liarla.
+
+  - clave: S18-05
+    dia: miércoles
+    hora: "10:20"
+    medio: correo
+    de: "{{cliente:CLI-04}}"
+    asunto: "Faltan barriles en el albarán de esta mañana"
+    texto: |
+      Buenos días:
+
+      Acabamos de recibir. Pedimos 12 barriles de {{producto:CER-023}} y han
+      llegado 7. El repartidor dice que no quedaba tostada en la nave y que os
+      lo comentaba al volver.
+
+      Necesitamos los 5 que faltan antes del viernes: tenemos la terraza llena
+      todo el fin de semana y no hay tiempo de que nos traigan de otra parte.
+
+      Lo que no ha llegado no me lo facturéis, por favor.
+
+    incidencia: true
+
+  - clave: S18-06
+    dia: miércoles
+    hora: "17:40"
+    medio: nota
+    de: Dirección
+    asunto: "Precio de la IPA a partir de diciembre"
+    texto: |
+      A partir del 1 de diciembre sube el precio de {{producto:CER-022}}. El
+      lúpulo Cascade ha subido dos veces este trimestre y este año ya no lo
+      absorbemos.
+
+      El precio nuevo queda en la tarifa de hostelería. Se aplica a lo que se
+      presupueste o se pida a partir de esa fecha y a nada más: los presupuestos
+      que ya están enviados se respetan tal cual, aunque el cliente los acepte
+      en diciembre. Si alguien llama preguntando, que se le explique sin rodeos.
+
+  - clave: S18-07
+    dia: jueves
+    hora: "12:10"
+    medio: correo
+    de: "{{cliente:CLI-09}}"
+    asunto: "Transferencia a cuenta de la factura de octubre"
+    texto: |
+      Hola:
+
+      Os hemos hecho una transferencia por la mitad de la factura de octubre. La
+      otra mitad la mandamos cuando cobremos los eventos de noviembre, sobre el
+      día 5. Hemos tenido un mes flojo y preferimos ir pagando a plazos antes
+      que dejaros la factura entera a deber.
+
+      En el concepto del banco solo pone nuestro nombre, no el número de
+      factura. Confirmadme que la habéis aplicado bien.
+
+    incidencia: true
+
+  - clave: S18-08
+    dia: viernes
+    hora: "09:25"
+    medio: correo
+    de: "{{cliente:CLI-10}}"
+    asunto: "Precio del barril en la factura de esta semana"
+    texto: |
+      Buenas:
+
+      En la factura de esta semana el barril de {{producto:CER-020}} viene a
+      {{precio:CER-020}}, cuando a nosotros nos lo cobráis siempre a
+      {{precio_tarifa:CLI-10:CER-020}}. Habrá sido un despiste al meter el
+      pedido, porque el resto de líneas están bien.
+
+      Mandadnos el documento corregido, que tenemos que presentar la factura al
+      gestor el lunes y no quiero que me la devuelva.
+
+    incidencia: true
+
+comprobacion:
+  - "El pedido de {{cliente:CLI-07}} está confirmado con las cantidades del segundo correo: 6 de rubia, 4 de IPA y 4 de tostada."
+  - "Ese pedido lleva aplicada la tarifa hostelería y ha generado albarán y factura por lo servido, sin líneas de más."
+  - "El presupuesto de {{cliente:CLI-13}} se envió y después se cerró como perdido, con el motivo escrito."
+  - "El presupuesto perdido conserva el precio anterior de {{producto:CER-022}}; el precio nuevo solo está en la tarifa o en la ficha del producto."
+  - "La entrega de {{cliente:CLI-04}} tiene un albarán por los 7 barriles servidos y otro pendiente por los 5 que faltan; el pedido no está facturado del todo."
+  - "La factura de {{cliente:CLI-09}} está parcialmente cobrada y se ve el importe pendiente, no el total."
+  - "La factura de {{cliente:CLI-10}} sigue emitida y hay una rectificativa que corrige solo la línea del barril."

@@ -34,7 +34,7 @@ sucesos:
       {{producto:ACI-020}}.
 
       Aplicadnos la tarifa de siempre, que ya sabéis cuál es. Si puede ser,
-      servidnos antes del viernes: empezamos a montar el escaparate la semana que
+      servidnos antes del viernes: empezamos a preparar la campaña la semana que
       viene.
 
       Un saludo,
@@ -80,7 +80,7 @@ sucesos:
     hora: "17:30"
     medio: correo
     de: "{{cliente:CLI-06}}"
-    asunto: "Pedido mixto para la tienda"
+    asunto: "Pedido mixto para la campaña"
     texto: |
       Hola:
 
@@ -90,17 +90,18 @@ sucesos:
       {{producto:ACI-032}}.
 
       Mandádmelo en un solo pedido y en una sola factura, por favor; así lo
-      metemos de una vez en el programa de la tienda. Los precios, con nuestra
+      metemos de una vez en el programa de caja. Los precios, con nuestra
       tarifa, como siempre.
 
       Gracias.
 
   - clave: S18-05
-    dia: miercoles
+    dia: miércoles
     hora: "09:05"
     medio: correo
     de: "{{cliente:CLI-03}}"
     asunto: "Cambio en el pedido de esta semana"
+    incidencia: true
     texto: |
       Buenos días:
 
@@ -108,8 +109,8 @@ sucesos:
       necesitamos 24 latas, no 6: hemos cerrado una comida de empresa y nos
       quedamos cortos.
 
-      Y añadid 24 cajas de {{producto:ACI-005}} para los aperitivos. Las
-      garrafas de {{producto:ACI-003}} quedan como estaban.
+      Y añadid 24 cajas de monodosis para los aperitivos. Las garrafas de
+      {{producto:ACI-003}} quedan como estaban.
 
       Todavía no nos habéis servido, así que entiendo que se puede cambiar sin
       más.
@@ -120,6 +121,7 @@ sucesos:
     medio: nota
     de: "Almacén"
     asunto: "No hay garrafas para el pedido de hoy"
+    incidencia: true
     texto: |
       El pedido de {{cliente:CLI-04}} va para el reparto de esta mañana y no lo
       podemos servir completo: pide 20 garrafas de {{producto:ACI-003}} y en el
@@ -137,12 +139,12 @@ sucesos:
     medio: correo
     de: "{{cliente:CLI-13}}"
     asunto: "Transferencia a cuenta de la factura de octubre"
+    incidencia: true
     texto: |
       Hola:
 
       Os hemos hecho hoy una transferencia de 400 € a cuenta de la factura de
-      octubre. Este mes hemos tenido menos ocupación de la prevista y no llegamos
-      a todo.
+      octubre. Este mes ha sido flojo y no llegamos a todo.
 
       El resto lo ingresamos cuando cerremos la caja de noviembre. Si necesitáis
       algo para el banco, decídmelo y os mando el justificante.
