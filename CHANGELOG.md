@@ -3,6 +3,47 @@
 Notas para el profesor: qué hay nuevo en cada entrega y qué conviene revisar.
 Corresponde a los hitos del plan de trabajo de la UD3 (§7).
 
+## 2026-11-05 · Segunda entrega (S18 y S19)
+
+### Qué hay
+
+- **Motor de bandejas** (`sge/sucesos.py`): plantillas YAML con marcas
+  `{{cliente:CLI-03}}`, `{{producto:…}}`, `{{precio_tarifa:CLI-02:…}}` que se
+  resuelven con los datos de cada variante. Lo que no se imprime es el bloque
+  `operaciones`, que queda para el solucionario.
+- **Bandejas S18** (ciclo de venta) en los seis sectores: 7-8 sucesos con
+  presupuesto perdido, cambio de pedido, entrega parcial, cobro a cuenta y
+  rectificativa.
+- **Bandejas S19** (compras e inventario) en los seis sectores: 6 sucesos con
+  reposición, recepción a medias, merma o rotura, factura con precio distinto y
+  compra de servicio.
+- **Guías S18 y S19** con las rutas verificadas en la 19 (incluido que el menú
+  de compras se llama «Compra» en singular y que las categorías de producto
+  cuelgan de Ventas).
+- **`docs/modelo-de-datos.md`** y **`sql/ejemplos/`**: cuatro consultas probadas
+  sobre una base real.
+- **Reglas de reabastecimiento**: `cargar_historico.py` crea las de mínimo y
+  máximo del catálogo (25 en la demo). Sin ellas el planificador no proponía
+  nada y la S19 no se podía hacer.
+
+### Qué está probado
+
+- Los seis sectores generan sus seis CSV, la ficha y las bandejas S17, S18 y S19
+  sin marcas sin resolver.
+- Cuatro sectores cargados de punta a punta (tostadero A00, aceite A00,
+  cervecería A00, bicicletas A07): 72 ventas, 18 compras, sin stock negativo y
+  `verificar.py` en verde.
+- El stock inicial ya es proporcional a la rotación: antes daba 22 unidades a
+  todo y dejaba 48.000 € inmovilizados en bicicletas eléctricas.
+
+### Qué conviene revisar
+
+1. Ejecutar `docker compose` en tu equipo (aquí solo hay Podman): sigue siendo lo
+   único sin probar de verdad.
+2. Los precios y la coherencia comercial de las bandejas nuevas de los cinco
+   sectores.
+3. Que la dificultad de S18 y S19 encaje con el grupo: son 7-8 y 6 sucesos.
+
 ## 2026-11-05 · Primera entrega (H0 + H1)
 
 ### Qué hay
