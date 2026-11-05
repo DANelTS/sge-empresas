@@ -1,0 +1,91 @@
+# Bolsas de nombres, calles y poblaciones para las variantes de Vivero La Fresneda.
+#
+# El generador baraja estas listas con la semilla (empresa, alumno): cada alumno
+# recibe una combinación distinta. Los nombres son inventados; cualquier parecido
+# con comunidades, empresas o personas reales es casualidad.
+
+clientes:
+  empresas:
+    - Comunidad de Propietarios Residencial Los Olivos
+    - Comunidad de Propietarios Edificio Mirasierra
+    - Comunidad de Propietarios Urbanización El Pinar
+    - Comunidad de Propietarios Bloque San Isidro
+    - Comunidad de Propietarios Jardines de la Vega
+    - Comunidad de Propietarios Parque Norte
+    - Comunidad de Propietarios Calle del Roble, 14
+    - Comunidad de Propietarios Residencial El Almendro
+    - Comunidad de Propietarios Torre de la Fuente
+    - Comunidad de Propietarios Mirador del Monte
+    - Ayuntamiento de Colmenar Viejo
+    - Ayuntamiento de Tres Cantos
+    - Ayuntamiento de Torrelodones
+    - Ayuntamiento de Boadilla del Monte
+    - Ayuntamiento de El Escorial
+    - Ayuntamiento de Villaviciosa de Odón
+    - Hotel Rural Monte del Pardo
+    - Hotel Mirador de la Sierra
+    - Centro de Negocios Altamira
+    - Oficinas Parque Empresarial Norte
+    - Clínica Los Castaños
+    - Colegio Nuestra Señora del Pinar
+    - Restaurante La Huerta del Pinar
+    - Residencia de Mayores El Roble
+    - Centro Comercial La Dehesa
+    - Hospital Veterinario El Pinar
+    - Gimnasio Aqua Verde
+    - Paisajismo y Jardines Alcores S.L.
+    - Diseño y Paisaje Sierra Norte S.L.
+    - Verde Integral Madrid S.L.
+  particulares:
+    - Ana Belén Ruiz Pérez
+    - Marcos Delgado Ibáñez
+    - Lucía Fernández Ortega
+    - Javier Moreno Sanz
+    - Elena Castro Vidal
+    - Pablo Iglesias Rueda
+    - Marta Salas Herrera
+    - Sergio Núñez Cabrera
+    - Rocío Peña Molina
+    - Andrés Garrido Lozano
+
+calles:
+  - Calle de la Fuente
+  - Camino de la Dehesa
+  - Carretera de Guadalix
+  - Avenida de los Olivos
+  - Calle del Pinar
+  - Camino del Molino
+  - Calle de las Acacias
+  - Plaza del Jardín
+  - Calle del Almendro
+  - Calle de los Cerezos
+  - Camino de la Vega
+  - Calle del Río
+  - Avenida del Monte
+  - Calle de la Encina
+  - Calle del Roble
+  - Camino de la Ermita
+  - Calle de los Álamos
+  - Ronda de la Estación
+
+poblaciones:
+  - {poblacion: Madrid, provincia: Madrid, cp: "28013"}
+  - {poblacion: Colmenar Viejo, provincia: Madrid, cp: "28770"}
+  - {poblacion: Tres Cantos, provincia: Madrid, cp: "28760"}
+  - {poblacion: Alcobendas, provincia: Madrid, cp: "28100"}
+  - {poblacion: San Sebastián de los Reyes, provincia: Madrid, cp: "28702"}
+  - {poblacion: Las Rozas de Madrid, provincia: Madrid, cp: "28231"}
+  - {poblacion: Majadahonda, provincia: Madrid, cp: "28220"}
+  - {poblacion: Pozuelo de Alarcón, provincia: Madrid, cp: "28223"}
+  - {poblacion: Boadilla del Monte, provincia: Madrid, cp: "28660"}
+  - {poblacion: Villaviciosa de Odón, provincia: Madrid, cp: "28670"}
+  - {poblacion: Torrelodones, provincia: Madrid, cp: "28250"}
+  - {poblacion: Collado Villalba, provincia: Madrid, cp: "28400"}
+  - {poblacion: El Escorial, provincia: Madrid, cp: "28280"}
+  - {poblacion: San Lorenzo de El Escorial, provincia: Madrid, cp: "28200"}
+  - {poblacion: Aranjuez, provincia: Madrid, cp: "28300"}
+  - {poblacion: Getafe, provincia: Madrid, cp: "28901"}
+  - {poblacion: Alcalá de Henares, provincia: Madrid, cp: "28801"}
+  - {poblacion: Guadalajara, provincia: Guadalajara, cp: "19001"}
+  - {poblacion: Toledo, provincia: Toledo, cp: "45001"}
+  - {poblacion: Segovia, provincia: Segovia, cp: "40001"}

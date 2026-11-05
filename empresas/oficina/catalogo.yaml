@@ -1,0 +1,542 @@
+# Catálogo del sector: Suministros Ofimat, S.L. (material de oficina)
+#
+# Variante canónica. generar.py aplica encima la variación de cada alumno
+# (precios ±10 %, NIF, IBAN, direcciones y nombres de clientes).
+#
+# Los tipos de IVA de cada familia están en `categorias`; se aplican a todos los
+# productos de la familia salvo que el producto indique `iva_venta`/`iva_compra`.
+#
+# Rasgo didáctico del sector: catálogo grande (35 referencias), dos tarifas por
+# tipo de cliente y descuentos por volumen negociados sobre la tarifa.
+
+empresa:
+  clave: oficina
+  nombre: Suministros Ofimat
+  forma_juridica: S.L.
+  letra_cif: B
+  domicilio: Avenida de Somosierra, 22, nave 6
+  cp: "28703"
+  poblacion: San Sebastián de los Reyes
+  provincia: Madrid
+  telefono: 916 512 480
+  email: administracion@ofimat.example
+  web: www.ofimat.example
+  banco: "2100"
+  sucursal: "7788"
+  actividad: Distribución mayorista de material de oficina, consumibles y mobiliario a empresas y centros educativos
+  epigrafe: "4663 — Comercio al por mayor de artículos de papelería y escritorio"
+  cond_pago_ventas: 30 días
+  cond_pago_compras: 30 días
+
+categorias:
+  - clave: PAPEL
+    nombre: Papel y archivadores
+    iva_venta: 21
+    iva_compra: 21
+  - clave: ESCRITURA
+    nombre: Escritura y corrección
+    iva_venta: 21
+    iva_compra: 21
+  - clave: INFORMATICA
+    nombre: Informática y consumibles
+    iva_venta: 21
+    iva_compra: 21
+  - clave: MOBILIARIO
+    nombre: Mobiliario pequeño
+    iva_venta: 21
+    iva_compra: 21
+  - clave: LIMPIEZA
+    nombre: Limpieza y cafetería
+    iva_venta: 21
+    iva_compra: 21
+  - clave: SERVICIOS
+    nombre: Servicios
+    iva_venta: 21
+    iva_compra: 21
+
+tarifas:
+  - clave: empresas
+    nombre: Tarifa empresas
+    descuento: 12
+  - clave: colegios
+    nombre: Tarifa colegios
+    descuento: 18
+
+proveedores:
+  - clave: PRV-PAPEL
+    nombre: Papelera del Ebro S.A.
+    actividad: Fabricación de papel y cartón para oficina
+    letra_cif: A
+    cond_pago: 30 días
+    calle: Polígono Malpica, calle E, 8
+    cp: "50016"
+    poblacion: Zaragoza
+    provincia: Zaragoza
+    dominio: papelera-ebro.example
+  - clave: PRV-ESCRITURA
+    nombre: Escritura Levantina S.L.
+    actividad: Fabricación de bolígrafos y material de escritura
+    letra_cif: B
+    cond_pago: 45 días
+    calle: Calle del Metal, 24
+    cp: "03008"
+    poblacion: Alicante
+    provincia: Alicante
+    dominio: escritura-levantina.example
+  - clave: PRV-INFO
+    nombre: Mayorista Informático Norte S.L.
+    actividad: Distribución de tóner, tinta y periféricos
+    letra_cif: B
+    cond_pago: 30 días
+    calle: Calle Ribera de Deusto, 32
+    cp: "48014"
+    poblacion: Bilbao
+    provincia: Bizkaia
+    dominio: minorte.example
+  - clave: PRV-MOBILIARIO
+    nombre: Mobiliario Contract Duero S.L.
+    actividad: Fabricación de mobiliario de oficina y colectividades
+    letra_cif: B
+    cond_pago: 45 días
+    calle: Calle del Estaño, 14, nave 3
+    cp: "47012"
+    poblacion: Valladolid
+    provincia: Valladolid
+    dominio: mc-duero.example
+  - clave: PRV-LIMPIEZA
+    nombre: Distribuciones de Limpieza Sur S.L.
+    actividad: Productos de limpieza e higiene profesional
+    letra_cif: B
+    cond_pago: 30 días
+    calle: Polígono Calonge, calle B, 22
+    cp: "41007"
+    poblacion: Sevilla
+    provincia: Sevilla
+    dominio: limpieza-sur.example
+  - clave: PRV-MENSAJERIA
+    nombre: Mensajería Ibérica Exprés S.A.
+    actividad: Transporte y reparto urgente en península
+    letra_cif: A
+    cond_pago: Fin del siguiente mes
+    calle: Avenida de Andalucía, 210
+    cp: "28021"
+    poblacion: Madrid
+    provincia: Madrid
+    dominio: ibexpress.example
+
+productos:
+  # --- Papel y archivadores -----------------------------------------------
+  - ref: OFI-001
+    nombre: Caja de 500 folios A4 80 g
+    categoria: PAPEL
+    coste: 2.95
+    pvp: 5.40
+    proveedor: PRV-PAPEL
+    minimo: 30
+    maximo: 200
+  - ref: OFI-002
+    nombre: Caja de 2.500 folios A4 80 g (5 paquetes)
+    categoria: PAPEL
+    coste: 13.80
+    pvp: 24.60
+    proveedor: PRV-PAPEL
+    minimo: 12
+    maximo: 80
+  - ref: OFI-003
+    nombre: Bloc de notas A5 rayado 100 hojas
+    categoria: PAPEL
+    coste: 1.05
+    pvp: 2.35
+    proveedor: PRV-PAPEL
+    minimo: 40
+    maximo: 250
+  - ref: OFI-004
+    nombre: Carpeta de anillas A4 lomo 70 mm
+    categoria: PAPEL
+    coste: 1.95
+    pvp: 4.40
+    proveedor: PRV-PAPEL
+    minimo: 30
+    maximo: 150
+  - ref: OFI-005
+    nombre: Archivador de palanca A4 lomo 80 mm
+    categoria: PAPEL
+    coste: 2.25
+    pvp: 4.95
+    proveedor: PRV-PAPEL
+    minimo: 40
+    maximo: 180
+  - ref: OFI-006
+    nombre: Caja de archivo definitivo (paquete 10)
+    categoria: PAPEL
+    coste: 5.40
+    pvp: 11.60
+    proveedor: PRV-PAPEL
+    minimo: 10
+    maximo: 60
+  - ref: OFI-007
+    nombre: Sobres blancos 110 × 220 mm (caja 500)
+    categoria: PAPEL
+    coste: 11.90
+    pvp: 21.90
+    proveedor: PRV-PAPEL
+    minimo: 10
+    maximo: 50
+  - ref: OFI-008
+    nombre: Fundas perforadas A4 (paquete 100)
+    categoria: PAPEL
+    coste: 2.60
+    pvp: 5.70
+    proveedor: PRV-PAPEL
+    minimo: 20
+    maximo: 120
+
+  # --- Escritura y corrección ---------------------------------------------
+  - ref: OFI-009
+    nombre: Bolígrafo azul punta media (caja 50)
+    categoria: ESCRITURA
+    coste: 10.40
+    pvp: 20.90
+    proveedor: PRV-ESCRITURA
+    minimo: 15
+    maximo: 90
+  - ref: OFI-010
+    nombre: Bolígrafo negro punta fina (caja 50)
+    categoria: ESCRITURA
+    coste: 9.80
+    pvp: 19.90
+    proveedor: PRV-ESCRITURA
+    minimo: 15
+    maximo: 90
+  - ref: OFI-011
+    nombre: Lápiz grafito HB con goma (caja 12)
+    categoria: ESCRITURA
+    coste: 2.10
+    pvp: 4.45
+    proveedor: PRV-ESCRITURA
+    minimo: 20
+    maximo: 120
+  - ref: OFI-012
+    nombre: Rotulador permanente negro punta 2 mm (caja 10)
+    categoria: ESCRITURA
+    coste: 3.90
+    pvp: 8.30
+    proveedor: PRV-ESCRITURA
+    minimo: 12
+    maximo: 70
+  - ref: OFI-013
+    nombre: Subrayadores fluorescentes (estuche 4)
+    categoria: ESCRITURA
+    coste: 2.05
+    pvp: 4.60
+    proveedor: PRV-ESCRITURA
+    minimo: 20
+    maximo: 110
+  - ref: OFI-014
+    nombre: Corrector de cinta 5 m
+    categoria: ESCRITURA
+    coste: 1.25
+    pvp: 2.85
+    proveedor: PRV-ESCRITURA
+    minimo: 30
+    maximo: 160
+  - ref: OFI-015
+    nombre: Recambios de tinta para bolígrafo (caja 20)
+    categoria: ESCRITURA
+    coste: 3.50
+    pvp: 7.20
+    proveedor: PRV-ESCRITURA
+    minimo: 12
+    maximo: 70
+
+  # --- Informática y consumibles ------------------------------------------
+  - ref: OFI-016
+    nombre: Tóner negro compatible 3.000 páginas
+    categoria: INFORMATICA
+    coste: 24.00
+    pvp: 54.90
+    proveedor: PRV-INFO
+    minimo: 8
+    maximo: 40
+  - ref: OFI-017
+    nombre: Tóner negro original 6.000 páginas
+    categoria: INFORMATICA
+    coste: 58.00
+    pvp: 89.00
+    proveedor: PRV-INFO
+    minimo: 4
+    maximo: 20
+  - ref: OFI-018
+    nombre: Tóner cian compatible 2.500 páginas
+    categoria: INFORMATICA
+    coste: 22.00
+    pvp: 49.90
+    proveedor: PRV-INFO
+    minimo: 6
+    maximo: 30
+  - ref: OFI-019
+    nombre: Cartucho de tinta negra compatible
+    categoria: INFORMATICA
+    coste: 8.60
+    pvp: 18.90
+    proveedor: PRV-INFO
+    minimo: 10
+    maximo: 60
+  - ref: OFI-020
+    nombre: Pack de 3 cartuchos de tinta color
+    categoria: INFORMATICA
+    coste: 19.50
+    pvp: 39.90
+    proveedor: PRV-INFO
+    minimo: 6
+    maximo: 35
+  - ref: OFI-021
+    nombre: Papel fotográfico A4 brillo (50 hojas)
+    categoria: INFORMATICA
+    coste: 5.80
+    pvp: 12.40
+    proveedor: PRV-INFO
+    minimo: 10
+    maximo: 60
+  - ref: OFI-022
+    nombre: Teclado USB con distribución española
+    categoria: INFORMATICA
+    coste: 8.90
+    pvp: 19.90
+    proveedor: PRV-INFO
+    minimo: 6
+    maximo: 30
+  - ref: OFI-023
+    nombre: Ratón óptico USB
+    categoria: INFORMATICA
+    coste: 4.20
+    pvp: 9.90
+    proveedor: PRV-INFO
+    minimo: 10
+    maximo: 50
+
+  # --- Mobiliario pequeño -------------------------------------------------
+  - ref: OFI-024
+    nombre: Silla ergonómica con reposabrazos
+    categoria: MOBILIARIO
+    coste: 112.00
+    pvp: 229.00
+    proveedor: PRV-MOBILIARIO
+    minimo: 3
+    maximo: 15
+  - ref: OFI-025
+    nombre: Silla operativa básica
+    categoria: MOBILIARIO
+    coste: 58.00
+    pvp: 124.00
+    proveedor: PRV-MOBILIARIO
+    minimo: 4
+    maximo: 20
+  - ref: OFI-026
+    nombre: Armario metálico de dos puertas
+    categoria: MOBILIARIO
+    coste: 142.00
+    pvp: 289.00
+    proveedor: PRV-MOBILIARIO
+    minimo: 2
+    maximo: 10
+  - ref: OFI-027
+    nombre: Cajonera de tres cajones con ruedas
+    categoria: MOBILIARIO
+    coste: 68.00
+    pvp: 139.00
+    proveedor: PRV-MOBILIARIO
+    minimo: 3
+    maximo: 15
+  - ref: OFI-028
+    nombre: Mesa de escritorio 120 × 60 cm
+    categoria: MOBILIARIO
+    coste: 92.00
+    pvp: 189.00
+    proveedor: PRV-MOBILIARIO
+    minimo: 2
+    maximo: 12
+  - ref: OFI-029
+    nombre: Reposapiés regulable
+    categoria: MOBILIARIO
+    coste: 17.50
+    pvp: 38.90
+    proveedor: PRV-MOBILIARIO
+    minimo: 5
+    maximo: 25
+
+  # --- Limpieza y cafetería ------------------------------------------------
+  - ref: OFI-030
+    nombre: Papel higiénico industrial (paquete 12 rollos)
+    categoria: LIMPIEZA
+    coste: 4.60
+    pvp: 9.40
+    proveedor: PRV-LIMPIEZA
+    minimo: 20
+    maximo: 120
+  - ref: OFI-031
+    nombre: Toallitas de manos (caja 20 paquetes)
+    categoria: LIMPIEZA
+    coste: 7.90
+    pvp: 15.80
+    proveedor: PRV-LIMPIEZA
+    minimo: 12
+    maximo: 70
+  - ref: OFI-032
+    nombre: Detergente multiusos 5 l
+    categoria: LIMPIEZA
+    coste: 3.95
+    pvp: 8.40
+    proveedor: PRV-LIMPIEZA
+    minimo: 12
+    maximo: 60
+  - ref: OFI-033
+    nombre: Bolsas de basura 60 l (paquete 100)
+    categoria: LIMPIEZA
+    coste: 3.40
+    pvp: 7.10
+    proveedor: PRV-LIMPIEZA
+    minimo: 15
+    maximo: 90
+  - ref: OFI-034
+    nombre: Vasos de cartón 200 ml (caja 1.000)
+    categoria: LIMPIEZA
+    coste: 8.90
+    pvp: 18.20
+    proveedor: PRV-LIMPIEZA
+    minimo: 10
+    maximo: 50
+  - ref: OFI-035
+    nombre: Servilletas de papel 33 × 33 cm (caja 6.000)
+    categoria: LIMPIEZA
+    coste: 9.60
+    pvp: 19.80
+    proveedor: PRV-LIMPIEZA
+    minimo: 8
+    maximo: 40
+
+  # --- Servicios ----------------------------------------------------------
+  - ref: OFI-050
+    nombre: Instalación y puesta en marcha de equipos de oficina
+    categoria: SERVICIOS
+    tipo: servicio
+    coste: 48.00
+    pvp: 125.00
+  - ref: OFI-051
+    nombre: Gestión de almacén de cliente en consignación (cuota mensual)
+    categoria: SERVICIOS
+    tipo: servicio
+    coste: 210.00
+    pvp: 420.00
+  - ref: OFI-052
+    nombre: Formación en herramienta ofimática (4 h)
+    categoria: SERVICIOS
+    tipo: servicio
+    coste: 95.00
+    pvp: 240.00
+
+clientes:
+  - clave: CLI-01
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Asesoría
+    tarifa: empresas
+    cond_pago: 30 días
+  - clave: CLI-02
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Gestoría
+    tarifa: empresas
+    cond_pago: 30 días
+  - clave: CLI-03
+    tipo: empresa
+    forma_juridica: S.A.
+    segmento: Constructora
+    tarifa: empresas
+    cond_pago: 45 días
+  - clave: CLI-04
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Clínica
+    tarifa: empresas
+    cond_pago: 30 días
+  - clave: CLI-05
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Despacho de abogados
+    tarifa: empresas
+    cond_pago: 45 días
+  - clave: CLI-06
+    tipo: empresa
+    forma_juridica: S.A.
+    segmento: Industria alimentaria
+    tarifa: empresas
+    cond_pago: Fin del siguiente mes
+  - clave: CLI-07
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Agencia de seguros
+    tarifa: empresas
+    cond_pago: 30 días
+  - clave: CLI-08
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Consultoría
+    tarifa: empresas
+    cond_pago: 30 días
+  - clave: CLI-09
+    tipo: empresa
+    forma_juridica: S.A.
+    segmento: Cadena de hoteles
+    tarifa: empresas
+    cond_pago: 45 días
+  - clave: CLI-10
+    tipo: empresa
+    forma_juridica: S. Coop.
+    segmento: Colegio concertado
+    tarifa: colegios
+    cond_pago: 30 días
+  - clave: CLI-11
+    tipo: empresa
+    forma_juridica: S. Coop.
+    segmento: Colegio concertado
+    tarifa: colegios
+    cond_pago: 30 días
+  - clave: CLI-12
+    tipo: empresa
+    forma_juridica: Fundación
+    segmento: Centro de formación
+    tarifa: colegios
+    cond_pago: 30 días
+  - clave: CLI-13
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Escuela infantil
+    tarifa: colegios
+    cond_pago: 30 días
+  - clave: CLI-14
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Colegio privado
+    tarifa: colegios
+    cond_pago: 45 días
+  - clave: CLI-15
+    tipo: empresa
+    forma_juridica: Ayuntamiento
+    segmento: Administración local
+    tarifa: empresas
+    cond_pago: Fin del siguiente mes
+  - clave: CLI-16
+    tipo: empresa
+    forma_juridica: Organismo autónomo
+    segmento: Administración autonómica
+    tarifa: empresas
+    cond_pago: Fin del siguiente mes
+  - clave: CLI-17
+    tipo: particular
+    segmento: Particular
+    cond_pago: Pago inmediato
+  - clave: CLI-18
+    tipo: particular
+    segmento: Particular
+    cond_pago: Pago inmediato

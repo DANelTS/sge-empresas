@@ -1,0 +1,24 @@
+# Entorno local de cada alumno
+.env
+
+# Variantes generadas (cada alumno genera la suya)
+salida/*
+!salida/.gitkeep
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Basura de sistema
+*.log
+.DS_Store
+Thumbs.db
+~$*
+
+# Copias de seguridad de la base de datos
+*.sql
+*.dump
+*.zip
+!docs/**

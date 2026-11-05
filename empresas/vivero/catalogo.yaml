@@ -1,0 +1,492 @@
+# Catálogo de la empresa: Vivero La Fresneda S.L.
+#
+# Centro de jardinería con vivero propio en Colmenar Viejo (Madrid).
+# El rasgo didáctico del sector es que en un mismo pedido conviven tres tipos
+# de IVA: planta viva y sustratos al 10 %, y herramientas, macetas, decoración
+# y servicios al 21 %.
+#
+# Los tipos de IVA de cada familia están en `categorias`; se aplican a todos los
+# productos de la familia salvo que el producto indique `iva_venta`/`iva_compra`.
+
+empresa:
+  clave: vivero
+  nombre: Vivero La Fresneda
+  forma_juridica: S.L.
+  letra_cif: B
+  domicilio: Carretera de Guadalix, km 3,400
+  cp: "28770"
+  poblacion: Colmenar Viejo
+  provincia: Madrid
+  telefono: 918 845 320
+  email: administracion@vivero-fresneda.example
+  web: www.vivero-fresneda.example
+  banco: "2038"
+  sucursal: "5412"
+  actividad: Vivero propio, centro de jardinería y servicios de diseño y mantenimiento de jardines
+  epigrafe: "615.3 — Comercio al por menor de plantas y flores"
+  cond_pago_ventas: 30 días
+  cond_pago_compras: 30 días
+
+categorias:
+  - clave: PLANTA
+    nombre: Plantas, árboles y arbustos
+    iva_venta: 10
+    iva_compra: 10
+  - clave: SUSTRATOS
+    nombre: Sustratos, abonos y fertilizantes
+    iva_venta: 10
+    iva_compra: 10
+  - clave: HERRAMIENTAS
+    nombre: Herramientas, macetas y riego
+    iva_venta: 21
+    iva_compra: 21
+  - clave: DECORACION
+    nombre: Decoración de jardín
+    iva_venta: 21
+    iva_compra: 21
+  - clave: SERVICIOS
+    nombre: Servicios de jardinería
+    iva_venta: 21
+    iva_compra: 21
+
+tarifas:
+  - clave: profesionales
+    nombre: Tarifa profesionales
+    descuento: 10
+  - clave: comunidades
+    nombre: Tarifa comunidades
+    descuento: 5
+
+proveedores:
+  - clave: PRV-VIVERO
+    nombre: Plantas del Jarama S.L.
+    actividad: Planta ornamental, aromática y de temporada
+    letra_cif: B
+    cond_pago: 30 días
+    calle: Camino de la Vega, 18
+    cp: "28702"
+    poblacion: San Sebastián de los Reyes
+    provincia: Madrid
+    dominio: plantas-jarama.example
+  - clave: PRV-SUSTRATOS
+    nombre: Sustratos del Guadarrama S.L.
+    actividad: Sustratos, mantillo y abonos
+    letra_cif: B
+    cond_pago: 30 días
+    calle: Polígono La Poveda, calle C, 9
+    cp: "28500"
+    poblacion: Arganda del Rey
+    provincia: Madrid
+    dominio: sustratos-guadarrama.example
+  - clave: PRV-HERRAMIENTAS
+    nombre: Herramientas de Jardín Aranjuez S.L.
+    actividad: Herramientas de corte, laboreo y taller
+    letra_cif: B
+    cond_pago: 45 días
+    calle: Calle de las Moreras, 31
+    cp: "28300"
+    poblacion: Aranjuez
+    provincia: Madrid
+    dominio: herramientas-aranjuez.example
+  - clave: PRV-RIEGO
+    nombre: Riegos y Goteo Levante S.L.
+    actividad: Mangueras, programadores y riego por goteo
+    letra_cif: B
+    cond_pago: 30 días
+    calle: Avenida del Puerto, 96
+    cp: "46021"
+    poblacion: Valencia
+    provincia: Valencia
+    dominio: riegos-levante.example
+  - clave: PRV-CERAMICA
+    nombre: Cerámicas El Torno de Talavera S.L.
+    actividad: Macetas, jardineras y decoración de exterior
+    letra_cif: B
+    cond_pago: 30 días
+    calle: Calle de la Alfarería, 7
+    cp: "45600"
+    poblacion: Talavera de la Reina
+    provincia: Toledo
+    dominio: eltorno-talavera.example
+  - clave: PRV-TRANSPORTE
+    nombre: Transportes Botánicos del Centro S.L.
+    actividad: Transporte de planta viva y material de jardinería
+    letra_cif: B
+    cond_pago: 15 días
+    calle: Calle del Transporte, 4, nave 6
+    cp: "28901"
+    poblacion: Getafe
+    provincia: Madrid
+    dominio: transportes-botanicos.example
+
+productos:
+  # --- Plantas, árboles y arbustos (IVA 10 %) -----------------------------
+  - ref: VIV-001
+    nombre: Pensamiento en maceta de 9 cm
+    categoria: PLANTA
+    coste: 1.10
+    pvp: 2.40
+    proveedor: PRV-VIVERO
+    minimo: 80
+    maximo: 400
+  - ref: VIV-002
+    nombre: Petunia colgante en maceta de 20 cm
+    categoria: PLANTA
+    coste: 2.90
+    pvp: 5.90
+    proveedor: PRV-VIVERO
+    minimo: 30
+    maximo: 150
+  - ref: VIV-003
+    nombre: Geranio gitanilla en maceta de 14 cm
+    categoria: PLANTA
+    coste: 2.10
+    pvp: 4.60
+    proveedor: PRV-VIVERO
+    minimo: 40
+    maximo: 200
+  - ref: VIV-004
+    nombre: Lavanda en maceta de 14 cm
+    categoria: PLANTA
+    coste: 1.90
+    pvp: 4.20
+    proveedor: PRV-VIVERO
+    minimo: 40
+    maximo: 180
+  - ref: VIV-005
+    nombre: Romero en maceta de 14 cm
+    categoria: PLANTA
+    coste: 1.70
+    pvp: 3.80
+    proveedor: PRV-VIVERO
+    minimo: 40
+    maximo: 160
+  - ref: VIV-006
+    nombre: Albahaca en maceta de 12 cm
+    categoria: PLANTA
+    coste: 1.20
+    pvp: 2.90
+    proveedor: PRV-VIVERO
+    minimo: 30
+    maximo: 120
+  - ref: VIV-007
+    nombre: Boj en bola de 30 cm
+    categoria: PLANTA
+    coste: 11.00
+    pvp: 22.00
+    proveedor: PRV-VIVERO
+    minimo: 10
+    maximo: 40
+  - ref: VIV-008
+    nombre: Photinia de 1,2 m
+    categoria: PLANTA
+    coste: 13.50
+    pvp: 26.00
+    proveedor: PRV-VIVERO
+    minimo: 8
+    maximo: 30
+  - ref: VIV-009
+    nombre: Adelfa de 80 cm
+    categoria: PLANTA
+    coste: 9.50
+    pvp: 18.50
+    proveedor: PRV-VIVERO
+    minimo: 10
+    maximo: 35
+  - ref: VIV-010
+    nombre: Olivo de 1,5 m en maceta
+    categoria: PLANTA
+    coste: 42.00
+    pvp: 78.00
+    proveedor: PRV-VIVERO
+    minimo: 4
+    maximo: 15
+  - ref: VIV-011
+    nombre: Limonero de 1,2 m
+    categoria: PLANTA
+    coste: 33.00
+    pvp: 62.00
+    proveedor: PRV-VIVERO
+    minimo: 5
+    maximo: 18
+  - ref: VIV-012
+    nombre: Arce japonés de 1,5 m
+    categoria: PLANTA
+    coste: 82.00
+    pvp: 145.00
+    proveedor: PRV-VIVERO
+    minimo: 2
+    maximo: 8
+
+  # --- Sustratos, abonos y fertilizantes (IVA 10 %) -----------------------
+  - ref: VIV-101
+    nombre: Sustrato universal 40 l
+    categoria: SUSTRATOS
+    coste: 4.20
+    pvp: 7.20
+    proveedor: PRV-SUSTRATOS
+    minimo: 40
+    maximo: 250
+  - ref: VIV-102
+    nombre: Sustrato para plantas acidófilas 40 l
+    categoria: SUSTRATOS
+    coste: 5.30
+    pvp: 8.90
+    proveedor: PRV-SUSTRATOS
+    minimo: 20
+    maximo: 120
+  - ref: VIV-103
+    nombre: Abono granulado universal 5 kg
+    categoria: SUSTRATOS
+    coste: 8.60
+    pvp: 14.50
+    proveedor: PRV-SUSTRATOS
+    minimo: 15
+    maximo: 80
+  - ref: VIV-104
+    nombre: Abono líquido para geranios 1 l
+    categoria: SUSTRATOS
+    coste: 4.40
+    pvp: 7.90
+    proveedor: PRV-SUSTRATOS
+    minimo: 18
+    maximo: 90
+  - ref: VIV-105
+    nombre: Mantillo de estiércol 50 l
+    categoria: SUSTRATOS
+    coste: 3.60
+    pvp: 6.40
+    proveedor: PRV-SUSTRATOS
+    minimo: 25
+    maximo: 140
+
+  # --- Herramientas, macetas y riego (IVA 21 %) ---------------------------
+  - ref: VIV-201
+    nombre: Pala de jardín con mango de madera
+    categoria: HERRAMIENTAS
+    coste: 9.80
+    pvp: 17.90
+    proveedor: PRV-HERRAMIENTAS
+    minimo: 8
+    maximo: 40
+  - ref: VIV-202
+    nombre: Rastrillo de mano de acero
+    categoria: HERRAMIENTAS
+    coste: 6.40
+    pvp: 12.50
+    proveedor: PRV-HERRAMIENTAS
+    minimo: 10
+    maximo: 45
+  - ref: VIV-203
+    nombre: Tijeras de poda de una mano
+    categoria: HERRAMIENTAS
+    coste: 13.20
+    pvp: 24.90
+    proveedor: PRV-HERRAMIENTAS
+    minimo: 8
+    maximo: 35
+  - ref: VIV-204
+    nombre: Cortasetos eléctrico 550 W
+    categoria: HERRAMIENTAS
+    coste: 48.00
+    pvp: 89.00
+    proveedor: PRV-HERRAMIENTAS
+    minimo: 3
+    maximo: 12
+  - ref: VIV-205
+    nombre: Maceta de cerámica esmaltada 30 cm
+    categoria: HERRAMIENTAS
+    coste: 18.50
+    pvp: 34.90
+    proveedor: PRV-CERAMICA
+    minimo: 8
+    maximo: 40
+  - ref: VIV-206
+    nombre: Maceta de terracota 25 cm
+    categoria: HERRAMIENTAS
+    coste: 8.90
+    pvp: 16.90
+    proveedor: PRV-CERAMICA
+    minimo: 12
+    maximo: 60
+  - ref: VIV-207
+    nombre: Manguera de riego de 25 m
+    categoria: HERRAMIENTAS
+    coste: 16.40
+    pvp: 29.90
+    proveedor: PRV-RIEGO
+    minimo: 10
+    maximo: 45
+  - ref: VIV-208
+    nombre: Programador de riego de grifo
+    categoria: HERRAMIENTAS
+    coste: 24.50
+    pvp: 44.90
+    proveedor: PRV-RIEGO
+    minimo: 6
+    maximo: 25
+
+  # --- Decoración de jardín (IVA 21 %) ------------------------------------
+  - ref: VIV-401
+    nombre: Farol de jardín de metal con vela
+    categoria: DECORACION
+    coste: 21.00
+    pvp: 42.00
+    proveedor: PRV-CERAMICA
+    minimo: 6
+    maximo: 24
+  - ref: VIV-402
+    nombre: Mesa de exterior plegable de madera
+    categoria: DECORACION
+    coste: 78.00
+    pvp: 139.00
+    proveedor: PRV-CERAMICA
+    minimo: 2
+    maximo: 8
+  - ref: VIV-403
+    nombre: Silla de exterior de madera
+    categoria: DECORACION
+    coste: 41.00
+    pvp: 74.00
+    proveedor: PRV-CERAMICA
+    minimo: 4
+    maximo: 16
+
+  # --- Servicios de jardinería (IVA 21 %) ---------------------------------
+  - ref: VIV-301
+    nombre: Diseño de jardín (visita y plano)
+    categoria: SERVICIOS
+    tipo: servicio
+    coste: 95.00
+    pvp: 180.00
+  - ref: VIV-302
+    nombre: Instalación de riego por goteo (100 m²)
+    categoria: SERVICIOS
+    tipo: servicio
+    coste: 240.00
+    pvp: 420.00
+  - ref: VIV-303
+    nombre: Mantenimiento mensual de jardín particular
+    categoria: SERVICIOS
+    tipo: servicio
+    coste: 85.00
+    pvp: 145.00
+  - ref: VIV-304
+    nombre: Mantenimiento mensual de zonas verdes de comunidad
+    categoria: SERVICIOS
+    tipo: servicio
+    coste: 195.00
+    pvp: 320.00
+  - ref: VIV-305
+    nombre: Poda de árbol de hasta 6 m
+    categoria: SERVICIOS
+    tipo: servicio
+    coste: 48.00
+    pvp: 95.00
+  - ref: VIV-306
+    nombre: Entrega de planta a domicilio (radio 25 km)
+    categoria: SERVICIOS
+    tipo: servicio
+    coste: 19.00
+    pvp: 39.00
+    proveedor: PRV-TRANSPORTE
+
+clientes:
+  - clave: CLI-01
+    tipo: particular
+    segmento: Particular
+    cond_pago: Pago inmediato
+  - clave: CLI-02
+    tipo: particular
+    segmento: Particular
+    cond_pago: Pago inmediato
+  - clave: CLI-03
+    tipo: particular
+    segmento: Particular
+    cond_pago: Pago inmediato
+  - clave: CLI-04
+    tipo: particular
+    segmento: Particular
+    cond_pago: Pago inmediato
+  - clave: CLI-05
+    tipo: particular
+    segmento: Particular
+    cond_pago: Pago inmediato
+  - clave: CLI-06
+    tipo: empresa
+    forma_juridica: C.B.
+    segmento: Comunidad de vecinos
+    tarifa: comunidades
+    cond_pago: 30 días
+  - clave: CLI-07
+    tipo: empresa
+    forma_juridica: C.B.
+    segmento: Comunidad de vecinos
+    tarifa: comunidades
+    cond_pago: 30 días
+  - clave: CLI-08
+    tipo: empresa
+    forma_juridica: C.B.
+    segmento: Comunidad de vecinos
+    tarifa: comunidades
+    cond_pago: 30 días
+  - clave: CLI-09
+    tipo: empresa
+    forma_juridica: C.B.
+    segmento: Comunidad de vecinos
+    tarifa: comunidades
+    cond_pago: 45 días
+  - clave: CLI-10
+    tipo: empresa
+    forma_juridica: C.B.
+    segmento: Comunidad de vecinos
+    tarifa: comunidades
+    cond_pago: 30 días
+  - clave: CLI-11
+    tipo: empresa
+    forma_juridica: C.B.
+    segmento: Comunidad de vecinos
+    tarifa: comunidades
+    cond_pago: 45 días
+  - clave: CLI-12
+    tipo: empresa
+    forma_juridica: Ayuntamiento
+    segmento: Ayuntamiento
+    tarifa: profesionales
+    cond_pago: 45 días
+  - clave: CLI-13
+    tipo: empresa
+    forma_juridica: Ayuntamiento
+    segmento: Ayuntamiento
+    tarifa: profesionales
+    cond_pago: Fin del siguiente mes
+  - clave: CLI-14
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Oficinas
+    tarifa: profesionales
+    cond_pago: 30 días
+  - clave: CLI-15
+    tipo: empresa
+    forma_juridica: S.A.
+    segmento: Hotel
+    tarifa: profesionales
+    cond_pago: Fin del siguiente mes
+  - clave: CLI-16
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Restaurante
+    tarifa: profesionales
+    cond_pago: 30 días
+  - clave: CLI-17
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Colegio
+    tarifa: profesionales
+    cond_pago: 45 días
+  - clave: CLI-18
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Paisajista
+    tarifa: profesionales
+    cond_pago: 30 días

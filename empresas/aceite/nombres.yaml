@@ -1,0 +1,92 @@
+# Bolsas de nombres, calles y poblaciones para las variantes de Cooperativa
+# Olivar del Tajo.
+#
+# El generador baraja estas listas con la semilla (empresa, alumno): cada alumno
+# recibe una combinación distinta. Los nombres son inventados; cualquier parecido
+# con tiendas, restaurantes, hoteles o personas reales es casualidad.
+
+clientes:
+  empresas:
+    - La Despensa del Tajo
+    - Ultramarinos El Azafrán
+    - La Alacena de Doña Urraca
+    - Delicatessen El Puente Viejo
+    - Colmado Las Tres Culturas
+    - La Cesta de la Sierra
+    - Gourmet Alcázar
+    - El Rincón del Olivar
+    - La Botica del Sabor
+    - Productos de la Tierra
+    - Restaurante Los Molinos de Orgaz
+    - Mesón La Venta del Fraile
+    - Restaurante El Mirador de Consuegra
+    - Taberna La Cuchara de Palo
+    - Restaurante Sierra de los Yébenes
+    - Asador El Camino Real
+    - Restaurante La Almazara Vieja
+    - Casa Aurelio
+    - Restaurante El Horno de Mudarra
+    - Mesón El Zaguán
+    - Restaurante Las Hazas
+    - Taberna del Arco
+    - Hotel Hacienda Los Olivos
+    - Hotel Rural La Quintería
+    - Hotel Spa Valle del Tajo
+    - Posada del Arco
+    - Hotel Mirador de los Montes
+    - Distribuciones Gastronómicas Meridiano
+    - Bodega Viña del Aljibe
+    - Quesería Los Cerros
+  particulares:
+    - Carmen Delgado Rueda
+    - Alfonso Prieto Salas
+    - Inés Marín Cabrera
+    - Ramón Ortega Vela
+    - Beatriz Lozano Aguado
+    - Tomás Herrera Pinto
+    - Pilar Nieto Barranco
+    - Andrés Molina Cano
+    - Rosa Villalba Serna
+    - Emilio Navarro Cuesta
+
+calles:
+  - Calle Mayor
+  - Calle Real
+  - Plaza del Ayuntamiento
+  - Calle de los Olivos
+  - Calle del Molino
+  - Avenida de Castilla-La Mancha
+  - Calle de la Almazara
+  - Camino de Toledo
+  - Calle del Tajo
+  - Ronda del Arroyo
+  - Calle de la Vega
+  - Calle del Horno
+  - Plaza de la Constitución
+  - Avenida de los Reyes Católicos
+  - Calle del Pozo
+  - Travesía de la Fuente
+  - Calle de las Ánimas
+  - Paseo del Carmen
+
+poblaciones:
+  - {poblacion: Toledo, provincia: Toledo, cp: "45001"}
+  - {poblacion: Los Yébenes, provincia: Toledo, cp: "45430"}
+  - {poblacion: Sonseca, provincia: Toledo, cp: "45100"}
+  - {poblacion: Orgaz, provincia: Toledo, cp: "45450"}
+  - {poblacion: Mora, provincia: Toledo, cp: "45400"}
+  - {poblacion: Consuegra, provincia: Toledo, cp: "45700"}
+  - {poblacion: Madridejos, provincia: Toledo, cp: "45710"}
+  - {poblacion: Urda, provincia: Toledo, cp: "45480"}
+  - {poblacion: Villacañas, provincia: Toledo, cp: "45860"}
+  - {poblacion: Ocaña, provincia: Toledo, cp: "45300"}
+  - {poblacion: Torrijos, provincia: Toledo, cp: "45500"}
+  - {poblacion: Talavera de la Reina, provincia: Toledo, cp: "45600"}
+  - {poblacion: Illescas, provincia: Toledo, cp: "45200"}
+  - {poblacion: Seseña, provincia: Toledo, cp: "45223"}
+  - {poblacion: Aranjuez, provincia: Madrid, cp: "28300"}
+  - {poblacion: Madrid, provincia: Madrid, cp: "28013"}
+  - {poblacion: Ciudad Real, provincia: Ciudad Real, cp: "13001"}
+  - {poblacion: Cuenca, provincia: Cuenca, cp: "16001"}
+  - {poblacion: Albacete, provincia: Albacete, cp: "02001"}
+  - {poblacion: Guadalajara, provincia: Guadalajara, cp: "19001"}

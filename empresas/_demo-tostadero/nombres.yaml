@@ -1,0 +1,87 @@
+# Bolsas de nombres, calles y poblaciones para las variantes de Tostadero Manzanares.
+#
+# El generador baraja estas listas con la semilla (empresa, alumno): cada alumno
+# recibe una combinación distinta. Los nombres son inventados; cualquier parecido
+# con bares, cafeterías o personas reales es casualidad.
+
+clientes:
+  empresas:
+    - Cafetería El Molino
+    - Bar La Esquina
+    - Café Central
+    - Restaurante La Encina
+    - Cafetería Aroma
+    - Bar Don Julio
+    - Restaurante El Puerto
+    - Cafetería Las Vistillas
+    - Panadería y Café Trigal
+    - Bar El Rincón del Huerta
+    - Restaurante Casa Pepe
+    - Cafetería La Tertulia
+    - Hotel Mirador del Tajo
+    - Hotel Las Rozas Plaza
+    - Distribuciones Cafeteras Meridiano
+    - Tienda El Grano de Oro
+    - Restaurante Sabor a Leña
+    - Cafetería Once Treinta
+    - Bar La Chispa
+    - Cafetería El Búcaro
+    - Restaurante La Terraza del Prado
+    - Panadería Horno de Leña San Blas
+    - Cafetería Nuevo Siglo
+    - Bar Los Arcos
+    - Restaurante Finca El Olivar
+    - Hotel Rural Camino Real
+    - Cafetería La Plaza
+    - Bar El Chiringuito
+  particulares:
+    - Ana Belén Ruiz Pérez
+    - Marcos Delgado Ibáñez
+    - Lucía Fernández Ortega
+    - Javier Moreno Sanz
+    - Elena Castro Vidal
+    - Pablo Iglesias Rueda
+    - Marta Salas Herrera
+    - Sergio Núñez Cabrera
+
+calles:
+  - Calle Mayor
+  - Calle Real
+  - Avenida de la Constitución
+  - Calle del Sol
+  - Plaza del Ayuntamiento
+  - Calle de los Olivos
+  - Avenida de Madrid
+  - Calle de la Estación
+  - Camino de la Dehesa
+  - Calle de la Fuente
+  - Avenida de Europa
+  - Calle del Carmen
+  - Ronda de Toledo
+  - Calle de la Encarnación
+  - Paseo del Prado
+  - Calle de la Alameda
+  - Travesía del Río
+  - Calle de los Herreros
+
+poblaciones:
+  - {poblacion: Madrid, provincia: Madrid, cp: "28013"}
+  - {poblacion: Getafe, provincia: Madrid, cp: "28901"}
+  - {poblacion: Alcalá de Henares, provincia: Madrid, cp: "28801"}
+  - {poblacion: Leganés, provincia: Madrid, cp: "28911"}
+  - {poblacion: Móstoles, provincia: Madrid, cp: "28931"}
+  - {poblacion: Fuenlabrada, provincia: Madrid, cp: "28941"}
+  - {poblacion: Pozuelo de Alarcón, provincia: Madrid, cp: "28223"}
+  - {poblacion: Las Rozas de Madrid, provincia: Madrid, cp: "28231"}
+  - {poblacion: Valdemoro, provincia: Madrid, cp: "28341"}
+  - {poblacion: Aranjuez, provincia: Madrid, cp: "28300"}
+  - {poblacion: Toledo, provincia: Toledo, cp: "45001"}
+  - {poblacion: Guadalajara, provincia: Guadalajara, cp: "19001"}
+  - {poblacion: Segovia, provincia: Segovia, cp: "40001"}
+  - {poblacion: Ávila, provincia: Ávila, cp: "05001"}
+  - {poblacion: Valladolid, provincia: Valladolid, cp: "47001"}
+  - {poblacion: Valencia, provincia: Valencia, cp: "46001"}
+  - {poblacion: Zaragoza, provincia: Zaragoza, cp: "50001"}
+  - {poblacion: Sevilla, provincia: Sevilla, cp: "41001"}
+  - {poblacion: Barcelona, provincia: Barcelona, cp: "08001"}
+  - {poblacion: Murcia, provincia: Murcia, cp: "30001"}

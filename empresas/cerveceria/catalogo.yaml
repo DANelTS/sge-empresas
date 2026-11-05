@@ -1,0 +1,492 @@
+# Catálogo del sector cervecero: Cervecera Lúpulo Norte S.L.
+#
+# generar.py convierte esta definición canónica en la variante de cada alumno
+# (precios ±10 %, NIF, IBAN, direcciones y nombres de clientes).
+#
+# Los tipos de IVA de cada familia están en `categorias`; se aplican a todos los
+# productos de la familia salvo que el producto indique `iva_venta`/`iva_compra`.
+
+empresa:
+  clave: cerveceria
+  nombre: Cervecera Lúpulo Norte
+  forma_juridica: S.L.
+  letra_cif: B
+  domicilio: Calle de la Vega, 22, nave 4
+  cp: "28500"
+  poblacion: Arganda del Rey
+  provincia: Madrid
+  telefono: 918 762 340
+  email: administracion@lupulonorte.example
+  web: www.lupulonorte.example
+  banco: "2100"
+  sucursal: "4567"
+  actividad: Fabricación de cerveza artesanal y distribución a hostelería
+  epigrafe: "1105 — Fabricación de cerveza"
+  cond_pago_ventas: 30 días
+  cond_pago_compras: 30 días
+
+categorias:
+  - clave: CERV-BARRIL
+    nombre: Cerveza en barril
+    iva_venta: 21
+    iva_compra: 21
+  - clave: CERV-BOTELLA
+    nombre: Cerveza en botella y packs
+    iva_venta: 21
+    iva_compra: 21
+  - clave: MATERIAS
+    nombre: Materias primas
+    iva_venta: 21
+    iva_compra: 21
+  - clave: MERCH
+    nombre: Merchandising
+    iva_venta: 21
+    iva_compra: 21
+  - clave: SERVICIOS
+    nombre: Servicios
+    iva_venta: 21
+    iva_compra: 21
+
+tarifas:
+  - clave: hosteleria
+    nombre: Tarifa hostelería
+    descuento: 8
+  - clave: distribucion
+    nombre: Tarifa distribución
+    descuento: 15
+
+proveedores:
+  - clave: PRV-MALTA
+    nombre: Maltería del Duero S.L.
+    actividad: Malta de cebada para cerveza artesanal
+    letra_cif: B
+    cond_pago: 30 días
+    calle: Polígono San Cristóbal, calle del Cobre, 14
+    cp: "47012"
+    poblacion: Valladolid
+    provincia: Valladolid
+    dominio: malteria-duero.example
+  - clave: PRV-LUPULO
+    nombre: Lúpulos del Órbigo S.L.
+    actividad: Lúpulo en pellets y en flor
+    letra_cif: B
+    cond_pago: 30 días
+    calle: Avenida del Páramo, 8
+    cp: "24009"
+    poblacion: León
+    provincia: León
+    dominio: lupulos-orbigo.example
+  - clave: PRV-LEVADURA
+    nombre: Levaduras del Ebro S.L.
+    actividad: Levadura seca y líquida para fermentación ale
+    letra_cif: B
+    cond_pago: 15 días
+    calle: Calle de la Almozara, 31
+    cp: "50003"
+    poblacion: Zaragoza
+    provincia: Zaragoza
+    dominio: levaduras-ebro.example
+  - clave: PRV-BOTELLAS
+    nombre: Vidrio del Turia S.A.
+    actividad: Botellas de vidrio para bebidas
+    letra_cif: A
+    cond_pago: 45 días
+    calle: Polígono de Sagunto, calle dels Vidres, 5
+    cp: "46520"
+    poblacion: Sagunto
+    provincia: Valencia
+    dominio: vidrio-turia.example
+  - clave: PRV-ETIQUETAS
+    nombre: Etiquetas y Estuches Norte S.L.
+    actividad: Etiquetas autoadhesivas, cartón y estuches
+    letra_cif: B
+    cond_pago: Fin del siguiente mes
+    calle: Calle de la Ribera, 17
+    cp: "26009"
+    poblacion: Logroño
+    provincia: La Rioja
+    dominio: etiquetas-norte.example
+  - clave: PRV-MAQUINARIA
+    nombre: Envasado Meseta S.L.
+    actividad: Maquinaria de embotellado y recambios de llenado
+    letra_cif: B
+    cond_pago: 45 días
+    calle: Polígono Oeste, calle del Aluminio, 9
+    cp: "30100"
+    poblacion: Murcia
+    provincia: Murcia
+    dominio: envasado-meseta.example
+
+productos:
+  # --- Materias primas y aprovisionamientos: no se venden -----------------
+  - ref: CER-001
+    nombre: Malta pale ale (saco 25 kg)
+    categoria: MATERIAS
+    coste: 34.00
+    pvp: 0.00
+    venta: false
+    proveedor: PRV-MALTA
+    minimo: 8
+    maximo: 40
+  - ref: CER-002
+    nombre: Malta Munich (saco 25 kg)
+    categoria: MATERIAS
+    coste: 38.50
+    pvp: 0.00
+    venta: false
+    proveedor: PRV-MALTA
+    minimo: 4
+    maximo: 20
+  - ref: CER-003
+    nombre: Malta carabelo (saco 25 kg)
+    categoria: MATERIAS
+    coste: 42.00
+    pvp: 0.00
+    venta: false
+    proveedor: PRV-MALTA
+    minimo: 4
+    maximo: 18
+  - ref: CER-004
+    nombre: Lúpulo Cascade en pellets (bolsa 5 kg)
+    categoria: MATERIAS
+    coste: 105.00
+    pvp: 0.00
+    venta: false
+    proveedor: PRV-LUPULO
+    minimo: 3
+    maximo: 15
+  - ref: CER-005
+    nombre: Lúpulo Saaz en pellets (bolsa 5 kg)
+    categoria: MATERIAS
+    coste: 118.00
+    pvp: 0.00
+    venta: false
+    proveedor: PRV-LUPULO
+    minimo: 2
+    maximo: 12
+  - ref: CER-006
+    nombre: Levadura ale inglesa (caja 10 × 500 g)
+    categoria: MATERIAS
+    coste: 265.00
+    pvp: 0.00
+    venta: false
+    proveedor: PRV-LEVADURA
+    minimo: 2
+    maximo: 8
+  - ref: CER-007
+    nombre: Botella de vidrio 33 cl marrón (palé 1.000)
+    categoria: MATERIAS
+    coste: 210.00
+    pvp: 0.00
+    venta: false
+    proveedor: PRV-BOTELLAS
+    minimo: 2
+    maximo: 10
+  - ref: CER-008
+    nombre: Etiquetas autoadhesivas (rollo 2.000)
+    categoria: MATERIAS
+    coste: 78.00
+    pvp: 0.00
+    venta: false
+    proveedor: PRV-ETIQUETAS
+    minimo: 3
+    maximo: 15
+  - ref: CER-009
+    nombre: Caja de cartón para 6 botellas (paquete 50)
+    categoria: MATERIAS
+    coste: 46.00
+    pvp: 0.00
+    venta: false
+    proveedor: PRV-ETIQUETAS
+    minimo: 4
+    maximo: 20
+  - ref: CER-010
+    nombre: Juego de boquillas para llenadora (4 uds)
+    categoria: MATERIAS
+    coste: 165.00
+    pvp: 0.00
+    venta: false
+    proveedor: PRV-MAQUINARIA
+    minimo: 1
+    maximo: 4
+
+  # --- Cerveza en barril (20 y 30 l) --------------------------------------
+  - ref: CER-020
+    nombre: Rubia del Norte, barril 30 l
+    categoria: CERV-BARRIL
+    coste: 44.00
+    pvp: 98.00
+    minimo: 6
+    maximo: 30
+  - ref: CER-021
+    nombre: Rubia del Norte, barril 20 l
+    categoria: CERV-BARRIL
+    coste: 31.00
+    pvp: 76.00
+    minimo: 4
+    maximo: 20
+  - ref: CER-022
+    nombre: IPA Lúpulo Norte, barril 30 l
+    categoria: CERV-BARRIL
+    coste: 47.50
+    pvp: 108.00
+    minimo: 4
+    maximo: 18
+  - ref: CER-023
+    nombre: Tostada del Norte, barril 30 l
+    categoria: CERV-BARRIL
+    coste: 46.00
+    pvp: 105.00
+    minimo: 3
+    maximo: 15
+  - ref: CER-024
+    nombre: Trigo del Norte, barril 20 l
+    categoria: CERV-BARRIL
+    coste: 33.00
+    pvp: 80.00
+    minimo: 3
+    maximo: 14
+  - ref: CER-025
+    nombre: Edición de temporada, barril 30 l
+    categoria: CERV-BARRIL
+    coste: 52.00
+    pvp: 110.00
+    minimo: 2
+    maximo: 10
+
+  # --- Cerveza en botella de 33 cl ----------------------------------------
+  - ref: CER-030
+    nombre: Rubia del Norte, botella 33 cl
+    categoria: CERV-BOTELLA
+    coste: 0.62
+    pvp: 1.75
+    minimo: 120
+    maximo: 600
+  - ref: CER-031
+    nombre: IPA Lúpulo Norte, botella 33 cl
+    categoria: CERV-BOTELLA
+    coste: 0.72
+    pvp: 2.10
+    minimo: 96
+    maximo: 480
+  - ref: CER-032
+    nombre: Tostada del Norte, botella 33 cl
+    categoria: CERV-BOTELLA
+    coste: 0.68
+    pvp: 1.95
+    minimo: 96
+    maximo: 480
+  - ref: CER-033
+    nombre: Trigo del Norte, botella 33 cl
+    categoria: CERV-BOTELLA
+    coste: 0.66
+    pvp: 1.90
+    minimo: 72
+    maximo: 360
+  - ref: CER-034
+    nombre: Sin alcohol Norte, botella 33 cl
+    categoria: CERV-BOTELLA
+    coste: 0.55
+    pvp: 1.60
+    minimo: 72
+    maximo: 360
+  - ref: CER-035
+    nombre: Edición de temporada, botella 33 cl
+    categoria: CERV-BOTELLA
+    coste: 0.85
+    pvp: 2.45
+    minimo: 48
+    maximo: 240
+
+  # --- Cerveza en botella de 75 cl ----------------------------------------
+  - ref: CER-040
+    nombre: Rubia del Norte, botella 75 cl
+    categoria: CERV-BOTELLA
+    coste: 1.45
+    pvp: 3.90
+    minimo: 48
+    maximo: 240
+  - ref: CER-041
+    nombre: IPA Lúpulo Norte, botella 75 cl
+    categoria: CERV-BOTELLA
+    coste: 1.60
+    pvp: 4.30
+    minimo: 36
+    maximo: 180
+  - ref: CER-042
+    nombre: Edición de temporada, botella 75 cl
+    categoria: CERV-BOTELLA
+    coste: 1.85
+    pvp: 5.20
+    minimo: 24
+    maximo: 120
+
+  # --- Packs mixtos -------------------------------------------------------
+  - ref: CER-050
+    nombre: Pack degustación 6 × 33 cl
+    categoria: CERV-BOTELLA
+    coste: 4.40
+    pvp: 12.90
+    minimo: 12
+    maximo: 60
+  - ref: CER-051
+    nombre: Pack Rubia del Norte 12 × 33 cl
+    categoria: CERV-BOTELLA
+    coste: 8.20
+    pvp: 22.50
+    minimo: 8
+    maximo: 40
+  - ref: CER-052
+    nombre: Pack temporada 3 × 75 cl
+    categoria: CERV-BOTELLA
+    coste: 5.40
+    pvp: 15.90
+    minimo: 8
+    maximo: 30
+
+  # --- Merchandising ------------------------------------------------------
+  - ref: CER-060
+    nombre: Vaso cervecero 0,5 l con logo
+    categoria: MERCH
+    coste: 2.10
+    pvp: 5.90
+    minimo: 24
+    maximo: 120
+  - ref: CER-061
+    nombre: Camiseta Lúpulo Norte
+    categoria: MERCH
+    coste: 6.40
+    pvp: 16.90
+    minimo: 10
+    maximo: 50
+  - ref: CER-062
+    nombre: Growler de acero inoxidable 2 l
+    categoria: MERCH
+    coste: 11.50
+    pvp: 27.90
+    minimo: 6
+    maximo: 30
+
+  # --- Servicios ----------------------------------------------------------
+  - ref: CER-070
+    nombre: Visita guiada a la fábrica (grupo hasta 10 personas)
+    categoria: SERVICIOS
+    tipo: servicio
+    coste: 55.00
+    pvp: 150.00
+  - ref: CER-071
+    nombre: Alquiler de grifo para eventos (fin de semana)
+    categoria: SERVICIOS
+    tipo: servicio
+    coste: 40.00
+    pvp: 120.00
+  - ref: CER-072
+    nombre: Formación de tiraje (3 h)
+    categoria: SERVICIOS
+    tipo: servicio
+    coste: 65.00
+    pvp: 180.00
+
+clientes:
+  - clave: CLI-01
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Bar
+    tarifa: hosteleria
+    cond_pago: 30 días
+  - clave: CLI-02
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Bar
+    tarifa: hosteleria
+    cond_pago: 30 días
+  - clave: CLI-03
+    tipo: empresa
+    forma_juridica: C.B.
+    segmento: Bar
+    tarifa: hosteleria
+    cond_pago: 30 días
+  - clave: CLI-04
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Bar
+    tarifa: hosteleria
+    cond_pago: 15 días
+  - clave: CLI-05
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Bar
+    tarifa: hosteleria
+    cond_pago: 30 días
+  - clave: CLI-06
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Bar
+    tarifa: hosteleria
+    cond_pago: 30 días
+  - clave: CLI-07
+    tipo: empresa
+    forma_juridica: C.B.
+    segmento: Bar
+    tarifa: hosteleria
+    cond_pago: 30 días
+  - clave: CLI-08
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Bar
+    tarifa: hosteleria
+    cond_pago: 45 días
+  - clave: CLI-09
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Bar
+    tarifa: hosteleria
+    cond_pago: 30 días
+  - clave: CLI-10
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Bar
+    tarifa: hosteleria
+    cond_pago: 15 días
+  - clave: CLI-11
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Restaurante
+    tarifa: hosteleria
+    cond_pago: 30 días
+  - clave: CLI-12
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Restaurante
+    tarifa: hosteleria
+    cond_pago: 45 días
+  - clave: CLI-13
+    tipo: empresa
+    forma_juridica: S.A.
+    segmento: Restaurante
+    tarifa: hosteleria
+    cond_pago: Fin del siguiente mes
+  - clave: CLI-14
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Tienda de cerveza
+    tarifa: hosteleria
+    cond_pago: 30 días
+  - clave: CLI-15
+    tipo: empresa
+    forma_juridica: S.A.
+    segmento: Distribuidor
+    tarifa: distribucion
+    cond_pago: Fin del siguiente mes
+  - clave: CLI-16
+    tipo: particular
+    segmento: Particular
+    cond_pago: Pago inmediato
+  - clave: CLI-17
+    tipo: particular
+    segmento: Particular
+    cond_pago: Pago inmediato
+  - clave: CLI-18
+    tipo: particular
+    segmento: Particular
+    cond_pago: Pago inmediato

@@ -1,0 +1,479 @@
+# Catálogo del sector: Ciclos Rodadura S.L. (tienda y taller de bicicletas)
+#
+# Es la definición canónica del sector «bicicletas». generar.py aplica encima la
+# variación de cada alumno (precios ±10 %, NIF, IBAN, direcciones y nombres de
+# clientes).
+#
+# Los tipos de IVA de cada familia están en `categorias`; se aplican a todos los
+# productos de la familia salvo que el producto indique `iva_venta`/`iva_compra`.
+# En este sector todo va al 21 %: no hay ningún bien ni servicio de tipo
+# reducido, pero el taller y el alquiler son servicios y los demás son bienes.
+
+empresa:
+  clave: bicicletas
+  nombre: Ciclos Rodadura
+  forma_juridica: S.L.
+  letra_cif: B
+  domicilio: Avenida de la Industria, 28, local 3
+  cp: "28100"
+  poblacion: Alcobendas
+  provincia: Madrid
+  telefono: 916 620 480
+  email: administracion@ciclos-rodadura.example
+  web: www.ciclos-rodadura.example
+  banco: "2100"
+  sucursal: "4567"
+  actividad: Venta de bicicletas, recambios y accesorios; taller de reparación y alquiler
+  epigrafe: "659.6 — Comercio al por menor de juguetes, artículos de deporte y prendas deportivas"
+  cond_pago_ventas: 30 días
+  cond_pago_compras: 30 días
+
+categorias:
+  - clave: BICICLETAS
+    nombre: Bicicletas
+    iva_venta: 21
+    iva_compra: 21
+  - clave: COMPONENTES
+    nombre: Recambios y componentes
+    iva_venta: 21
+    iva_compra: 21
+  - clave: ACCESORIOS
+    nombre: Accesorios y ropa
+    iva_venta: 21
+    iva_compra: 21
+  - clave: TALLER
+    nombre: Taller
+    iva_venta: 21
+    iva_compra: 21
+  - clave: ALQUILER
+    nombre: Alquiler de bicicletas
+    iva_venta: 21
+    iva_compra: 21
+
+tarifas:
+  - clave: taller
+    nombre: Tarifa taller
+    descuento: 10
+  - clave: flotas
+    nombre: Tarifa flotas
+    descuento: 15
+
+proveedores:
+  - clave: PRV-CUADROS
+    nombre: Cuadros y Componentes Ebro S.L.
+    actividad: Cuadros de aluminio, horquillas y grupos de transmisión
+    letra_cif: B
+    cond_pago: 30 días
+    calle: Calle de la Bóveda, 12
+    cp: "50014"
+    poblacion: Zaragoza
+    provincia: Zaragoza
+    dominio: cuadros-ebro.example
+  - clave: PRV-NEUMATICOS
+    nombre: Neumáticos Ciclo Levante S.A.
+    actividad: Cubiertas, cámaras y cintas antipinchazos
+    letra_cif: A
+    cond_pago: 45 días
+    calle: Avenida del Puerto, 96
+    cp: "46021"
+    poblacion: Valencia
+    provincia: Valencia
+    dominio: ciclo-levante.example
+  - clave: PRV-ACCESORIOS
+    nombre: Accesorios Bici Jarama S.L.
+    actividad: Luces, candados, portabultos y pequeños recambios
+    letra_cif: B
+    cond_pago: 30 días
+    calle: Calle de la Sierra, 24
+    cp: "28701"
+    poblacion: San Sebastián de los Reyes
+    provincia: Madrid
+    dominio: bici-jarama.example
+  - clave: PRV-ROPA
+    nombre: Confecciones Deportivas Nervión S.L.
+    actividad: Maillots, culotes, guantes y ropa de abrigo ciclista
+    letra_cif: B
+    cond_pago: 30 días
+    calle: Calle Feria, 88
+    cp: "41003"
+    poblacion: Sevilla
+    provincia: Sevilla
+    dominio: textil-nervion.example
+  - clave: PRV-HERRAMIENTAS
+    nombre: Herramientas de Taller Duero S.L.
+    actividad: Útiles de taller, soportes, bancos de trabajo y consumibles
+    letra_cif: B
+    cond_pago: 45 días
+    calle: Avenida de Segovia, 74
+    cp: "47013"
+    poblacion: Valladolid
+    provincia: Valladolid
+    dominio: taller-duero.example
+  - clave: PRV-ELECTRICAS
+    nombre: Propulsión Eléctrica Ciclista S.L.
+    actividad: Motores, baterías y bicicletas de pedaleo asistido
+    letra_cif: B
+    cond_pago: Fin del siguiente mes
+    calle: Calle de los Herrán, 32
+    cp: "01006"
+    poblacion: Vitoria-Gasteiz
+    provincia: Álava
+    dominio: propulsion-ciclista.example
+
+productos:
+  # --- Bicicletas ---------------------------------------------------------
+  - ref: BIC-001
+    nombre: Bicicleta urbana 6 velocidades, cuadro de aluminio
+    categoria: BICICLETAS
+    coste: 292.00
+    pvp: 479.00
+    proveedor: PRV-CUADROS
+    minimo: 2
+    maximo: 8
+  - ref: BIC-002
+    nombre: Bicicleta urbana 8 velocidades con guardabarros y portabultos
+    categoria: BICICLETAS
+    coste: 385.00
+    pvp: 629.00
+    proveedor: PRV-CUADROS
+    minimo: 2
+    maximo: 6
+  - ref: BIC-003
+    nombre: Bicicleta de montaña rígida 29" 12 velocidades
+    categoria: BICICLETAS
+    coste: 498.00
+    pvp: 799.00
+    proveedor: PRV-CUADROS
+    minimo: 2
+    maximo: 6
+  - ref: BIC-004
+    nombre: Bicicleta de montaña doble suspensión 29"
+    categoria: BICICLETAS
+    coste: 1120.00
+    pvp: 1749.00
+    proveedor: PRV-CUADROS
+    minimo: 1
+    maximo: 4
+  - ref: BIC-005
+    nombre: Bicicleta gravel de aluminio, ruedas de 700
+    categoria: BICICLETAS
+    coste: 790.00
+    pvp: 1249.00
+    proveedor: PRV-CUADROS
+    minimo: 1
+    maximo: 4
+  - ref: BIC-006
+    nombre: Bicicleta eléctrica urbana, batería de 418 Wh
+    categoria: BICICLETAS
+    coste: 1290.00
+    pvp: 1899.00
+    proveedor: PRV-ELECTRICAS
+    minimo: 1
+    maximo: 4
+  - ref: BIC-007
+    nombre: Bicicleta eléctrica de montaña, batería de 630 Wh
+    categoria: BICICLETAS
+    coste: 2180.00
+    pvp: 3149.00
+    proveedor: PRV-ELECTRICAS
+    minimo: 1
+    maximo: 3
+
+  # --- Recambios y componentes -------------------------------------------
+  - ref: CMP-001
+    nombre: Cubierta de montaña 29 x 2,25
+    categoria: COMPONENTES
+    coste: 16.50
+    pvp: 29.90
+    proveedor: PRV-NEUMATICOS
+    minimo: 12
+    maximo: 40
+  - ref: CMP-002
+    nombre: Cubierta urbana 700 x 35 antipinchazos
+    categoria: COMPONENTES
+    coste: 11.80
+    pvp: 21.50
+    proveedor: PRV-NEUMATICOS
+    minimo: 15
+    maximo: 50
+  - ref: CMP-003
+    nombre: Cámara 29" con válvula Presta
+    categoria: COMPONENTES
+    coste: 3.60
+    pvp: 7.50
+    proveedor: PRV-NEUMATICOS
+    minimo: 25
+    maximo: 80
+  - ref: CMP-004
+    nombre: Cadena de 11 velocidades
+    categoria: COMPONENTES
+    coste: 15.40
+    pvp: 26.90
+    proveedor: PRV-CUADROS
+    minimo: 10
+    maximo: 30
+  - ref: CMP-005
+    nombre: Cassette de 11 velocidades 11-46
+    categoria: COMPONENTES
+    coste: 32.00
+    pvp: 54.90
+    proveedor: PRV-CUADROS
+    minimo: 6
+    maximo: 20
+  - ref: CMP-006
+    nombre: Pastillas de freno de disco (par)
+    categoria: COMPONENTES
+    coste: 10.20
+    pvp: 19.90
+    proveedor: PRV-ACCESORIOS
+    minimo: 15
+    maximo: 45
+  - ref: CMP-007
+    nombre: Disco de freno de 180 mm
+    categoria: COMPONENTES
+    coste: 15.60
+    pvp: 27.90
+    proveedor: PRV-ACCESORIOS
+    minimo: 8
+    maximo: 24
+
+  # --- Accesorios y ropa --------------------------------------------------
+  - ref: ACC-001
+    nombre: Casco urbano con luz trasera integrada
+    categoria: ACCESORIOS
+    coste: 29.00
+    pvp: 54.90
+    proveedor: PRV-ACCESORIOS
+    minimo: 8
+    maximo: 24
+  - ref: ACC-002
+    nombre: Casco de montaña con visera
+    categoria: ACCESORIOS
+    coste: 48.00
+    pvp: 89.90
+    proveedor: PRV-ACCESORIOS
+    minimo: 6
+    maximo: 18
+  - ref: ACC-003
+    nombre: Guantes de verano
+    categoria: ACCESORIOS
+    coste: 9.60
+    pvp: 19.90
+    proveedor: PRV-ROPA
+    minimo: 12
+    maximo: 40
+  - ref: ACC-004
+    nombre: Maillot de ciclismo de manga corta
+    categoria: ACCESORIOS
+    coste: 23.50
+    pvp: 44.90
+    proveedor: PRV-ROPA
+    minimo: 10
+    maximo: 30
+  - ref: ACC-005
+    nombre: Culote con badana
+    categoria: ACCESORIOS
+    coste: 20.80
+    pvp: 39.90
+    proveedor: PRV-ROPA
+    minimo: 10
+    maximo: 30
+  - ref: ACC-006
+    nombre: Juego de luces LED delantero y trasero
+    categoria: ACCESORIOS
+    coste: 13.40
+    pvp: 26.90
+    proveedor: PRV-ACCESORIOS
+    minimo: 15
+    maximo: 45
+  - ref: ACC-007
+    nombre: Candado en U con soporte de cuadro
+    categoria: ACCESORIOS
+    coste: 18.20
+    pvp: 34.90
+    proveedor: PRV-ACCESORIOS
+    minimo: 10
+    maximo: 30
+
+  # --- Taller: mano de obra, sin existencias ------------------------------
+  - ref: SRV-001
+    nombre: Puesta a punto básica
+    categoria: TALLER
+    tipo: servicio
+    coste: 13.00
+    pvp: 39.00
+  - ref: SRV-002
+    nombre: Cambio de cubierta (mano de obra)
+    categoria: TALLER
+    tipo: servicio
+    coste: 8.00
+    pvp: 22.00
+  - ref: SRV-003
+    nombre: Centrado de rueda
+    categoria: TALLER
+    tipo: servicio
+    coste: 10.50
+    pvp: 28.00
+  - ref: SRV-004
+    nombre: Revisión completa de 25 puntos
+    categoria: TALLER
+    tipo: servicio
+    coste: 28.00
+    pvp: 75.00
+  - ref: SRV-005
+    nombre: Montaje a medida de bicicleta
+    categoria: TALLER
+    tipo: servicio
+    coste: 120.00
+    pvp: 240.00
+  - ref: SRV-006
+    nombre: Ajuste de cambio electrónico
+    categoria: TALLER
+    tipo: servicio
+    coste: 17.00
+    pvp: 45.00
+  - ref: SRV-007
+    nombre: Purga de frenos hidráulicos
+    categoria: TALLER
+    tipo: servicio
+    coste: 14.00
+    pvp: 38.00
+
+  # --- Alquiler: se alquila el uso, la flota no es mercancía --------------
+  - ref: ALQ-001
+    nombre: Alquiler de bicicleta urbana (día)
+    categoria: ALQUILER
+    tipo: servicio
+    coste: 5.50
+    pvp: 14.00
+  - ref: ALQ-002
+    nombre: Alquiler de bicicleta de montaña (día)
+    categoria: ALQUILER
+    tipo: servicio
+    coste: 8.50
+    pvp: 22.00
+  - ref: ALQ-003
+    nombre: Alquiler de bicicleta eléctrica (día)
+    categoria: ALQUILER
+    tipo: servicio
+    coste: 14.00
+    pvp: 35.00
+  - ref: ALQ-004
+    nombre: Bono de 10 días de bicicleta urbana
+    categoria: ALQUILER
+    tipo: servicio
+    coste: 42.00
+    pvp: 110.00
+  - ref: ALQ-005
+    nombre: Alquiler semanal de bicicleta de montaña
+    categoria: ALQUILER
+    tipo: servicio
+    coste: 45.00
+    pvp: 115.00
+  - ref: ALQ-006
+    nombre: Alquiler de bicicleta infantil (día)
+    categoria: ALQUILER
+    tipo: servicio
+    coste: 3.50
+    pvp: 9.00
+
+clientes:
+  # --- Particulares: compran accesorios y pagan el taller al contado ------
+  - clave: CLI-01
+    tipo: particular
+    segmento: Particular
+    cond_pago: Pago inmediato
+  - clave: CLI-02
+    tipo: particular
+    segmento: Particular
+    cond_pago: Pago inmediato
+  - clave: CLI-03
+    tipo: particular
+    segmento: Particular
+    cond_pago: Pago inmediato
+  - clave: CLI-04
+    tipo: particular
+    segmento: Particular
+    cond_pago: Pago inmediato
+  - clave: CLI-05
+    tipo: particular
+    segmento: Particular
+    cond_pago: Pago inmediato
+  - clave: CLI-06
+    tipo: particular
+    segmento: Particular
+    cond_pago: Pago inmediato
+  - clave: CLI-07
+    tipo: particular
+    segmento: Particular
+    cond_pago: Pago inmediato
+  - clave: CLI-08
+    tipo: particular
+    segmento: Particular
+    cond_pago: Pago inmediato
+
+  # --- Talleres y tiendas que nos compran para revender -------------------
+  - clave: CLI-09
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Taller
+    tarifa: taller
+    cond_pago: 30 días
+  - clave: CLI-10
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Taller
+    tarifa: taller
+    cond_pago: 30 días
+  - clave: CLI-11
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Taller
+    tarifa: taller
+    cond_pago: 30 días
+  - clave: CLI-12
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Tienda
+    tarifa: taller
+    cond_pago: 30 días
+  - clave: CLI-13
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Tienda
+    tarifa: taller
+    cond_pago: 45 días
+  - clave: CLI-14
+    tipo: empresa
+    forma_juridica: S.A.
+    segmento: Taller
+    tarifa: taller
+    cond_pago: 45 días
+
+  # --- Empresas con flota de reparto o de cortesía ------------------------
+  - clave: CLI-15
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Flota de empresa
+    tarifa: flotas
+    cond_pago: Fin del siguiente mes
+  - clave: CLI-16
+    tipo: empresa
+    forma_juridica: S.A.
+    segmento: Flota de empresa
+    tarifa: flotas
+    cond_pago: Fin del siguiente mes
+
+  # --- Clubes deportivos: flota de bicis y equipación ---------------------
+  - clave: CLI-17
+    tipo: empresa
+    forma_juridica: Asociación
+    segmento: Club deportivo
+    tarifa: flotas
+    cond_pago: 30 días
+  - clave: CLI-18
+    tipo: empresa
+    forma_juridica: Asociación
+    segmento: Club deportivo
+    tarifa: flotas
+    cond_pago: 30 días

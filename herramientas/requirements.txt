@@ -1,0 +1,4 @@
+# Dependencias del servicio "herramientas".
+# Se instalan en la imagen; el alumnado no instala nada en su equipo.
+PyYAML==6.0.2
+requests==2.32.3

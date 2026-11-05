@@ -1,0 +1,95 @@
+# Bolsas de nombres, calles y poblaciones para las variantes de Ciclos Rodadura.
+#
+# El generador baraja estas listas con la semilla (empresa, alumno): cada alumno
+# recibe una combinación distinta. Los nombres son inventados; cualquier parecido
+# con tiendas, talleres, clubes o personas reales es casualidad.
+#
+# La bolsa de empresas mezcla talleres y tiendas (los que revenden), empresas con
+# flota y clubes deportivos, porque el generador reparte los nombres al azar
+# entre todos los clientes que no son particulares.
+
+clientes:
+  empresas:
+    - Taller La Cadena Verde
+    - Bicis del Henares
+    - Taller Pedal Libre
+    - Ciclo Servicio Alcalá
+    - La Rueda de Oro
+    - Bicicletas Sierra Norte
+    - Taller Marcha Corta
+    - Dos Ruedas Majadahonda
+    - Bicis El Camino
+    - Taller Piñón Fijo
+    - Ciclos del Jarama
+    - Taller Bici Sur
+    - La Bicicletería del Prado
+    - Bicis Torrejón
+    - Taller Radio 32
+    - Ciclos Guadarrama
+    - Bicis La Dehesa
+    - Taller El Radio Central
+    - Tienda Bici y Rueda
+    - Taller Bicicletas El Puente
+    - Ciclos Vega del Henares
+    - Alquiler y Taller Pedalea
+    - Mensajería Urbana Veloz
+    - Reparto Sostenible Henares
+    - Servicios Logísticos del Norte
+    - Club Ciclista Peña del Oso
+    - Club Deportivo Ruedas del Valle
+    - Peña Cicloturista Tres Cantos
+    - Club BTT Sierra de Guadarrama
+    - Escuela de Ciclismo El Velódromo
+  particulares:
+    - Nuria Sanchís Belmonte
+    - Alberto Ferrán Cuesta
+    - Rocío Maldonado Vega
+    - Ignacio Trueba Salas
+    - Carmen Otero Llanos
+    - David Bermejo Arriaga
+    - Paula Estévez Rincón
+    - Tomás Alcaraz Peña
+    - Silvia Barranco Ruiz
+    - Héctor Quintana Moya
+
+calles:
+  - Avenida de la Industria
+  - Calle de la Constitución
+  - Calle Mayor
+  - Avenida de Europa
+  - Calle del Río
+  - Camino de la Vega
+  - Calle de los Talleres
+  - Avenida de Madrid
+  - Calle de la Estación
+  - Calle del Prado
+  - Ronda de la Sierra
+  - Calle de los Olivos
+  - Plaza del Mercado
+  - Calle de la Fuente
+  - Avenida del Parque
+  - Calle de los Herreros
+  - Travesía del Arroyo
+  - Paseo de la Alameda
+
+poblaciones:
+  - {poblacion: Alcobendas, provincia: Madrid, cp: "28100"}
+  - {poblacion: San Sebastián de los Reyes, provincia: Madrid, cp: "28701"}
+  - {poblacion: Madrid, provincia: Madrid, cp: "28013"}
+  - {poblacion: Tres Cantos, provincia: Madrid, cp: "28760"}
+  - {poblacion: Colmenar Viejo, provincia: Madrid, cp: "28770"}
+  - {poblacion: Las Rozas de Madrid, provincia: Madrid, cp: "28231"}
+  - {poblacion: Majadahonda, provincia: Madrid, cp: "28220"}
+  - {poblacion: Pozuelo de Alarcón, provincia: Madrid, cp: "28223"}
+  - {poblacion: Alcalá de Henares, provincia: Madrid, cp: "28801"}
+  - {poblacion: Torrejón de Ardoz, provincia: Madrid, cp: "28850"}
+  - {poblacion: Getafe, provincia: Madrid, cp: "28901"}
+  - {poblacion: Leganés, provincia: Madrid, cp: "28911"}
+  - {poblacion: Alcorcón, provincia: Madrid, cp: "28921"}
+  - {poblacion: Móstoles, provincia: Madrid, cp: "28931"}
+  - {poblacion: Fuenlabrada, provincia: Madrid, cp: "28941"}
+  - {poblacion: Valdemoro, provincia: Madrid, cp: "28341"}
+  - {poblacion: Aranjuez, provincia: Madrid, cp: "28300"}
+  - {poblacion: Guadalajara, provincia: Guadalajara, cp: "19001"}
+  - {poblacion: Toledo, provincia: Toledo, cp: "45001"}
+  - {poblacion: Segovia, provincia: Segovia, cp: "40001"}

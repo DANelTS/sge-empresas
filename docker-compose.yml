@@ -1,0 +1,102 @@
+# docker-compose.yml — entorno de trabajo de SGE (Odoo 19 Community + PostgreSQL)
+#
+# Uso normal del alumnado:
+#   docker compose up -d          → arranca PostgreSQL y Odoo
+#   docker compose logs -f odoo   → ver el registro de Odoo
+#   docker compose down           → parar (los datos se conservan en volúmenes)
+#
+# Las credenciales NO están en este fichero: se leen de .env (copia .env.example).
+# Los datos de la base y el filestore viven en volúmenes con nombre, así que
+# "docker compose down" no borra nada. Para borrarlo todo: "docker compose down -v".
+
+name: sge
+
+services:
+  # ---------------------------------------------------------------------------
+  # PostgreSQL: el motor donde Odoo guarda absolutamente todo.
+  # ---------------------------------------------------------------------------
+  db:
+    image: postgres:17
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: "${POSTGRES_USER:-odoo}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:?Falta POSTGRES_PASSWORD en .env}"
+    volumes:
+      - datos-bd:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 24
+    ports:
+      # Solo accesible desde tu propio equipo. Sirve para conectarse con DBeaver
+      # o psql desde el anfitrión (sesión S20).
+      - "127.0.0.1:${PG_PUERTO:-5433}:5432"
+
+  # ---------------------------------------------------------------------------
+  # Odoo 19 Community.
+  # ---------------------------------------------------------------------------
+  odoo:
+    image: odoo:19.0
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "${ODOO_PUERTO:-8069}:8069"
+    environment:
+      # El script de arranque de la imagen traduce estas cuatro variables a
+      # --db_host/--db_port/--db_user/--db_password.
+      HOST: db
+      PORT: 5432
+      USER: "${POSTGRES_USER:-odoo}"
+      PASSWORD: "${POSTGRES_PASSWORD:?Falta POSTGRES_PASSWORD en .env}"
+      ADMIN_PASSWD: "${ADMIN_PASSWD:?Falta ADMIN_PASSWD en .env}"
+      TZ: Europe/Madrid
+    entrypoint: ["/bin/sh", "/repo/docker/entrada.sh"]
+    command: ["server", "--http-interface=0.0.0.0"]
+    volumes:
+      - datos-odoo:/var/lib/odoo
+      # El repositorio, para leer config/odoo.conf y docker/entrada.sh
+      - ./:/repo:ro
+      # La carpeta de salida sí se puede escribir: ahí van las copias de seguridad
+      - ./salida:/repo/salida
+      # Aquí irán los módulos propios a partir de la UD4/UD5.
+      - ./addons:/mnt/extra-addons
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8069/web/login >/dev/null || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 60s
+
+  # ---------------------------------------------------------------------------
+  # Servicio de herramientas: un Python con las dependencias ya instaladas.
+  # No hay que instalar Python en Windows. Se usa con "docker compose run":
+  #   docker compose run --rm herramientas generar.py --empresa cerveceria --alumno 07
+  # ---------------------------------------------------------------------------
+  herramientas:
+    build:
+      context: ./herramientas
+    image: sge/herramientas:1
+    restart: "no"
+    depends_on:
+      odoo:
+        condition: service_started
+    working_dir: /repo/herramientas
+    entrypoint: ["python3"]
+    command: ["-c", "print('Servicio de herramientas. Uso: docker compose run --rm herramientas <script> --ayuda')"]
+    environment:
+      ODOO_URL: http://odoo:8069
+      ODOO_BD: "${ODOO_BD:-empresa}"
+      ODOO_USUARIO: "${ODOO_USUARIO:-admin}"
+      ODOO_CLAVE: "${ODOO_CLAVE:-admin}"
+      TZ: Europe/Madrid
+    volumes:
+      # El repositorio entero, para poder leer empresas/ y escribir en salida/.
+      - ./:/repo
+
+volumes:
+  datos-bd:
+  datos-odoo:

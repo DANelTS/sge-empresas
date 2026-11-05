@@ -1,0 +1,490 @@
+# Catálogo de la empresa demo del profesor: Tostadero Manzanares S.L.
+#
+# Esta es la variante canónica. generar.py aplica encima la variación de cada
+# alumno (precios ±10 %, NIF, IBAN, direcciones y nombres de clientes).
+#
+# Los tipos de IVA de cada familia están en `categorias`; se aplican a todos los
+# productos de la familia salvo que el producto indique `iva_venta`/`iva_compra`.
+
+empresa:
+  clave: tostadero
+  nombre: Tostadero Manzanares
+  forma_juridica: S.L.
+  letra_cif: B
+  domicilio: Calle del Tostado, 14, nave 2
+  cp: "28341"
+  poblacion: Valdemoro
+  provincia: Madrid
+  telefono: 918 954 210
+  email: administracion@tostadero-manzanares.example
+  web: www.tostadero-manzanares.example
+  banco: "2100"
+  sucursal: "4567"
+  actividad: Tueste artesanal de café y distribución a hostelería y particulares
+  epigrafe: "1081 — Fabricación de productos de café"
+  cond_pago_ventas: 30 días
+  cond_pago_compras: 30 días
+
+categorias:
+  - clave: CAFE-VERDE
+    nombre: Café verde
+    iva_venta: 10
+    iva_compra: 10
+  - clave: CAFE-TUESTE
+    nombre: Café tostado
+    iva_venta: 10
+    iva_compra: 10
+  - clave: MENAJE
+    nombre: Menaje y maquinaria
+    iva_venta: 21
+    iva_compra: 21
+  - clave: ENVASES
+    nombre: Envases y consumibles
+    iva_venta: 21
+    iva_compra: 21
+  - clave: SERVICIOS
+    nombre: Servicios
+    iva_venta: 21
+    iva_compra: 21
+
+tarifas:
+  - clave: hosteleria
+    nombre: Tarifa hostelería
+    descuento: 8
+  - clave: distribucion
+    nombre: Tarifa distribución
+    descuento: 15
+
+proveedores:
+  - clave: PRV-VERDE-AND
+    nombre: Importadora Andina de Café S.L.
+    actividad: Café verde de Colombia y Perú
+    letra_cif: B
+    cond_pago: 30 días
+    calle: Calle de la Alameda, 45
+    cp: "46010"
+    poblacion: Valencia
+    provincia: Valencia
+    dominio: andina-cafe.example
+  - clave: PRV-VERDE-ATL
+    nombre: Café Verde del Atlántico S.A.
+    actividad: Café verde de Brasil
+    letra_cif: A
+    cond_pago: 45 días
+    calle: Avenida de Beiramar, 112
+    cp: "36208"
+    poblacion: Vigo
+    provincia: Pontevedra
+    dominio: verde-atlantico.example
+  - clave: PRV-VERDE-HIG
+    nombre: Highland Coffee Traders S.L.
+    actividad: Café verde de Etiopía y Kenia
+    letra_cif: B
+    cond_pago: 30 días
+    calle: Calle Gran Vía, 8
+    cp: "48001"
+    poblacion: Bilbao
+    provincia: Bizkaia
+    dominio: highland-coffee.example
+  - clave: PRV-ENVASES
+    nombre: Envases del Sur S.L.
+    actividad: Bolsas de válvula, cajas y etiquetas
+    letra_cif: B
+    cond_pago: 30 días
+    calle: Polígono Calonge, calle A, 12
+    cp: "41007"
+    poblacion: Sevilla
+    provincia: Sevilla
+    dominio: envasesdelsur.example
+  - clave: PRV-MAQUINARIA
+    nombre: Maquinaria Hostelería Duero S.L.
+    actividad: Molinillos y máquinas de espresso
+    letra_cif: B
+    cond_pago: 45 días
+    calle: Calle del Bronce, 26
+    cp: "47012"
+    poblacion: Valladolid
+    provincia: Valladolid
+    dominio: mh-duero.example
+  - clave: PRV-MENAJE
+    nombre: Menaje Profesional Levante S.L.
+    actividad: Menaje, tazas y pequeño equipamiento
+    letra_cif: B
+    cond_pago: Fin del siguiente mes
+    calle: Calle del Mar, 74
+    cp: "03003"
+    poblacion: Alicante
+    provincia: Alicante
+    dominio: menaje-levante.example
+
+productos:
+  # --- Café verde: materia prima, no se vende -----------------------------
+  - ref: TOS-001
+    nombre: Café verde Brasil Santos (saco 60 kg)
+    categoria: CAFE-VERDE
+    coste: 232.00
+    pvp: 0.00
+    venta: false
+    proveedor: PRV-VERDE-ATL
+    minimo: 2
+    maximo: 10
+  - ref: TOS-002
+    nombre: Café verde Colombia Supremo (saco 70 kg)
+    categoria: CAFE-VERDE
+    coste: 294.00
+    pvp: 0.00
+    venta: false
+    proveedor: PRV-VERDE-AND
+    minimo: 2
+    maximo: 8
+  - ref: TOS-003
+    nombre: Café verde Etiopía Sidamo (saco 60 kg)
+    categoria: CAFE-VERDE
+    coste: 342.00
+    pvp: 0.00
+    venta: false
+    proveedor: PRV-VERDE-HIG
+    minimo: 1
+    maximo: 6
+  - ref: TOS-004
+    nombre: Café verde descafeinado Colombia (saco 30 kg)
+    categoria: CAFE-VERDE
+    coste: 258.00
+    pvp: 0.00
+    venta: false
+    proveedor: PRV-VERDE-AND
+    minimo: 1
+    maximo: 4
+
+  # --- Café tostado -------------------------------------------------------
+  - ref: TOS-010
+    nombre: Café Brasil Santos tueste natural 1 kg
+    categoria: CAFE-TUESTE
+    coste: 8.40
+    pvp: 14.50
+    proveedor: PRV-VERDE-ATL
+    minimo: 20
+    maximo: 90
+  - ref: TOS-011
+    nombre: Café Colombia Supremo tueste natural 1 kg
+    categoria: CAFE-TUESTE
+    coste: 10.20
+    pvp: 17.90
+    proveedor: PRV-VERDE-AND
+    minimo: 15
+    maximo: 70
+  - ref: TOS-012
+    nombre: Café Etiopía Sidamo tueste natural 1 kg
+    categoria: CAFE-TUESTE
+    coste: 11.80
+    pvp: 19.50
+    proveedor: PRV-VERDE-HIG
+    minimo: 10
+    maximo: 50
+  - ref: TOS-013
+    nombre: Mezcla de la casa 1 kg
+    categoria: CAFE-TUESTE
+    coste: 7.90
+    pvp: 13.50
+    proveedor: PRV-VERDE-ATL
+    minimo: 25
+    maximo: 120
+  - ref: TOS-014
+    nombre: Café descafeinado de tueste natural 1 kg
+    categoria: CAFE-TUESTE
+    coste: 9.60
+    pvp: 16.90
+    proveedor: PRV-VERDE-AND
+    minimo: 8
+    maximo: 40
+  - ref: TOS-015
+    nombre: Café Brasil Santos molido 250 g
+    categoria: CAFE-TUESTE
+    coste: 2.35
+    pvp: 4.95
+    proveedor: PRV-VERDE-ATL
+    minimo: 40
+    maximo: 200
+  - ref: TOS-016
+    nombre: Mezcla de la casa molido 250 g
+    categoria: CAFE-TUESTE
+    coste: 2.10
+    pvp: 4.50
+    proveedor: PRV-VERDE-ATL
+    minimo: 50
+    maximo: 240
+  - ref: TOS-017
+    nombre: Café Colombia Supremo molido 250 g
+    categoria: CAFE-TUESTE
+    coste: 2.75
+    pvp: 5.60
+    proveedor: PRV-VERDE-AND
+    minimo: 30
+    maximo: 150
+  - ref: TOS-018
+    nombre: Monodosis mezcla de la casa (caja 100)
+    categoria: CAFE-TUESTE
+    coste: 9.80
+    pvp: 17.50
+    proveedor: PRV-ENVASES
+    minimo: 10
+    maximo: 60
+  - ref: TOS-019
+    nombre: Café frío de especialidad 1 l
+    categoria: CAFE-TUESTE
+    coste: 3.40
+    pvp: 7.90
+    proveedor: PRV-VERDE-AND
+    minimo: 6
+    maximo: 36
+  - ref: TOS-020
+    nombre: Café en grano hostelería 5 kg
+    categoria: CAFE-TUESTE
+    coste: 37.50
+    pvp: 62.00
+    proveedor: PRV-VERDE-ATL
+    minimo: 4
+    maximo: 25
+
+  # --- Menaje y maquinaria ------------------------------------------------
+  - ref: TOS-030
+    nombre: Molinillo de muelas profesional
+    categoria: MENAJE
+    coste: 95.00
+    pvp: 189.00
+    proveedor: PRV-MAQUINARIA
+    minimo: 2
+    maximo: 10
+  - ref: TOS-031
+    nombre: Molinillo doméstico de muelas cónicas
+    categoria: MENAJE
+    coste: 28.00
+    pvp: 59.90
+    proveedor: PRV-MAQUINARIA
+    minimo: 4
+    maximo: 20
+  - ref: TOS-032
+    nombre: Prensa francesa 1 l
+    categoria: MENAJE
+    coste: 11.50
+    pvp: 24.90
+    proveedor: PRV-MENAJE
+    minimo: 6
+    maximo: 30
+  - ref: TOS-033
+    nombre: Cafetera de filtro 1,5 l
+    categoria: MENAJE
+    coste: 18.00
+    pvp: 39.90
+    proveedor: PRV-MENAJE
+    minimo: 4
+    maximo: 24
+  - ref: TOS-034
+    nombre: Máquina de espresso de un grupo
+    categoria: MENAJE
+    coste: 890.00
+    pvp: 1450.00
+    proveedor: PRV-MAQUINARIA
+    minimo: 1
+    maximo: 4
+  - ref: TOS-035
+    nombre: Jarra de leche 0,6 l
+    categoria: MENAJE
+    coste: 6.20
+    pvp: 12.90
+    proveedor: PRV-MENAJE
+    minimo: 8
+    maximo: 40
+  - ref: TOS-036
+    nombre: Taza cerámica con logo
+    categoria: MENAJE
+    coste: 3.10
+    pvp: 6.90
+    proveedor: PRV-MENAJE
+    minimo: 20
+    maximo: 100
+  - ref: TOS-037
+    nombre: Filtros de papel (caja 100)
+    categoria: MENAJE
+    coste: 1.90
+    pvp: 3.90
+    proveedor: PRV-MENAJE
+    minimo: 12
+    maximo: 60
+
+  # --- Envases y consumibles (uso interno, no se venden) ------------------
+  - ref: TOS-040
+    nombre: Bolsa de válvula 1 kg (paquete 100)
+    categoria: ENVASES
+    coste: 18.00
+    pvp: 38.00
+    venta: false
+    proveedor: PRV-ENVASES
+    minimo: 5
+    maximo: 30
+  - ref: TOS-041
+    nombre: Caja de cartón 1 kg (paquete 100)
+    categoria: ENVASES
+    coste: 20.00
+    pvp: 42.00
+    venta: false
+    proveedor: PRV-ENVASES
+    minimo: 5
+    maximo: 25
+
+  # --- Servicios ----------------------------------------------------------
+  - ref: TOS-050
+    nombre: Formación de barista (4 h)
+    categoria: SERVICIOS
+    tipo: servicio
+    coste: 90.00
+    pvp: 240.00
+  - ref: TOS-051
+    nombre: Puesta a punto de molinillo
+    categoria: SERVICIOS
+    tipo: servicio
+    coste: 18.00
+    pvp: 45.00
+  - ref: TOS-052
+    nombre: Mantenimiento anual de máquina de espresso
+    categoria: SERVICIOS
+    tipo: servicio
+    coste: 70.00
+    pvp: 180.00
+  - ref: TOS-053
+    nombre: Asesoría de carta de cafés (2 h)
+    categoria: SERVICIOS
+    tipo: servicio
+    coste: 40.00
+    pvp: 120.00
+
+# Altas que el alumno hace a mano en la S17 (no van en los CSV).
+altas_manuales:
+  productos:
+    - ref: TOS-060
+      nombre: Café de tueste natural 2,5 kg (bolsa de hostelería)
+      categoria: CAFE-TUESTE
+      coste: 19.40
+      pvp: 34.50
+      tipo: almacenable
+      proveedor: PRV-ENVASES
+      minimo: 6
+      maximo: 30
+    - ref: TOS-061
+      nombre: Servicio de calibración de molinillo a domicilio
+      categoria: SERVICIOS
+      tipo: servicio
+      coste: 22.00
+      pvp: 55.00
+  proveedores:
+    - nombre: Tostadores Reunidos del Norte S.L.
+      nif: B87654321
+      calle: Calle del Puerto, 9
+      cp: "39001"
+      poblacion: Santander
+      provincia: Cantabria
+      telefono: 942 123 456
+      email: ventas@tostadores-norte.example
+      cond_pago: 30 días
+
+clientes:
+  - clave: CLI-01
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Cafetería
+    tarifa: hosteleria
+    cond_pago: 30 días
+  - clave: CLI-02
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Cafetería
+    tarifa: hosteleria
+    cond_pago: 30 días
+  - clave: CLI-03
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Cafetería
+    tarifa: hosteleria
+    cond_pago: 30 días
+  - clave: CLI-04
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Cafetería
+    tarifa: hosteleria
+    cond_pago: 30 días
+  - clave: CLI-05
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Cafetería
+    tarifa: hosteleria
+    cond_pago: 30 días
+  - clave: CLI-06
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Cafetería
+    tarifa: hosteleria
+    cond_pago: 45 días
+  - clave: CLI-07
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Restaurante
+    tarifa: hosteleria
+    cond_pago: 30 días
+  - clave: CLI-08
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Restaurante
+    tarifa: hosteleria
+    cond_pago: 30 días
+  - clave: CLI-09
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Restaurante
+    tarifa: hosteleria
+    cond_pago: 30 días
+  - clave: CLI-10
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Restaurante
+    tarifa: hosteleria
+    cond_pago: 45 días
+  - clave: CLI-11
+    tipo: empresa
+    forma_juridica: S.A.
+    segmento: Hotel
+    tarifa: hosteleria
+    cond_pago: Fin del siguiente mes
+  - clave: CLI-12
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Hotel
+    tarifa: hosteleria
+    cond_pago: Fin del siguiente mes
+  - clave: CLI-13
+    tipo: empresa
+    forma_juridica: S.A.
+    segmento: Distribuidor
+    tarifa: distribucion
+    cond_pago: Fin del siguiente mes
+  - clave: CLI-14
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Tienda de café
+    tarifa: hosteleria
+    cond_pago: 30 días
+  - clave: CLI-15
+    tipo: particular
+    segmento: Particular
+    cond_pago: Pago inmediato
+  - clave: CLI-16
+    tipo: particular
+    segmento: Particular
+    cond_pago: Pago inmediato
+  - clave: CLI-17
+    tipo: particular
+    segmento: Particular
+    cond_pago: Pago inmediato
+  - clave: CLI-18
+    tipo: particular
+    segmento: Particular
+    cond_pago: Pago inmediato

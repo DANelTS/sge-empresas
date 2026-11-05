@@ -1,0 +1,467 @@
+# Catálogo de la empresa del sector aceite: Cooperativa Olivar del Tajo S. Coop.
+#
+# Es la definición canónica del sector. generar.py aplica encima la variación de
+# cada alumno (precios ±10 %, NIF, IBAN, direcciones y nombres de clientes).
+#
+# Los tipos de IVA de cada familia están en `categorias`; se aplican a todos los
+# productos de la familia salvo que el producto indique `iva_venta`/`iva_compra`.
+# Esta empresa es el caso didáctico de los tres tipos en un mismo pedido: 4 %
+# para el aceite, 10 % para la despensa y 21 % para cosmética y servicios.
+
+empresa:
+  clave: aceite
+  nombre: Cooperativa Olivar del Tajo
+  forma_juridica: S. Coop.
+  letra_cif: F
+  domicilio: Camino de la Almazara, 7
+  cp: "45430"
+  poblacion: Los Yébenes
+  provincia: Toledo
+  telefono: 925 397 140
+  email: administracion@olivar-del-tajo.example
+  web: www.olivar-del-tajo.example
+  banco: "2100"
+  sucursal: "4567"
+  actividad: Almazara y envasadora de aceite de oliva virgen extra; venta a tiendas gourmet, hostelería y particulares
+  epigrafe: "1043 — Fabricación de aceite de oliva"
+  cond_pago_ventas: 30 días
+  cond_pago_compras: 30 días
+
+categorias:
+  - clave: ACEITE
+    nombre: Aceite de oliva
+    iva_venta: 4
+    iva_compra: 4
+  - clave: DESPENSA
+    nombre: Aceitunas, conservas y vinagre
+    iva_venta: 10
+    iva_compra: 10
+  - clave: COSMETICA
+    nombre: Cosmética y menaje
+    iva_venta: 21
+    iva_compra: 21
+  - clave: SERVICIOS
+    nombre: Servicios de almazara
+    iva_venta: 21
+    iva_compra: 21
+
+tarifas:
+  - clave: hosteleria
+    nombre: Tarifa hostelería
+    descuento: 8
+  - clave: distribucion
+    nombre: Tarifa distribución
+    descuento: 15
+
+proveedores:
+  - clave: PRV-ACEITUNA
+    nombre: Olivar de los Montes S. Coop.
+    actividad: Aceituna picual y cornicabra a granel para molturación
+    letra_cif: F
+    cond_pago: 30 días
+    calle: Camino de los Molinos, 21
+    cp: "45100"
+    poblacion: Sonseca
+    provincia: Toledo
+    dominio: olivar-montes.example
+  - clave: PRV-MAQUINARIA
+    nombre: Maquinaria de Almazara Duero S.L.
+    actividad: Prensas, decantadores y líneas de molturación; mantenimiento
+    letra_cif: B
+    cond_pago: 45 días
+    calle: Calle del Bronce, 26
+    cp: "47012"
+    poblacion: Valladolid
+    provincia: Valladolid
+    dominio: almazara-duero.example
+  - clave: PRV-VIDRIO
+    nombre: Envases Vítreos del Ebro S.L.
+    actividad: Botellas de vidrio de 250 ml, 500 ml y 1 l
+    letra_cif: B
+    cond_pago: 30 días
+    calle: Calle de la Plata, 18
+    cp: "50014"
+    poblacion: Zaragoza
+    provincia: Zaragoza
+    dominio: vidrio-ebro.example
+  - clave: PRV-LATAS
+    nombre: Latas y Envases Metálicos Levante S.A.
+    actividad: Latas de hojalata de 3 l, tapas y envases decorativos
+    letra_cif: A
+    cond_pago: 30 días
+    calle: Calle del Aluminio, 9
+    cp: "03008"
+    poblacion: Alicante
+    provincia: Alicante
+    dominio: latas-levante.example
+  - clave: PRV-ETIQUETAS
+    nombre: Etiquetas y Cartonaje Tajo S.L.
+    actividad: Etiquetas adhesivas, estuches y cajas de regalo
+    letra_cif: B
+    cond_pago: 30 días
+    calle: Calle del Papel, 5
+    cp: "45007"
+    poblacion: Toledo
+    provincia: Toledo
+    dominio: etiquetas-tajo.example
+  - clave: PRV-TRANSPORTE
+    nombre: Transportes Frigoríficos Mancha S.L.
+    actividad: Transporte a temperatura controlada y reparto nacional
+    letra_cif: B
+    cond_pago: 15 días
+    calle: Calle de los Transportes, 4
+    cp: "13005"
+    poblacion: Ciudad Real
+    provincia: Ciudad Real
+    dominio: transporte-mancha.example
+
+productos:
+  # --- Aceite de oliva: 4 % -----------------------------------------------
+  - ref: ACI-001
+    nombre: AOVE 500 ml
+    categoria: ACEITE
+    coste: 3.90
+    pvp: 7.60
+    proveedor: PRV-ACEITUNA
+    minimo: 60
+    maximo: 400
+  - ref: ACI-002
+    nombre: AOVE 1 l
+    categoria: ACEITE
+    coste: 7.20
+    pvp: 13.90
+    proveedor: PRV-ACEITUNA
+    minimo: 80
+    maximo: 500
+  - ref: ACI-003
+    nombre: AOVE garrafa 5 l
+    categoria: ACEITE
+    coste: 27.00
+    pvp: 48.50
+    proveedor: PRV-ACEITUNA
+    minimo: 20
+    maximo: 120
+  - ref: ACI-004
+    nombre: AOVE lata 3 l
+    categoria: ACEITE
+    coste: 18.40
+    pvp: 32.90
+    proveedor: PRV-ACEITUNA
+    minimo: 24
+    maximo: 150
+  - ref: ACI-005
+    nombre: AOVE monodosis 20 ml (caja 100)
+    categoria: ACEITE
+    coste: 9.60
+    pvp: 17.80
+    proveedor: PRV-ACEITUNA
+    minimo: 10
+    maximo: 60
+  - ref: ACI-006
+    nombre: AOVE ecológico 500 ml
+    categoria: ACEITE
+    coste: 5.10
+    pvp: 9.40
+    proveedor: PRV-ACEITUNA
+    minimo: 24
+    maximo: 120
+  - ref: ACI-007
+    nombre: AOVE picual 500 ml
+    categoria: ACEITE
+    coste: 4.30
+    pvp: 8.20
+    proveedor: PRV-ACEITUNA
+    minimo: 30
+    maximo: 200
+  - ref: ACI-008
+    nombre: AOVE cornicabra 1 l
+    categoria: ACEITE
+    coste: 7.00
+    pvp: 13.60
+    proveedor: PRV-ACEITUNA
+    minimo: 24
+    maximo: 150
+  - ref: ACI-009
+    nombre: Aceite de oliva virgen 1 l
+    categoria: ACEITE
+    coste: 5.90
+    pvp: 10.90
+    proveedor: PRV-ACEITUNA
+    minimo: 40
+    maximo: 250
+  - ref: ACI-010
+    nombre: Aceite de oliva suave 1 l
+    categoria: ACEITE
+    coste: 5.10
+    pvp: 9.60
+    proveedor: PRV-ACEITUNA
+    minimo: 40
+    maximo: 250
+  - ref: ACI-011
+    nombre: Aceituna picual a granel (kg)
+    categoria: ACEITE
+    coste: 0.95
+    pvp: 0.00
+    venta: false
+    proveedor: PRV-ACEITUNA
+    minimo: 2000
+    maximo: 15000
+
+  # --- Aceitunas, conservas y vinagre: 10 % -------------------------------
+  - ref: ACI-020
+    nombre: Aceitunas manzanilla deshuesadas 450 g
+    categoria: DESPENSA
+    coste: 1.85
+    pvp: 3.90
+    proveedor: PRV-ACEITUNA
+    minimo: 24
+    maximo: 120
+  - ref: ACI-021
+    nombre: Aceitunas picual aliñadas 450 g
+    categoria: DESPENSA
+    coste: 1.75
+    pvp: 3.70
+    proveedor: PRV-ACEITUNA
+    minimo: 24
+    maximo: 120
+  - ref: ACI-022
+    nombre: Aceitunas negras aliñadas 450 g
+    categoria: DESPENSA
+    coste: 1.95
+    pvp: 4.10
+    proveedor: PRV-ACEITUNA
+    minimo: 18
+    maximo: 90
+  - ref: ACI-023
+    nombre: Aceitunas rellenas de anchoa 400 g
+    categoria: DESPENSA
+    coste: 1.70
+    pvp: 3.60
+    proveedor: PRV-ACEITUNA
+    minimo: 18
+    maximo: 90
+  - ref: ACI-024
+    nombre: Pimientos asados en conserva 400 g
+    categoria: DESPENSA
+    coste: 2.30
+    pvp: 4.80
+    minimo: 12
+    maximo: 60
+  - ref: ACI-025
+    nombre: Tomate triturado en conserva 400 g
+    categoria: DESPENSA
+    coste: 1.45
+    pvp: 3.20
+    minimo: 12
+    maximo: 60
+  - ref: ACI-026
+    nombre: Vinagre de vino 500 ml
+    categoria: DESPENSA
+    coste: 1.55
+    pvp: 3.60
+    minimo: 12
+    maximo: 72
+
+  # --- Cosmética y menaje: 21 % -------------------------------------------
+  - ref: ACI-030
+    nombre: Jabón de aceite de oliva 100 g
+    categoria: COSMETICA
+    coste: 3.20
+    pvp: 7.50
+    minimo: 20
+    maximo: 120
+  - ref: ACI-031
+    nombre: Jabón de aceite de oliva y lavanda 100 g
+    categoria: COSMETICA
+    coste: 3.40
+    pvp: 7.90
+    minimo: 20
+    maximo: 120
+  - ref: ACI-032
+    nombre: Crema hidratante de aceite de oliva 50 ml
+    categoria: COSMETICA
+    coste: 5.60
+    pvp: 12.90
+    minimo: 12
+    maximo: 72
+  - ref: ACI-033
+    nombre: Crema de manos de aceite de oliva 75 ml
+    categoria: COSMETICA
+    coste: 4.20
+    pvp: 9.90
+    minimo: 12
+    maximo: 72
+  - ref: ACI-034
+    nombre: Botella de cristal con tapón vertedor 1 l (vacía)
+    categoria: COSMETICA
+    coste: 1.90
+    pvp: 4.90
+    proveedor: PRV-VIDRIO
+    minimo: 24
+    maximo: 144
+  - ref: ACI-035
+    nombre: Lata decorativa vacía 3 l
+    categoria: COSMETICA
+    coste: 3.20
+    pvp: 7.50
+    proveedor: PRV-LATAS
+    minimo: 12
+    maximo: 72
+  - ref: ACI-036
+    nombre: Caja regalo vacía para dos botellas
+    categoria: COSMETICA
+    coste: 1.10
+    pvp: 3.20
+    proveedor: PRV-ETIQUETAS
+    minimo: 24
+    maximo: 120
+
+  # --- Servicios: 21 % ----------------------------------------------------
+  - ref: ACI-040
+    nombre: Visita guiada a la almazara (por persona)
+    categoria: SERVICIOS
+    tipo: servicio
+    coste: 3.00
+    pvp: 8.00
+  - ref: ACI-041
+    nombre: Cata guiada de aceites (grupo de hasta 10, 90 min)
+    categoria: SERVICIOS
+    tipo: servicio
+    coste: 45.00
+    pvp: 120.00
+  - ref: ACI-042
+    nombre: Asesoría de carta de aceites (2 h)
+    categoria: SERVICIOS
+    tipo: servicio
+    coste: 55.00
+    pvp: 150.00
+  - ref: ACI-043
+    nombre: Porte a domicilio (pedidos inferiores a 200 €)
+    categoria: SERVICIOS
+    tipo: servicio
+    coste: 6.00
+    pvp: 12.00
+    proveedor: PRV-TRANSPORTE
+  - ref: ACI-044
+    nombre: Mantenimiento anual de la línea de molturación
+    categoria: SERVICIOS
+    tipo: servicio
+    coste: 480.00
+    pvp: 0.00
+    venta: false
+    proveedor: PRV-MAQUINARIA
+
+clientes:
+  # --- Tiendas gourmet ----------------------------------------------------
+  - clave: CLI-01
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Tienda gourmet
+    tarifa: hosteleria
+    cond_pago: 30 días
+  - clave: CLI-02
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Tienda gourmet
+    tarifa: hosteleria
+    cond_pago: 30 días
+  - clave: CLI-03
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Tienda gourmet
+    tarifa: hosteleria
+    cond_pago: 15 días
+  - clave: CLI-04
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Tienda gourmet
+    tarifa: hosteleria
+    cond_pago: 30 días
+  - clave: CLI-05
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Tienda gourmet
+    tarifa: hosteleria
+    cond_pago: 45 días
+  - clave: CLI-06
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Tienda gourmet
+    tarifa: hosteleria
+    cond_pago: 30 días
+  - clave: CLI-07
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Tienda gourmet
+    tarifa: hosteleria
+    cond_pago: 30 días
+
+  # --- Restaurantes -------------------------------------------------------
+  - clave: CLI-08
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Restaurante
+    tarifa: hosteleria
+    cond_pago: 30 días
+  - clave: CLI-09
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Restaurante
+    tarifa: hosteleria
+    cond_pago: 30 días
+  - clave: CLI-10
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Restaurante
+    tarifa: hosteleria
+    cond_pago: 30 días
+  - clave: CLI-11
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Restaurante
+    tarifa: hosteleria
+    cond_pago: 45 días
+  - clave: CLI-12
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Restaurante
+    tarifa: hosteleria
+    cond_pago: 30 días
+  - clave: CLI-13
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Restaurante
+    tarifa: hosteleria
+    cond_pago: 45 días
+
+  # --- Hoteles ------------------------------------------------------------
+  - clave: CLI-14
+    tipo: empresa
+    forma_juridica: S.A.
+    segmento: Hotel
+    tarifa: hosteleria
+    cond_pago: Fin del siguiente mes
+  - clave: CLI-15
+    tipo: empresa
+    forma_juridica: S.L.
+    segmento: Hotel
+    tarifa: hosteleria
+    cond_pago: Fin del siguiente mes
+
+  # --- Distribuidor -------------------------------------------------------
+  - clave: CLI-16
+    tipo: empresa
+    forma_juridica: S.A.
+    segmento: Distribuidor
+    tarifa: distribucion
+    cond_pago: Fin del siguiente mes
+
+  # --- Particulares -------------------------------------------------------
+  - clave: CLI-17
+    tipo: particular
+    segmento: Particular
+    cond_pago: Pago inmediato
+  - clave: CLI-18
+    tipo: particular
+    segmento: Particular
+    cond_pago: Pago inmediato
