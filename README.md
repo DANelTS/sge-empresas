@@ -21,23 +21,44 @@ que ir resolviendo. Este repositorio pone el entorno, los datos y las guías.
 
 ## Puesta en marcha (5 minutos)
 
+**Lo más rápido:** el instalador hace todo (comprueba Docker, crea `.env` con
+contraseñas aleatorias, arranca, crea la base con la localización española y, si
+le dices tu sector, genera tu variante).
+
+Windows (PowerShell, en la carpeta del repositorio):
+
 ```powershell
 git clone https://github.com/TU-USUARIO/sge-empresas.git
 cd sge-empresas
-copy .env.example .env
-notepad .env
-docker compose up -d
+powershell -ExecutionPolicy Bypass -File .\instalar.ps1 -Sector cerveceria -Alumno 7
 ```
 
-En `.env` cambia las dos contraseñas (sin espacios, sin `#`, sin `$`). Después:
+macOS o Linux:
+
+```bash
+git clone https://github.com/TU-USUARIO/sge-empresas.git
+cd sge-empresas
+./instalar.sh --sector cerveceria --alumno 7
+```
+
+Al terminar te dice la URL (http://localhost:8069, usuario `admin`) y la
+contraseña maestra que ha generado. Sigue la guía
+`guias/ud3/S16-puesta-en-marcha.md`.
+
+<details>
+<summary>Si prefieres hacerlo a mano (o el instalador falla)</summary>
 
 ```powershell
+copy .env.example .env
+notepad .env                     # cambia las dos contraseñas
+docker compose up -d
 docker compose run --rm odoo db init empresa --country ES --language es_ES --username admin --password admin
 docker compose run --rm odoo module install -d empresa account sale_management purchase stock crm
+docker compose run --rm herramientas generar.py --empresa cerveceria --alumno 7
 ```
 
-Abre <http://localhost:8069>, entra con `admin` y la contraseña que hayas puesto
-y sigue la guía de la sesión: `guias/ud3/S16-puesta-en-marcha.md`.
+En `.env`: sin espacios, sin `#` y sin `$` en las contraseñas.
+</details>
 
 > La contraseña de `admin` tiene que ser la misma que `ODOO_CLAVE` en `.env`.
 
