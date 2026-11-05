@@ -1,0 +1,159 @@
+# Bandeja de la S18 del sector aceite: del interés al cobro.
+#
+# Los importes salen de marcas {{precio_tarifa:CLIENTE:PRODUCTO}} para que cada
+# alumno vea SUS precios, no los del catálogo base. El texto no lleva cifras
+# escritas a mano: si cambia el catálogo, la bandeja cambia sola.
+#
+# El eje de la sesión es el ciclo completo de venta en una almazara que despacha
+# a tiendas gourmet y hostelería: presupuesto, pedido, albarán, factura y cobro.
+# El suceso S18-04 es el caso didáctico del sector: en una misma factura
+# conviven el 4 % del aceite y el 21 % de la cosmética.
+
+titulo: S18 · Del interés al cobro
+intro: |
+  Primera semana de noviembre en la almazara. La campaña de molturación acaba de
+  arrancar y el teléfono no para: tiendas que preparan la campaña de Navidad,
+  restaurantes que cambian la carta y clientes que pagan a plazos.
+
+  Estos son los mensajes que han entrado en el despacho. Ninguno viene con el
+  trabajo hecho: hay que decidir qué documento se crea en cada caso, con qué
+  tarifa y con qué tipo de IVA.
+
+sucesos:
+  - clave: S18-01
+    dia: lunes
+    hora: "09:12"
+    medio: correo
+    de: "{{cliente:CLI-05}}"
+    asunto: "Pedido para la campaña de Navidad"
+    texto: |
+      Buenos días:
+
+      Os paso el pedido con el que entramos en Navidad. Necesitamos 36 botellas
+      de {{producto:ACI-002}}, 12 de {{producto:ACI-008}} y 24 tarros de
+      {{producto:ACI-020}}.
+
+      Aplicadnos la tarifa de siempre, que ya sabéis cuál es. Si puede ser,
+      servidnos antes del viernes: empezamos a montar el escaparate la semana que
+      viene.
+
+      Un saludo,
+      La gerencia
+
+  - clave: S18-02
+    dia: lunes
+    hora: "12:20"
+    medio: llamada
+    de: "{{cliente:CLI-11}}"
+    asunto: "Presupuesto para la nueva carta de otoño"
+    texto: |
+      Llama el jefe de sala del restaurante. Cambian la carta el mes que viene y
+      quieren un aceite de más categoría para el servicio de mesa: piden
+      presupuesto por 60 botellas de {{producto:ACI-001}} y 12 latas de
+      {{producto:ACI-004}}, con entrega única a primeros de mes.
+
+      Aprovecha para preguntar por la {{producto:ACI-042}}: quieren que les
+      ayudemos a colocar los aceites en la carta y formar al personal de sala.
+
+      Dice que se lo mandes por correo y que lo decide el chef la semana que
+      viene. De momento no es un pedido, solo quieren ver el número.
+
+  - clave: S18-03
+    dia: martes
+    hora: "10:15"
+    medio: correo
+    de: "{{cliente:CLI-11}}"
+    asunto: "Re: Presupuesto para la nueva carta de otoño"
+    texto: |
+      Gracias por el presupuesto y por la rapidez.
+
+      Lo hemos hablado con el chef y de momento seguimos con el proveedor que
+      tenemos hasta la primavera: nos cuadra mejor el formato que ya usamos y no
+      queremos cambiar dos cosas a la vez en plena temporada.
+
+      Guardamos el presupuesto para la carta de primavera.
+
+      Un saludo.
+
+  - clave: S18-04
+    dia: martes
+    hora: "17:30"
+    medio: correo
+    de: "{{cliente:CLI-06}}"
+    asunto: "Pedido mixto para la tienda"
+    texto: |
+      Hola:
+
+      Para la campaña de Navidad queremos ampliar la esquina de regalo, así que
+      os mando todo junto: 24 botellas de {{producto:ACI-002}}, 12 de
+      {{producto:ACI-007}}, 24 pastillas de {{producto:ACI-030}} y 12 botes de
+      {{producto:ACI-032}}.
+
+      Mandádmelo en un solo pedido y en una sola factura, por favor; así lo
+      metemos de una vez en el programa de la tienda. Los precios, con nuestra
+      tarifa, como siempre.
+
+      Gracias.
+
+  - clave: S18-05
+    dia: miercoles
+    hora: "09:05"
+    medio: correo
+    de: "{{cliente:CLI-03}}"
+    asunto: "Cambio en el pedido de esta semana"
+    texto: |
+      Buenos días:
+
+      El pedido que os mandé el lunes cambia. De {{producto:ACI-004}} al final
+      necesitamos 24 latas, no 6: hemos cerrado una comida de empresa y nos
+      quedamos cortos.
+
+      Y añadid 24 cajas de {{producto:ACI-005}} para los aperitivos. Las
+      garrafas de {{producto:ACI-003}} quedan como estaban.
+
+      Todavía no nos habéis servido, así que entiendo que se puede cambiar sin
+      más.
+
+  - clave: S18-06
+    dia: jueves
+    hora: "08:40"
+    medio: nota
+    de: "Almacén"
+    asunto: "No hay garrafas para el pedido de hoy"
+    texto: |
+      El pedido de {{cliente:CLI-04}} va para el reparto de esta mañana y no lo
+      podemos servir completo: pide 20 garrafas de {{producto:ACI-003}} y en el
+      almacén solo quedan 8 envasadas. La línea de envasado no vuelve a arrancar
+      hasta el lunes, que llega el vidrio.
+
+      Las 10 latas de {{producto:ACI-004}} del mismo pedido sí están preparadas.
+
+      Decidme qué hacemos: no quiero tener el pedido parado en el muelle toda la
+      semana.
+
+  - clave: S18-07
+    dia: viernes
+    hora: "11:50"
+    medio: correo
+    de: "{{cliente:CLI-13}}"
+    asunto: "Transferencia a cuenta de la factura de octubre"
+    texto: |
+      Hola:
+
+      Os hemos hecho hoy una transferencia de 400 € a cuenta de la factura de
+      octubre. Este mes hemos tenido menos ocupación de la prevista y no llegamos
+      a todo.
+
+      El resto lo ingresamos cuando cerremos la caja de noviembre. Si necesitáis
+      algo para el banco, decídmelo y os mando el justificante.
+
+      Gracias y perdonad las molestias.
+
+comprobacion:
+  - "El pedido de {{cliente:CLI-05}} está confirmado, lleva tres líneas y cada precio es el de su tarifa: la botella de un litro sale a {{precio_tarifa:CLI-05:ACI-002}}, no a {{precio:ACI-002}}."
+  - "El presupuesto de {{cliente:CLI-11}} se ha enviado, no ha generado pedido y después se ha marcado como perdido con el motivo escrito."
+  - "Del presupuesto perdido no cuelga ninguna factura: el cliente no ha comprado nada."
+  - "La factura del pedido de {{cliente:CLI-06}} lleva el aceite al 4 % y la cosmética al 21 %, con dos bases y dos cuotas de IVA separadas y el total correcto."
+  - "El pedido de {{cliente:CLI-03}} lleva 24 latas y 24 cajas de monodosis, y el albarán se ha preparado con esas cantidades, no con las del pedido original."
+  - "El albarán de {{cliente:CLI-04}} está cerrado con 8 garrafas y 10 latas, y queda pendiente de servir el resto de las garrafas."
+  - "La factura de {{cliente:CLI-13}} está parcialmente cobrada: se ve el importe del pago y el saldo que queda vivo."

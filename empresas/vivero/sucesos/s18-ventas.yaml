@@ -1,0 +1,142 @@
+# Bandeja de la S18 del vivero: del interés al cobro.
+#
+# Los importes salen de marcas {{precio:...}} y {{precio_tarifa:CLIENTE:PRODUCTO}}
+# para que cada alumno vea SUS precios. El texto no lleva cifras escritas a mano:
+# si cambia el catálogo, la bandeja cambia sola.
+
+titulo: S18 · De la visita al cobro
+intro: |
+  Primera semana de noviembre en {{empresa}}. Las comunidades cierran sus
+  presupuestos antes de la junta de diciembre, el vivero prepara la campaña de
+  Navidad y aún quedan entregas de la plantación de otoño. Estos son los
+  mensajes que han entrado en el despacho en los últimos días. Ninguno viene con
+  el trabajo hecho: hay que decidir qué documento se crea en cada caso.
+
+sucesos:
+  - clave: S18-01
+    dia: lunes
+    hora: "09:20"
+    medio: correo
+    de: "{{cliente:CLI-06}}"
+    asunto: "Pedido para reponer los jardines"
+    texto: |
+      Buenos días:
+
+      La junta aprobó el jueves reponer la entrada y los parterres del bloque.
+      Necesitamos 40 {{producto:VIV-001}} para los parterres, 12
+      {{producto:VIV-008}} para el seto de la entrada y 20 sacos de
+      {{producto:VIV-101}}.
+
+      Entendemos que se nos sigue aplicando la tarifa de comunidades:
+      confirmadme que la photinia nos queda a {{precio_tarifa:CLI-06:VIV-008}} y
+      que nos la podéis servir esta misma semana, que queremos plantarla antes
+      de que hiele.
+
+      Un saludo,
+      La presidenta
+
+  - clave: S18-02
+    dia: lunes
+    hora: "12:10"
+    medio: llamada
+    de: "{{cliente:CLI-02}}"
+    asunto: "Presupuesto para cambiar el jardín del patio"
+    texto: |
+      Llama un particular que tiene el patio lleno de grava y quiere convertirlo
+      en jardín. Pide presupuesto para el {{producto:VIV-301}} y, si el plano le
+      convence, para la {{producto:VIV-302}}.
+
+      Dice que le pasemos el presupuesto por correo esta semana y que lo consulta
+      con su pareja antes de decidir. No quiere que le llamemos nosotros.
+
+  - clave: S18-03
+    dia: martes
+    hora: "08:40"
+    medio: correo
+    de: "{{cliente:CLI-02}}"
+    asunto: "Respuesta al presupuesto del jardín"
+    texto: |
+      Buenos días:
+
+      Gracias por la visita y por el plano, nos gustó mucho. Pero el presupuesto
+      se nos va bastante de lo que teníamos pensado y este año no podemos
+      acometerlo. Lo dejamos para más adelante.
+
+      Ya os avisaremos si nos decidimos.
+
+  - clave: S18-04
+    dia: martes
+    hora: "16:15"
+    medio: correo
+    de: "{{cliente:CLI-14}}"
+    asunto: "Plantas y macetas para la terraza de la oficina"
+    texto: |
+      Hola:
+
+      Queremos arreglar la terraza de la segunda planta antes de las visitas de
+      diciembre. Necesitamos 2 {{producto:VIV-010}} para los extremos, 3
+      {{producto:VIV-205}} para plantarlos y 2 {{producto:VIV-201}} para que el
+      personal de mantenimiento pueda trabajarlos.
+
+      ¿A cómo nos sale el olivo con nuestra tarifa? Supongo que todo va al 10 %,
+      que al fin y al cabo son cosas de jardín.
+
+      Gracias,
+      Administración
+
+  - clave: S18-05
+    dia: miércoles
+    hora: "11:05"
+    medio: correo
+    de: "{{cliente:CLI-16}}"
+    asunto: "Cambio en el pedido de esta semana"
+    texto: |
+      Buenos días:
+
+      El pedido que os mandé el lunes cambia: al final poned 30
+      {{producto:VIV-004}} en vez de 20, que vamos a ampliar la terraza, y
+      añadid 4 {{producto:VIV-203}}. Quitad las {{producto:VIV-002}}, que las
+      colgantes nos las cede el decorador. El resto igual.
+
+      Todavía no ha salido el camión, entiendo que se puede cambiar sin
+      problema.
+
+  - clave: S18-06
+    dia: jueves
+    hora: "13:30"
+    medio: llamada
+    de: "{{cliente:CLI-06}}"
+    asunto: "En la entrega no vienen los pensamientos"
+    texto: |
+      Llama la presidenta. Ha recibido el albarán y llegan las photinias y el
+      sustrato, pero no los {{producto:VIV-001}}: el transportista les dice que
+      de esa variedad no había. Los vecinos tenían previsto plantar el sábado por
+      la mañana y ella necesita saber si llegan a tiempo o si hay que suspenderlo.
+
+      Pide que le confirmemos por escrito qué se ha entregado y qué queda
+      pendiente, porque tiene que justificarlo en la junta.
+
+  - clave: S18-07
+    dia: viernes
+    hora: "10:20"
+    medio: correo
+    de: "{{cliente:CLI-09}}"
+    asunto: "Transferencia de la factura de octubre"
+    texto: |
+      Buenas:
+
+      Os hemos hecho una transferencia con el importe de la planta y los
+      materiales de la factura de octubre. La cuota de {{producto:VIV-304}} la
+      hemos dejado fuera: hasta que venga el jardinero a ver los setos que se
+      secaron no sabemos si corresponde cobrarla entera.
+
+      Cuando nos deis vuestra versión, os ingresamos lo que quede.
+
+comprobacion:
+  - "El pedido de {{cliente:CLI-06}} lleva la tarifa de comunidades y las tres líneas con las cantidades pedidas."
+  - "El presupuesto de {{cliente:CLI-02}} se ha enviado y después se ha marcado como perdido, con el motivo escrito."
+  - "El pedido de {{cliente:CLI-14}} mezcla dos tipos de IVA: la planta al 10 % y las macetas y la pala al 21 %."
+  - "El pedido de {{cliente:CLI-16}} lleva las cantidades corregidas antes de la entrega, no las originales."
+  - "La entrega de {{cliente:CLI-06}} está cerrada con las líneas servidas y queda un albarán pendiente por los pensamientos."
+  - "La factura de {{cliente:CLI-09}} está parcialmente cobrada y se ve el importe pendiente."
+  - "Los precios del pedido de {{cliente:CLI-06}} coinciden con la tarifa aplicada, no con el PVP de tienda."

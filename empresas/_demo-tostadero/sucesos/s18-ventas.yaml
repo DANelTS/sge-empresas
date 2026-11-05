@@ -59,6 +59,7 @@ sucesos:
     medio: correo
     de: "{{cliente:CLI-07}}"
     asunto: "Cambio en el pedido de esta semana"
+    incidencia: true
     texto: |
       Hola:
 
@@ -75,6 +76,7 @@ sucesos:
     medio: correo
     de: "{{cliente:CLI-04}}"
     asunto: "Nos falta género en el albarán"
+    incidencia: true
     texto: |
       Buenos días:
 
@@ -105,6 +107,7 @@ sucesos:
     medio: correo
     de: "{{cliente:CLI-09}}"
     asunto: "Transferencia a cuenta de la factura de octubre"
+    incidencia: true
     texto: |
       Hola:
 
@@ -120,6 +123,7 @@ sucesos:
     medio: correo
     de: "{{cliente:CLI-02}}"
     asunto: "Precio equivocado en la factura de esta semana"
+    incidencia: true
     texto: |
       Buenas:
 

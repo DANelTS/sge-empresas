@@ -1,0 +1,181 @@
+# Bandeja de la S18: el ciclo de venta completo (sector oficina).
+#
+# Los importes salen de marcas {{precio:...}} y {{precio_tarifa:CLIENTE:PRODUCTO}}
+# para que cada alumno vea SUS precios, no los de la variante canónica. El texto
+# no debe llevar cifras de precio escritas a mano: si cambia el catálogo, la
+# bandeja cambia sola. Las cantidades sí van en claro, porque son las que el
+# alumno tiene que teclear.
+
+titulo: S18 · Del interés al cobro
+intro: |
+  Es la primera semana de noviembre. Estos son los mensajes que han entrado en el
+  despacho comercial en los últimos días, entre pedidos de colegios, obra nueva y
+  alguna que otra factura que no cuadra. Ninguno viene con el trabajo hecho: hay
+  que decidir qué documento se crea en cada caso y, sobre todo, cuál **no** se
+  toca.
+
+sucesos:
+  - clave: S18-01
+    dia: lunes
+    hora: "08:40"
+    medio: correo
+    de: "{{cliente:CLI-11}}"
+    asunto: "Pedido del primer trimestre"
+    texto: |
+      Buenos días:
+
+      Os paso el pedido del primer trimestre. Este año lo hemos juntado todo en
+      uno para no ir haciendo llamadas sueltas cada semana:
+
+      - 40 cajas de {{producto:OFI-001}}
+      - 60 {{producto:OFI-005}}
+      - 25 cajas de {{producto:OFI-012}}
+      - 10 cajas de {{producto:OFI-034}}
+
+      Aplicadnos la tarifa de colegios como siempre. La última vez la caja de
+      folios nos salió a {{precio_tarifa:CLI-11:OFI-001}} y nos pareció
+      correcto, así que entiendo que el precio no ha cambiado.
+
+      Lo necesitamos en el colegio el jueves por la mañana, antes de que
+      empiecen las clases.
+
+      Un saludo,
+      La secretaría
+
+  - clave: S18-02
+    dia: lunes
+    hora: "12:15"
+    medio: llamada
+    de: "{{cliente:CLI-08}}"
+    asunto: "Presupuesto para la sala de reuniones"
+    texto: |
+      Llama la administradora. Están montando una sala de reuniones en la
+      segunda planta y quieren presupuesto de:
+
+      - 8 {{producto:OFI-024}}
+      - 2 {{producto:OFI-028}}
+      - 4 {{producto:OFI-029}}
+
+      Sin instalación: lo monta su gente un sábado. Pide que se lo mandemos por
+      correo, con validez de un mes, y avisa de que lo tiene que aprobar la
+      dirección en el comité de la semana que viene.
+
+      Que quede claro que de momento es un presupuesto, no un pedido.
+
+  - clave: S18-03
+    dia: martes
+    hora: "09:30"
+    medio: correo
+    de: "{{cliente:CLI-08}}"
+    asunto: "Respuesta al presupuesto de la sala de reuniones"
+    texto: |
+      Buenos días:
+
+      Gracias por el presupuesto de la sala. Lo ha visto la dirección y
+      finalmente lo vamos a hacer con el proveedor que nos monta también las
+      mesas, para no tener dos plazos de entrega distintos. No es por precio: el
+      vuestro estaba bien.
+
+      Lo dejamos para el año que viene, cuando renovemos la planta de abajo.
+
+      Un saludo.
+
+  - clave: S18-04
+    dia: martes
+    hora: "16:10"
+    medio: correo
+    de: "{{cliente:CLI-07}}"
+    asunto: "Cambio en el pedido de ayer"
+    texto: |
+      Hola:
+
+      El pedido que os pasé ayer cambia. El tóner compatible se nos queda corto
+      con la campaña de renovaciones: poned 10 cajas de {{producto:OFI-016}} en
+      vez de 5. Y añadid 6 cajas de {{producto:OFI-019}} para las impresoras
+      pequeñas del mostrador. El resto, igual.
+
+      Entiendo que todavía no ha salido de la nave. Si ya estuviera preparado,
+      decidme y lo que venga de más lo devolvemos.
+
+  - clave: S18-05
+    dia: miércoles
+    hora: "10:20"
+    medio: correo
+    de: "{{cliente:CLI-04}}"
+    asunto: "El pedido viene incompleto"
+    texto: |
+      Buenos días:
+
+      Acabamos de recibir el pedido y viene incompleto. De las 6 unidades de
+      {{producto:OFI-017}} solo han llegado 2: el transportista dice que el
+      resto no venía en el palé y que lo mismo se quedó en el muelle.
+
+      Necesitamos las 4 que faltan esta misma semana. La consulta de radiología
+      no puede quedarse sin tóner un viernes por la tarde. Mandadnos el albarán
+      de lo que falta en cuanto lo tengáis, aunque venga en un reparto aparte.
+
+      Gracias.
+    incidencia: true
+
+  - clave: S18-06
+    dia: miércoles
+    hora: "17:40"
+    medio: correo
+    de: "{{cliente:CLI-03}}"
+    asunto: "Facturación de la delegación"
+    texto: |
+      Buenas:
+
+      Un tema de facturación, que nos lo ha pedido el asesor. A partir de este
+      pedido, las facturas de esta delegación tienen que ir a nombre de la
+      sociedad cabecera del grupo y no a nombre de la sociedad con la que
+      veníamos trabajando. Cambia el CIF y el domicilio fiscal, que ahora está en
+      el polígono; el contacto y la dirección de entrega son los mismos de
+      siempre.
+
+      Los datos completos van en el PDF que os adjunto.
+
+      La factura del mes pasado dejadla como está: ya está contabilizada y no
+      queremos líos con Hacienda.
+
+      Gracias.
+    incidencia: true
+
+  - clave: S18-07
+    dia: jueves
+    hora: "11:05"
+    medio: correo
+    de: "{{cliente:CLI-06}}"
+    asunto: "Pago de la factura de octubre"
+    texto: |
+      Hola:
+
+      Os confirmamos la transferencia de esta mañana: hemos pagado la mitad de
+      la factura de octubre. La otra mitad la dejamos para el cierre del mes,
+      cuando cobremos a nuestro cliente principal, que va con retraso.
+
+      Si necesitáis un calendario por escrito os lo mandamos, pero contad con
+      esa fecha.
+
+  - clave: S18-08
+    dia: viernes
+    hora: "09:15"
+    medio: llamada
+    de: "{{cliente:CLI-17}}"
+    asunto: "Dos sillas para casa"
+    texto: |
+      Llama un particular: quiere dos {{producto:OFI-025}} para el despacho de
+      casa. Pregunta el precio y si se las podemos tener hoy. Se le dice el de
+      catálogo, {{precio:OFI-025}}, sin descuento, porque no tiene tarifa.
+
+      Viene a recogerlas a la nave esta tarde y paga con tarjeta en el
+      mostrador. Pide justificante de la compra a su nombre.
+
+comprobacion:
+  - "El pedido de {{cliente:CLI-11}} tiene cuatro líneas, lleva la tarifa de colegios aplicada y está confirmado."
+  - "El presupuesto de {{cliente:CLI-08}} está enviado y después marcado como rechazado, con el motivo escrito."
+  - "El pedido de {{cliente:CLI-07}} lleva 10 cajas de tóner y la línea nueva de cartuchos, no las cantidades del pedido original."
+  - "El albarán de {{cliente:CLI-04}} está cerrado con 2 tóners y queda un albarán pendiente por las 4 unidades que faltan."
+  - "El contacto de {{cliente:CLI-03}} tiene los datos fiscales nuevos y el pedido se factura a esa razón social; la factura del mes pasado sigue intacta."
+  - "La factura de {{cliente:CLI-06}} está cobrada solo en parte y el importe pendiente se ve en el saldo del cliente."
+  - "El pedido de {{cliente:CLI-17}} va a precio de catálogo, sin tarifa ni descuento, y consta como cobrado."
