@@ -1,0 +1,105 @@
+# Bandeja de la S19: reponer antes de quedarse sin género (demo del profesor).
+#
+# Mismas marcas que la bandeja de ventas: {{producto:}}, {{proveedor:}},
+# {{precio:}}… para que cada alumno vea sus referencias y sus precios.
+
+titulo: S19 · Compras e inventario
+intro: |
+  Segunda semana de noviembre. El almacén ha tenido una semana movida y el
+  proveedor de café verde no ayuda. Hay que decidir qué se compra, qué se
+  regulariza y qué se reclama.
+
+sucesos:
+  - clave: S19-01
+    dia: lunes
+    hora: "08:40"
+    medio: nota
+    de: Almacén
+    asunto: "Quedan dos sacos de Brasil"
+    texto: |
+      Aviso de almacén: de {{producto:TOS-001}} quedan **dos sacos** y el
+      proveedor tarda diez días en servir. Con lo que tenemos en la bandeja de
+      pedidos no llegamos a fin de mes.
+
+      Propongo lanzar la compra hoy mismo.
+
+  - clave: S19-02
+    dia: lunes
+    hora: "12:10"
+    medio: correo
+    de: "{{proveedor:PRV-VERDE-ATL}}"
+    asunto: "Confirmación de pedido y plazo"
+    texto: |
+      Buenos días:
+
+      Confirmamos el pedido de {{producto:TOS-001}}, pero os tenemos que avisar
+      de que esta semana solo podemos servir **la mitad**: la cosecha viene
+      retrasada y el contenedor no llega hasta el día 20. El resto os lo
+      mandamos en cuanto descargue.
+
+      Disculpad las molestias.
+
+    incidencia: true
+
+  - clave: S19-03
+    dia: martes
+    hora: "09:30"
+    medio: nota
+    de: Almacén
+    asunto: "Saco roto en la descarga"
+    texto: |
+      Al descargar el palé se ha roto un saco de {{producto:TOS-003}} y se ha
+      derramado casi entero. Lo hemos barrido y no se puede usar.
+
+      ¿Cómo lo regularizamos? En el sistema sigue contando como si estuviera.
+
+    incidencia: true
+
+  - clave: S19-04
+    dia: miércoles
+    hora: "11:05"
+    medio: correo
+    de: "{{proveedor:PRV-ENVASES}}"
+    asunto: "Factura del pedido de bolsas"
+    texto: |
+      Adjuntamos la factura del pedido de bolsas de válvula. Ojo: os hemos
+      aplicado el precio nuevo de tarifa, que subió este mes un 6 %. Si preferís
+      mantener el precio anterior hasta fin de año, avisadnos y os emitimos el
+      abono.
+
+    incidencia: true
+
+  - clave: S19-05
+    dia: jueves
+    hora: "10:00"
+    medio: llamada
+    de: "{{proveedor:PRV-MAQUINARIA}}"
+    asunto: "Mantenimiento del molinillo del obrador"
+    texto: |
+      Llaman para recordar que el molinillo del obrador cumple un año y toca
+      revisión. Pueden venir el martes que viene por la mañana y dejarlo en dos
+      horas.
+
+      Es un servicio que ya tenemos contratado con ellos, no una compra de
+      material.
+
+  - clave: S19-06
+    dia: viernes
+    hora: "16:20"
+    medio: nota
+    de: Dirección
+    asunto: "El envase sube y hay que repercutirlo"
+    texto: |
+      El proveedor de bolsas nos ha subido el precio. Revisad el coste de las
+      bolsas en el sistema y, si toca, ajustad también el precio de venta del
+      formato de 1 kg a partir del mes que viene.
+
+      No quiero que nos coma el margen sin darnos cuenta.
+
+comprobacion:
+  - "Hay un pedido de compra a {{proveedor:PRV-VERDE-ATL}} con la cantidad que has decidido, confirmado y con su recepción."
+  - "La recepción del pedido está hecha por la mitad y queda una recepción pendiente con el resto."
+  - "El saco roto está descontado del stock mediante un ajuste de inventario con su motivo, y el stock no ha quedado negativo."
+  - "La factura del proveedor de envases está registrada con el precio que has decidido aceptar, y si has reclamado, consta la nota."
+  - "El servicio de mantenimiento está como compra de servicio, sin movimiento de almacén."
+  - "El coste actualizado del producto se ve en la ficha del producto y el precio de venta nuevo no afecta a los pedidos ya confirmados."
