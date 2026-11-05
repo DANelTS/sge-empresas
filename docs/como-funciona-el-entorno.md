@@ -12,8 +12,7 @@ Git. Nada de Python, PostgreSQL ni Odoo en la máquina.
 
 ```bash
 git clone <repo> && cd sge-empresas           # 1. el repositorio
-cp config/odoo.conf.example config/odoo.conf  # 2. tu configuración
-docker compose up -d                          # 3. arrancar
+docker compose up -d                          # 2. arrancar
 docker compose run --rm odoo odoo db init empresa --country ES --language es_ES \
         --username admin --password admin      # 4. la base
 docker compose run --rm odoo odoo module install -d empresa \
@@ -25,8 +24,7 @@ docker compose run --rm herramientas generar.py \
 | Paso | Qué hace de verdad | Cómo sabes que ha ido bien |
 |---|---|---|
 | 1 | Trae el compose, la configuración, los catálogos y los scripts. | `ls` muestra `docker-compose.yml`, `config/` y `herramientas/`. |
-| 2 | Crea **tu** configuración de Odoo (la del repositorio es un ejemplo). | `ls config/` muestra `odoo.conf` y `odoo.conf.example`. |
-| 3 | Descarga imágenes y levanta `db` (PostgreSQL 17) y `odoo` (19). | `docker compose ps` los muestra `healthy`; <http://localhost:8069> responde. |
+| 2 | Descarga imágenes y levanta `db` (PostgreSQL 17) y `odoo` (19). | `docker compose ps` los muestra `healthy`; <http://localhost:8069> responde. |
 | 4 | Crea la base **con país España y español**, sin datos de demostración. | `select chart_template from res_company;` devuelve `es_pymes`; la moneda es EUR. |
 | 5 | Instala CRM, Ventas, Compras, Inventario y Facturación. | El menú superior muestra esas cinco aplicaciones. |
 | 6 | Escribe en `salida/<sector>-A<NN>/` los CSV y documentos de la variante. | `ls salida/cerveceria-A07/maestros` muestra seis CSV. |
@@ -79,13 +77,18 @@ Detalles que importan:
   existe hace que Docker cree un *directorio* con ese nombre y el error que sale
   después no hay quien lo lea.
 
-### `config/odoo.conf.example` y `config/odoo.conf`
+### `config/odoo.conf`
 
-El `.example` está en el repositorio; el alumno lo copia a `config/odoo.conf`, que
-está en `.gitignore`. Ahí viven la conexión con PostgreSQL y la contraseña maestra
-del gestor de bases de datos. Si no se copia, Odoo arranca con la configuración
-por defecto de la imagen, busca la base en `localhost` y falla con
-`connection refused`.
+Está versionado, con las contraseñas de aula: base `odoo`/`odoo` y gestor de
+bases de datos `admin`. No hay nada que copiar ni que configurar. Si alguien
+cambia la contraseña de la base, tiene que cambiarla también en
+`POSTGRES_PASSWORD` del compose.
+
+Se versiona a propósito porque el fichero **tiene que existir**: `odoo db init` y
+`odoo module install` no aceptan `--db_host`/`--db_user`, así que la conexión no
+puede llegar solo por variables de entorno (daría
+`unrecognized arguments: --db_host …`). En un servidor real no se versiona: se
+genera desde un gestor de secretos.
 
 ### `herramientas/`
 
@@ -134,11 +137,11 @@ repositorio, el wrapper renderizaba `config/odoo.conf` desde `.env` al arrancar.
 
 ### Lo que se hace ahora
 
-El alumno copia `config/odoo.conf.example` a `config/odoo.conf` y lo edita si
-quiere. Odoo arranca con el entrypoint oficial, sin nada propio. El coste es un
-paso manual (copiar un fichero) y que la contraseña maestra es conocida
-(`admin`); a cambio, el contenedor de Odoo solo ve su configuración y desaparecen
-las piezas que pueden romperse.
+`config/odoo.conf` está versionado con contraseñas por defecto y se monta en
+`/etc/odoo` en solo lectura. Odoo arranca con el entrypoint oficial, sin nada
+propio, y el contenedor solo ve su configuración. El coste es que las
+contraseñas son públicas; a cambio desaparecen el `.env`, el wrapper y el paso de
+copiar un fichero.
 
 En un servidor de producción esto no se hace así: la configuración se renderiza
 desde un gestor de secretos y se monta en solo lectura, o se usan *secrets* del

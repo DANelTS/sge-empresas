@@ -33,21 +33,19 @@ está puesto antes de instalar Facturación.
 - Docker Desktop arrancado (el icono de la ballena, en verde).
 - Git instalado.
 - 4 GB de RAM libres. La primera vez hay que descargar unos 2 GB de imágenes.
-- El repositorio clonado y tu `config/odoo.conf` creado a partir del ejemplo.
+- El repositorio clonado. No hay que configurar nada más: las contraseñas de
+aula vienen puestas.
 
 ```powershell
 git clone https://github.com/TU-USUARIO/sge-empresas.git
 cd sge-empresas
-copy config\odoo.conf.example config\odoo.conf
-notepad config\odoo.conf
 ```
 
-Ese fichero trae la conexión con PostgreSQL y la contraseña maestra del gestor de
-bases de datos (`admin_passwd`). Para el aula funciona tal cual; si quieres
-cambiarla, hazlo ahora y apúntala.
+Las contraseñas de aula están puestas en `config/odoo.conf`: base `odoo`/`odoo` y
+gestor de bases de datos `admin`. No hay que tocar nada; si quieres cambiarlas,
+ese es el sitio (y `POSTGRES_PASSWORD` en el compose para la de la base).
 
-> **En Linux o macOS** el comando de copia es `cp config/odoo.conf.example
-> config/odoo.conf`, y los permisos de los volúmenes pueden necesitar `:z` al
+> **En Linux o macOS** los permisos de los volúmenes pueden necesitar `:z` al
 > final (SELinux).
 
 ## Paso 1 · Arrancar el entorno

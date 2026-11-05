@@ -3,6 +3,18 @@
 Notas para el profesor: qué hay nuevo en cada entrega y qué conviene revisar.
 Corresponde a los hitos del plan de trabajo de la UD3 (§7).
 
+## 2026-11-05 · Configuración versionada, sin paso de copia
+
+- Se retira `config/odoo.conf.example`. Ahora hay un único `config/odoo.conf`
+  versionado, con las contraseñas de aula (base `odoo`/`odoo`, gestor `admin`).
+  El alumnado no tiene que copiar ni editar nada.
+- Motivo: el fichero **tiene que existir**. Con la conexión solo en variables de
+  entorno (`HOST`/`USER`/`PASSWORD`), el entrypoint de la imagen añade
+  `--db_host …` al final del comando y `odoo db init` / `odoo module install`
+  fallan con `unrecognized arguments`. Comprobado en la 19.
+- El contenedor de Odoo sigue viendo solo `config`, `addons` y `salida/copias`;
+  los puertos siguen en `127.0.0.1`.
+
 ## 2026-11-05 · Cambio de diseño del entorno
 
 A petición del profesor: menos acoplamiento y menos piezas propias.

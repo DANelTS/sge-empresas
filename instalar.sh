@@ -86,15 +86,12 @@ fi
 verde "Motor disponible: $MOTOR (${COMPOSE[*]})"
 
 # ---------------------------------------------------------------------------
-paso "2. Configuración de Odoo (config/odoo.conf)"
+paso "2. Contraseñas (valores por defecto de aula)"
 # ---------------------------------------------------------------------------
-if [[ -f config/odoo.conf ]]; then
-  verde "config/odoo.conf ya existe; no lo toco"
-else
-  cp config/odoo.conf.example config/odoo.conf
-  verde "config/odoo.conf creado a partir del ejemplo"
-  echo "  Si quieres, cambia dentro la contraseña maestra (admin_passwd)."
-fi
+verde "Base de datos: usuario odoo, contraseña odoo"
+verde "Gestor de bases de datos de Odoo: contraseña admin"
+echo "  Están escritas en docker-compose.yml a la vista: es un entorno de aula y"
+echo "  Odoo solo escucha en 127.0.0.1, no en la red."
 
 # ---------------------------------------------------------------------------
 paso "3. Arrancando PostgreSQL y Odoo"
@@ -124,7 +121,7 @@ fi
 # ---------------------------------------------------------------------------
 paso "4. Base de datos '${BD}'"
 # ---------------------------------------------------------------------------
-CLAVE="$(grep -E '^admin_passwd' config/odoo.conf | head -1 | cut -d= -f2- | tr -d ' ')"
+CLAVE="admin"   # contraseña maestra por defecto del gestor de bases de datos
 if "${COMPOSE[@]}" exec -T db psql -U odoo -lqt 2>/dev/null | cut -d'|' -f1 | grep -qw "$BD"; then
   verde "La base '${BD}' ya existe"
 else

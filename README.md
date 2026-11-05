@@ -21,9 +21,9 @@ que ir resolviendo. Este repositorio pone el entorno, los datos y las guías.
 
 ## Puesta en marcha (5 minutos)
 
-**Lo más rápido:** el instalador hace todo (comprueba Docker, crea tu
-`config/odoo.conf` a partir del ejemplo, arranca, crea la base con la
-localización española y, si le dices tu sector, genera tu variante).
+**Lo más rápido:** el instalador hace todo (comprueba Docker, arranca, crea la
+base con la localización española y, si le dices tu sector, genera tu variante).
+No hay nada que configurar: las contraseñas de aula vienen puestas.
 
 Windows (PowerShell, en la carpeta del repositorio):
 
@@ -49,7 +49,6 @@ Al terminar te dice la URL (http://localhost:8069, usuario `admin`, contraseña
 <summary>Si prefieres hacerlo a mano (o el instalador falla)</summary>
 
 ```powershell
-copy config\odoo.conf.example config\odoo.conf
 docker compose up -d
 docker compose run --rm odoo odoo db init empresa --country ES --language es_ES --username admin --password admin
 docker compose run --rm odoo odoo module install -d empresa account sale_management purchase stock crm
@@ -57,9 +56,7 @@ docker compose run --rm herramientas generar.py --empresa cerveceria --alumno 7
 ```
 
 El `odoo` repetido en `odoo odoo db init` no es una errata: la primera palabra es
-el servicio del compose y la segunda, el comando dentro de la imagen. En
-Windows/macOS hay que generar `config/odoo.conf` antes de arrancar; si no, Odoo
-busca la base en `localhost` y falla.
+el servicio del compose y la segunda, el comando dentro de la imagen.
 </details>
 
 > La contraseña de `admin` tiene que ser la misma que `admin_passwd` en
@@ -117,8 +114,7 @@ harían sin tocar nada.
 ```
 sge-empresas/
 ├── docker-compose.yml        Odoo 19 + PostgreSQL 17 + servicio de herramientas
-├── config/odoo.conf.example  configuración de Odoo (se copia a odoo.conf)
-├── config/odoo.conf          la tuya: NO se sube al repositorio
+├── config/odoo.conf          configuración de Odoo (contraseñas de aula)
 ├── herramientas/             scripts en Python (corren en contenedor)
 │   ├── generar.py            datos maestros y documentos de una variante
 │   ├── cargar_historico.py   histórico en Odoo por API

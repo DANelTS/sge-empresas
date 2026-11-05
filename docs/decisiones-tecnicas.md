@@ -31,9 +31,14 @@ existe**: si se pasa, el servidor ni arranca (`no such option: --admin-passwd`).
 La contraseña maestra del gestor de bases de datos solo se lee del fichero de
 configuración (`admin_passwd`).
 
-Solución elegida: `config/odoo.conf.example` se copia a `config/odoo.conf`, que
-está en `.gitignore`, y se monta en `/etc/odoo` en solo lectura. Odoo arranca con
+Solución elegida: `config/odoo.conf` **versionado**, con las contraseñas de aula
+(`odoo`/`odoo` y `admin`), montado en `/etc/odoo` en solo lectura. Odoo arranca con
 su entrypoint oficial y lee de ahí `db_password` y `admin_passwd`.
+
+El fichero tiene que existir, y no vale solo con variables de entorno: si se
+pasan `HOST/USER/PASSWORD`, el entrypoint de la imagen **añade** `--db_host …` al
+final del comando y `odoo db init` / `odoo module install` fallan con
+`unrecognized arguments: --db_host`. Comprobado en la 19.
 
 Se probó antes un `docker/entrada.sh` que renderizaba la configuración al
 arrancar desde un `.env`. Funcionaba, pero obligaba a montar el repositorio

@@ -49,15 +49,10 @@ try {
 Bien "Docker y compose disponibles"
 
 # ---------------------------------------------------------------------------
-Paso "2. Configuración de Odoo (config\odoo.conf)"
+Paso "2. Contraseñas (valores por defecto de aula)"
 # ---------------------------------------------------------------------------
-if (Test-Path "config\odoo.conf") {
-    Bien "config\odoo.conf ya existe; no lo toco"
-} else {
-    Copy-Item "config\odoo.conf.example" "config\odoo.conf"
-    Bien "config\odoo.conf creado a partir del ejemplo"
-    Write-Host "  Si quieres, cambia dentro la contraseña maestra (admin_passwd)."
-}
+Bien "Base de datos: usuario odoo, contraseña odoo"
+Bien "Gestor de bases de datos de Odoo: contraseña admin"
 
 # Puerto publicado en docker-compose.yml (127.0.0.1:8069:8069). Si lo cambias
 # allí, cambia también esta línea.
@@ -90,8 +85,7 @@ Bien "Odoo en marcha en http://localhost:$puerto"
 # ---------------------------------------------------------------------------
 Paso "4. Base de datos '$Bd'"
 # ---------------------------------------------------------------------------
-$lineaClave = Select-String -Path "config\odoo.conf" -Pattern '^admin_passwd' | Select-Object -First 1
-$clave = ($lineaClave.Line -split "=", 2)[1].Trim()
+$clave = "admin"   # contraseña maestra por defecto del gestor de bases de datos
 
 $existe = $false
 try {

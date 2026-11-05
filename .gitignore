@@ -23,5 +23,3 @@ Thumbs.db
 *.zip
 !docs/**
 
-# Configuración local del alumno (se copia de odoo.conf.example)
-config/odoo.conf

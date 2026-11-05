@@ -1,8 +1,7 @@
 # docker-compose.yml — entorno de trabajo de SGE (Odoo 19 Community + PostgreSQL)
 #
-# Antes de arrancar la primera vez:
-#   cp config/odoo.conf.example config/odoo.conf      (Linux/macOS)
-#   copy config\odoo.conf.example config\odoo.conf    (Windows)
+# La configuración vive en config/odoo.conf, versionada con las contraseñas por
+# defecto de aula (base: odoo/odoo; gestor: admin). No hay nada que copiar.
 #
 # Uso normal:
 #   docker compose up -d          arranca PostgreSQL y Odoo
@@ -53,12 +52,12 @@ services:
       # de cualquiera.
       - "127.0.0.1:8069:8069"
     environment:
+      # Sin HOST/USER/PASSWORD: la conexión va en config/odoo.conf. Si se pasan
+      # por entorno, el entrypoint de la imagen añade --db_* al final del
+      # comando y rompe `odoo db init` y `odoo module install`.
       TZ: Europe/Madrid
     volumes:
       - datos-odoo:/var/lib/odoo
-      # La configuración del alumno. Se monta la CARPETA, no el fichero: montar
-      # un fichero que no existe crea un directorio con ese nombre y el error
-      # que sale después no hay quien lo lea.
       - ./config:/etc/odoo:ro
       # Módulos propios a partir de la UD4 (vacío por ahora).
       - ./addons:/mnt/extra-addons
