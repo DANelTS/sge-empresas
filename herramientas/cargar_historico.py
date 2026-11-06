@@ -340,6 +340,29 @@ def cargar(api: Odoo, e: catalogo.Empresa, m: maestros.Maestros, plan: historico
             tarifa_odoo[nombre] = encontradas[0]
     nombre_tarifa = {t["clave"]: t["nombre"] for t in m.tarifas}
 
+    # ---- 3b. Reglas de tarifa -------------------------------------------
+    # La pestaña «Reglas» de una lista de precios es una lista incrustada: no
+    # tiene botón «Importar», así que el CSV de reglas no se puede cargar desde
+    # la interfaz. Las crea este script (una regla global por lista) y
+    # verificar.py comprueba que están.
+    for tarifa in m.tarifas:
+        if not tarifa.get("descuento"):
+            continue
+        lista = tarifa_odoo.get(tarifa["nombre"])
+        if not lista:
+            continue
+        ya = api.buscar_ids("product.pricelist.item",
+                            [["pricelist_id", "=", lista], ["applied_on", "=", "3_global"]],
+                            limite=1)
+        if not ya:
+            api.crear("product.pricelist.item", {
+                "pricelist_id": lista,
+                "applied_on": "3_global",
+                "compute_price": "percentage",
+                "percent_price": tarifa["descuento"],
+                "min_quantity": 0,
+            })
+
     for i, venta in enumerate(plan.ventas, start=1):
         cliente = next(c for c in m.clientes if c["clave"] == venta.cliente)
         valores = {

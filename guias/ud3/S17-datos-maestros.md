@@ -40,6 +40,21 @@ una vez.
 
 - Abre `salida/<sector>-A<NN>/LEEME.md`: tiene el orden exacto de importación.
 
+## Paso 0 · Activar las listas de precios (una sola vez)
+
+**Ajustes → Ventas → sección *Precios* → marca *Listas de precios* → Guardar.**
+
+En la 19 este interruptor viene **apagado**: mientras esté así, el menú
+**Ventas → Productos → Listas de precios** no existe, y el importador de
+contactos no reconoce la columna de la tarifa (sale sin mapear y te obliga a
+elegir campo a mano). Es el primer sitio donde hay que mirar si algo de este
+apartado no aparece.
+
+> Por qué existe el interruptor: en una tienda con un solo precio de venta no
+> hace falta nada de esto. Las tarifas son para empresas que venden lo mismo a
+> precios distintos según el cliente, que es el caso de las cinco empresas del
+> curso.
+
 ## Paso 1 · Importar las familias de producto
 
 **Ventas → Configuración → Productos → Categorías → botón *Importar registros***.
@@ -57,18 +72,17 @@ Comprueba la pantalla de mapeo: la columna `name` tiene que estar mapeada a
 > criterios comunes. En la UD3 las usarás para preguntar «cuánto he vendido de
 > cada familia» sin escribir veinte nombres.
 
-## Paso 2 · Importar las tarifas y sus reglas
+## Paso 2 · Importar las tarifas
 
-**Ventas → Productos → Listas de precios → Importar**.
+**Ventas → Productos → Listas de precios → Importar**. Fichero:
+`maestros/2-tarifas.csv`. Crea las listas (`Tarifa hostelería`,
+`Tarifa distribución`…). La moneda tiene que resolverse a `EUR`.
 
-1. `maestros/2-tarifas.csv` — crea las listas (`Tarifa hostelería`,
-   `Tarifa distribución`…). La moneda debe resolverse a `EUR`.
-2. `maestros/3-reglas-tarifa.csv` — crea la regla de cada lista: un descuento
-   porcentual global. El campo `pricelist_id` se mapea a **Lista de precios** y
-   se resuelve por el nombre de la tarifa.
-
-Si la segunda importación se queja de que no encuentra la lista de precios, es
-que la primera no se ha importado (o se ha importado en otra base).
+**El descuento de cada lista no viene en ningún CSV.** La pestaña *Reglas* de una
+lista es una lista incrustada en el formulario: no tiene botón *Importar*. Lo crea
+`cargar_historico.py` en el paso 6 (una regla global con el porcentaje de
+descuento) y `verificar.py` comprueba que está. Si quieres verlo antes, abre la
+lista y mira la pestaña *Reglas* después del paso 6.
 
 ## Paso 3 · Importar los productos
 
@@ -151,7 +165,7 @@ hacer (falta un CSV, falta un impuesto, hay stock negativo…).
 ## Paso 7 · Copia de seguridad
 
 ```powershell
-docker compose run --rm odoo db dump empresa /repo/salida/copia-S17.zip
+docker compose exec odoo odoo db dump empresa /copias/copia-S17.zip
 ```
 
 ## Comprueba tu trabajo
@@ -159,12 +173,24 @@ docker compose run --rm odoo db dump empresa /repo/salida/copia-S17.zip
 - [ ] En **Ventas → Productos** hay 30 y pico productos con su referencia, su
       categoría y su precio, y ninguno con IVA vacío.
 - [ ] En **Contactos** están tus 18 clientes y tus 6 proveedores, sin duplicados.
-- [ ] Los clientes de hostelería tienen asignada *Tarifa hostelería*.
+- [ ] Los clientes de hostelería tienen asignada *Tarifa hostelería*, y la lista
+      tiene su regla de descuento en la pestaña *Reglas*.
 - [ ] Los dos productos de la bandeja existen con los datos exactos.
 - [ ] `verificar.py` termina con «todo en verde» (o solo con avisos de usuarios).
 - [ ] Tienes `salida/copia-S17.zip`.
 
 ## Si algo falla
+
+**No veo *Ventas → Productos → Listas de precios*.**
+Falta el paso 0: **Ajustes → Ventas → Precios → Listas de precios**. Después de
+guardar, recarga la página.
+
+**En la pantalla de mapeo hay columnas sin mapear (o mapeadas a un campo raro).**
+Casi siempre es que has abierto el importador desde el menú equivocado: el
+importador solo conoce los campos del modelo del menú desde el que entras. Un
+CSV de contactos importado desde Productos deja media tabla sin mapear. Cierra y
+entra por el menú que dice el paso. Las que sí hay que elegir a mano son las de
+tarifa y condición de pago si el paso 0 está pendiente.
 
 **«No matching record found for name … in field Categoría de producto».**
 No has importado las categorías, o las has importado en otra base. Paso 1.

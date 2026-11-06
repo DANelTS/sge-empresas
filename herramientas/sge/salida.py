@@ -25,7 +25,6 @@ COLUMNAS_CONTACTOS = [
 NOMBRE_FICHEROS = {
     "categorias": "1-categorias-producto.csv",
     "tarifas": "2-tarifas.csv",
-    "reglas": "3-reglas-tarifa.csv",
     "productos": "4-productos.csv",
     "proveedores": "5-proveedores.csv",
     "clientes": "6-clientes.csv",
@@ -39,6 +38,11 @@ def _si(valor: bool) -> str:
 def escribir_csvs(destino: pathlib.Path, m: Maestros) -> dict[str, pathlib.Path]:
     rutas = {}
 
+    # Resto de versiones anteriores: el CSV de reglas de tarifa ya no se genera
+    # (la lista de reglas no tiene botón de importación). Si quedó de una
+    # ejecución anterior, confunde.
+    (destino / "3-reglas-tarifa.csv").unlink(missing_ok=True)
+
     rutas["categorias"] = destino / NOMBRE_FICHEROS["categorias"]
     escribir_csv(rutas["categorias"], COLUMNAS_CATEGORIAS, [
         {"id": c["id"], "name": c["nombre"]} for c in m.categorias
@@ -50,18 +54,6 @@ def escribir_csvs(destino: pathlib.Path, m: Maestros) -> dict[str, pathlib.Path]
         {"id": t["id"], "name": t["nombre"], "currency_id": "EUR"} for t in con_descuento
     ])
 
-    rutas["reglas"] = destino / NOMBRE_FICHEROS["reglas"]
-    escribir_csv(rutas["reglas"], COLUMNAS_REGLAS, [
-        {
-            "id": f"regla-{t['clave']}",
-            "pricelist_id": t["nombre"],
-            "applied_on": "3_global",
-            "compute_price": "percentage",
-            "percent_price": f"{t['descuento']:.2f}",
-            "min_quantity": "0",
-        }
-        for t in con_descuento
-    ])
 
     rutas["productos"] = destino / NOMBRE_FICHEROS["productos"]
     escribir_csv(rutas["productos"], COLUMNAS_PRODUCTOS, [
@@ -185,7 +177,6 @@ vuelves a generar tu variante se sobrescribe.
 | `datos-empresa.md` | Los datos fiscales que configuras en Odoo (sesión S16). |
 | `maestros/1-categorias-producto.csv` | {len(m.categorias)} familias de producto. |
 | `maestros/2-tarifas.csv` | {len([t for t in m.tarifas if t['descuento']])} listas de precios con descuento. |
-| `maestros/3-reglas-tarifa.csv` | El descuento de cada lista de precios. |
 | `maestros/4-productos.csv` | {n_prod} productos ({n_serv} de ellos son servicios). |
 | `maestros/5-proveedores.csv` | {len(m.proveedores)} proveedores. |
 | `maestros/6-clientes.csv` | {len(m.clientes)} clientes. |
@@ -196,15 +187,24 @@ vuelves a generar tu variante se sobrescribe.
 El orden **no es opcional**: los productos necesitan las categorías y los
 clientes necesitan las tarifas.
 
+0. **Antes de nada**: **Ajustes → Ventas → Precios → Listas de precios**. Sin
+   este interruptor el menú de listas de precios no existe y la columna de tarifa
+   de los clientes no se mapea.
 1. `1-categorias-producto.csv` → menú **Ventas → Configuración → Productos →
    Categorías** (botón *Importar registros*).
-2. `2-tarifas.csv` y `3-reglas-tarifa.csv` → **Ventas → Productos → Listas de precios**.
+2. `2-tarifas.csv` → **Ventas → Productos → Listas de precios**.
 3. `4-productos.csv` → **Ventas → Productos → Productos**.
 4. `5-proveedores.csv` y `6-clientes.csv` → **Contactos**.
 
+El descuento de cada tarifa **no va en un CSV**: la pestaña *Reglas* de una lista
+de precios es una lista incrustada y no tiene botón *Importar*. Lo crea
+`cargar_historico.py` (paso 6) y `verificar.py` lo comprueba.
+
 En cada importación: carga el fichero, comprueba que las columnas se han mapeado
 solas (los encabezados son los nombres técnicos de los campos de Odoo), pulsa
-**Probar** antes de **Importar** y lee los avisos.
+**Probar** antes de **Importar** y lee los avisos. Si abres el importador desde
+el menú equivocado, media tabla sale sin mapear: cierra y entra por el menú que
+toca.
 
 ## Lo que el CSV no trae a propósito
 

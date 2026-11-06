@@ -32,7 +32,6 @@ RAIZ = catalogo.RAIZ
 FICHEROS = [
     ("product.category", "1-categorias-producto.csv"),
     ("product.pricelist", "2-tarifas.csv"),
-    ("product.pricelist.item", "3-reglas-tarifa.csv"),
     ("product.template", "4-productos.csv"),
     ("res.partner", "5-proveedores.csv"),
     ("res.partner", "6-clientes.csv"),

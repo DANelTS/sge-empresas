@@ -157,6 +157,63 @@ def comprobar_maestros(api: Odoo, inf: Informe, m: maestros.Maestros, e) -> None
             inf.bien(f"están los {len(manuales)} productos de alta manual")
 
 
+def comprobar_tarifas(api: Odoo, inf: Informe, m: maestros.Maestros) -> None:
+    """Listas de precios con su regla, y el ajuste que las hace visibles."""
+    inf.titulo("Listas de precios")
+    con_descuento = [t for t in m.tarifas if t.get("descuento")]
+    if not con_descuento:
+        inf.bien("esta empresa no usa tarifas")
+        return
+
+    reglas = api.buscar("product.pricelist.item",
+                        [["applied_on", "=", "3_global"]],
+                        ["pricelist_id", "percent_price"])
+    por_lista = {}
+    for r in reglas:
+        if r["pricelist_id"]:
+            por_lista[r["pricelist_id"][0]] = r["percent_price"]
+
+    for t in con_descuento:
+        ids = api.buscar_ids("product.pricelist", [["name", "=", t["nombre"]]], limite=1)
+        if not ids:
+            inf.mal(f"falta la lista «{t['nombre']}»",
+                    "impórtala con maestros/2-tarifas.csv (Ventas → Productos → Listas de precios)")
+            continue
+        if ids[0] not in por_lista:
+            inf.mal(f"la lista «{t['nombre']}» no tiene regla de descuento",
+                    "la crea cargar_historico.py; si no la ves, vuelve a ejecutarlo")
+            continue
+        if abs((por_lista[ids[0]] or 0) - t["descuento"]) > 0.01:
+            inf.mal(f"«{t['nombre']}» descuenta {por_lista[ids[0]]} % y debería {t['descuento']} %",
+                    "revisa la regla en la pestaña Reglas de la lista")
+        else:
+            inf.bien(f"«{t['nombre']}» con regla del {t['descuento']} %")
+
+    # El ajuste de listas de precios: si está apagado, el menú no aparece y la
+    # columna de tarifa del cliente no se puede importar.
+    # El ajuste no añade usuarios al grupo: lo hace heredar del grupo «Usuario
+    # interno», que es el que tiene todo el mundo. Por eso no basta con mirar
+    # quién está en el grupo.
+    xmlid = api.buscar("ir.model.data",
+                       [["module", "=", "product"], ["name", "=", "group_product_pricelist"]],
+                       ["res_id"], limite=1)
+    interno = api.buscar("ir.model.data",
+                         [["module", "=", "base"], ["name", "=", "group_user"]],
+                         ["res_id"], limite=1)
+    activo = False
+    if xmlid and interno:
+        heredados = api.buscar("res.groups", [["id", "=", interno[0]["res_id"]]],
+                               ["implied_ids"], limite=1)
+        activo = xmlid[0]["res_id"] in (heredados[0]["implied_ids"] if heredados else [])
+        if not activo:
+            grupo = api.buscar("res.groups", [["id", "=", xmlid[0]["res_id"]]],
+                               ["user_ids"], limite=1)
+            activo = bool(grupo and grupo[0]["user_ids"])
+    if not activo:
+        inf.ojo("las listas de precios están desactivadas en Ajustes",
+                "Ajustes → Ventas → Precios → Listas de precios")
+
+
 def comprobar_stock(api: Odoo, inf: Informe) -> None:
     inf.titulo("Inventario")
     quants = api.buscar("stock.quant", [["location_id.usage", "=", "internal"]],
@@ -255,6 +312,7 @@ def main(argv=None) -> int:
         comprobar_compania(api, inf, m)
         comprobar_impuestos(api, inf, m)
         comprobar_maestros(api, inf, m, e)
+        comprobar_tarifas(api, inf, m)
         comprobar_stock(api, inf)
         comprobar_historico(api, inf)
         comprobar_usuarios(api, inf)

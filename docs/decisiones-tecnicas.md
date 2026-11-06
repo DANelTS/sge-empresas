@@ -217,3 +217,26 @@ Filtrar por `type == 'product'` (como se hacía en la 15) devuelve cero
 resultados y el script sigue adelante **sin dar error**: es exactamente el fallo
 que dejó dieciséis productos con stock negativo en la primera prueba de la carga
 del histórico. Si algo «no hace nada» con productos, mira ese filtro.
+
+## 14. Las listas de precios vienen desactivadas
+
+El ajuste **Ajustes → Ventas → Precios → Listas de precios** está apagado en una
+base nueva (`product.group_product_pricelist`). Mientras lo esté:
+
+- el menú **Ventas → Productos → Listas de precios** no aparece;
+- el importador de contactos no reconoce la columna `property_product_pricelist`
+  y la deja sin mapear, así que hay que elegir el campo a mano.
+
+Se activa con el asistente de ajustes (`res.config.settings
+{group_product_pricelist: True}`, luego `execute()`). Ojo: el ajuste **no mete
+usuarios en el grupo**, hace que el grupo lo herede `base.group_user`. Para
+comprobar si está activo hay que mirar `res_groups_implied_rel`, no
+`res_groups_users_rel`.
+
+## 15. Las listas incrustadas no se pueden importar
+
+La pestaña *Reglas* de una lista de precios es una lista dentro del formulario,
+no una vista con acción propia: no tiene botón *Importar*. Por eso no se genera
+`3-reglas-tarifa.csv`; las reglas las crea `cargar_historico.py` (una regla
+global por lista) y `verificar.py` comprueba el porcentaje. Lo mismo vale para
+cualquier otra lista incrustada: si no tiene menú propio, no se importa.

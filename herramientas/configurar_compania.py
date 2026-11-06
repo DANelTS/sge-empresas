@@ -84,6 +84,13 @@ def main(argv=None) -> int:
         })
         api.crear("res.partner.bank", valores_cuenta)
 
+    # Listas de precios: en la 19 el ajuste viene DESACTIVADO y, sin él, el menú
+    # «Ventas → Productos → Listas de precios» no existe para el usuario normal ni
+    # el importador reconoce la columna de tarifa del cliente. Se activa con el
+    # mismo interruptor de Ajustes → Ventas → Precios.
+    asistente = api.crear("res.config.settings", {"group_product_pricelist": True})
+    api.ejecutar("res.config.settings", "execute", [asistente])
+
     print(f"Compañía configurada: {d['nombre']} — NIF {d['cif']} — {d['cp']} {d['poblacion']}")
     print(f"Cuenta bancaria: {d['iban']}")
     return 0
