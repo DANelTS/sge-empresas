@@ -179,6 +179,13 @@ docker compose exec odoo odoo db dump empresa /copias/copia-S17.zip
 - [ ] `verificar.py` termina con «todo en verde» (o solo con avisos de usuarios).
 - [ ] Tienes `salida/copia-S17.zip`.
 
+## Si ya tenías la base cargada
+
+Si hiciste la sesión con una versión anterior del repositorio, tu base no tiene
+las listas de precios activadas ni las fichas de proveedor de los productos.
+Sigue `docs/actualizar-base-existente.md`: son cuatro comandos y **no se pierde
+nada** de lo que ya has hecho.
+
 ## Si algo falla
 
 **No veo *Ventas → Productos → Listas de precios*.**

@@ -159,3 +159,5 @@ guía.
 - `docs/glosario-empresarial.md` — presupuesto, albarán, factura, vencimiento,
   IVA repercutido y soportado.
 - `docs/modelo-de-datos.md` — qué tablas de PostgreSQL hay detrás de cada pantalla.
+- `docs/actualizar-base-existente.md` — si ya tenías la base cargada y el
+  repositorio ha cambiado: cómo ponerla al día sin rehacer nada.

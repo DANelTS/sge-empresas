@@ -259,3 +259,18 @@ Y hay una dependencia que no es obvia: **sin ficha de proveedor
 como «sin proveedor» en Inventario y la regla se queda muda. Las fichas las crea
 `cargar_historico.py` (precio = coste, plazo 5–9 días) y se pueden reparar con
 `--solo-proveedores`.
+
+## 17. El asistente de ajustes puede no hacer nada y devolver éxito
+
+`res.config.settings {group_product_pricelist: True}` + `execute()` activa el
+ajuste, pero **si el servidor tiene cacheado el valor anterior no escribe nada** y
+no da error. Pasó al reparar una base con el grupo desactivado a mano: el
+asistente decía haber ido bien y la relación seguía sin existir. Para activar un
+grupo de forma fiable se escribe la relación directamente:
+
+```python
+api.escribir("res.groups", [id_grupo_interno], {"implied_ids": [(4, id_grupo)]})
+```
+
+y después se lee para comprobarlo. Regla general: cuando un cambio se hace «por
+el asistente», verifica el efecto leyendo, no el valor de retorno.

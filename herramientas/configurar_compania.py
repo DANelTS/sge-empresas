@@ -88,8 +88,17 @@ def main(argv=None) -> int:
     # «Ventas → Productos → Listas de precios» no existe para el usuario normal ni
     # el importador reconoce la columna de tarifa del cliente. Se activa con el
     # mismo interruptor de Ajustes → Ventas → Precios.
-    asistente = api.crear("res.config.settings", {"group_product_pricelist": True})
-    api.ejecutar("res.config.settings", "execute", [asistente])
+    # Se escribe la relación directamente: el asistente de ajustes puede no
+    # hacer nada si el servidor tiene cacheado el valor anterior, y entonces
+    # devuelve éxito sin haber activado nada.
+    interno = api.buscar("ir.model.data", [["module", "=", "base"], ["name", "=", "group_user"]],
+                         ["res_id"], limite=1)
+    grupo = api.buscar("ir.model.data",
+                       [["module", "=", "product"], ["name", "=", "group_product_pricelist"]],
+                       ["res_id"], limite=1)
+    if interno and grupo:
+        api.escribir("res.groups", [interno[0]["res_id"]],
+                     {"implied_ids": [(4, grupo[0]["res_id"])]})
 
     print(f"Compañía configurada: {d['nombre']} — NIF {d['cif']} — {d['cp']} {d['poblacion']}")
     print(f"Cuenta bancaria: {d['iban']}")

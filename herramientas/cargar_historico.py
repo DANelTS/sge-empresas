@@ -30,6 +30,7 @@ import sys
 
 from odoo_api import ErrorOdoo, Odoo
 from sge import catalogo, historico, maestros
+from sge.provincias import odoo as provincia_odoo
 from sge.variante import Variante
 
 RAIZ = pathlib.Path(__file__).resolve().parents[1]
@@ -219,6 +220,106 @@ def _proveedores_producto(api: Odoo, m, productos: dict, contactos: dict,
     if verboso:
         print(f"  proveedor asignado a {creadas} productos")
     return creadas
+
+
+def _reparar(api: Odoo, m, verboso: bool = True) -> dict:
+    """Pone al día una base cargada con una versión anterior del repositorio.
+
+    No toca el histórico ni las operaciones del alumno. Hace cuatro cosas, todas
+    idempotentes:
+
+    1. Activa las listas de precios en Ajustes (sin ellas no hay menú ni columna
+       de tarifa importable).
+    2. Crea los proveedores del catálogo que falten (sectores cuyos catálogos
+       ganaron proveedores nuevos).
+    3. Completa la regla de descuento de cada lista de precios.
+    4. Asigna a cada producto comprable su ficha de proveedor.
+
+    Devuelve un resumen de lo hecho.
+    """
+    resumen = {"proveedores": 0, "reglas": 0, "fichas": 0, "ajuste": False}
+
+    # 1. Ajuste de listas de precios
+    interno = api.buscar("ir.model.data",
+                         [["module", "=", "base"], ["name", "=", "group_user"]],
+                         ["res_id"], limite=1)
+    grupo = api.buscar("ir.model.data",
+                       [["module", "=", "product"], ["name", "=", "group_product_pricelist"]],
+                       ["res_id"], limite=1)
+    if interno and grupo:
+        heredados = api.buscar("res.groups", [["id", "=", interno[0]["res_id"]]],
+                               ["implied_ids"], limite=1)
+        if not (heredados and grupo[0]["res_id"] in heredados[0]["implied_ids"]):
+            # Se escribe la relación directamente y no por el asistente de
+            # ajustes: si el servidor tiene cacheado el valor anterior, el
+            # asistente puede no hacer nada y devolver éxito.
+            api.escribir("res.groups", [interno[0]["res_id"]], {
+                "implied_ids": [(4, grupo[0]["res_id"])],
+            })
+            resumen["ajuste"] = True
+
+    # 2. Proveedores que falten (el catálogo manda: nombre, NIF y dirección)
+    contactos = _contactos_odoo(api)
+    pais = api.buscar("res.country", [["code", "=", "ES"]], ["id"], limite=1)
+    for p in m.proveedores:
+        if p["clave"] in contactos:
+            continue
+        valores = {
+            "name": p["nombre"], "is_company": True, "ref": p["clave"],
+            "vat": p["nif"], "street": p.get("calle"), "zip": p.get("cp"),
+            "city": p.get("poblacion"), "email": p.get("email"),
+            "phone": p.get("telefono"), "supplier_rank": 1,
+            "lang": "es_ES", "comment": p.get("actividad", ""),
+        }
+        if pais:
+            valores["country_id"] = pais[0]["id"]
+        if p.get("provincia"):
+            provincia = api.buscar("res.country.state",
+                                   [["name", "=", provincia_odoo(p["provincia"])]],
+                                   ["id"], limite=1)
+            if provincia:
+                valores["state_id"] = provincia[0]["id"]
+        if p.get("cond_pago"):
+            termino = api.buscar("account.payment.term",
+                                 [["name", "=", p["cond_pago"]]], ["id"], limite=1)
+            if termino:
+                valores["property_payment_term_id"] = termino[0]["id"]
+        contactos[p["clave"]] = api.crear("res.partner", valores)
+        resumen["proveedores"] += 1
+
+    # 3. Reglas de descuento de las listas de precios que ya existan
+    for tarifa in m.tarifas:
+        if not tarifa.get("descuento"):
+            continue
+        ids = api.buscar_ids("product.pricelist", [["name", "=", tarifa["nombre"]]], limite=1)
+        if not ids:
+            continue  # si no existe la lista, no se inventa: la importa el alumno
+        ya = api.buscar_ids("product.pricelist.item",
+                            [["pricelist_id", "=", ids[0]], ["applied_on", "=", "3_global"]],
+                            limite=1)
+        if ya:
+            continue
+        api.crear("product.pricelist.item", {
+            "pricelist_id": ids[0], "applied_on": "3_global",
+            "compute_price": "percentage", "percent_price": tarifa["descuento"],
+            "min_quantity": 0,
+        })
+        resumen["reglas"] += 1
+
+    # 4. Fichas de proveedor de los productos
+    productos = _productos_odoo(api)
+    resumen["fichas"] = _proveedores_producto(api, m, productos, contactos, verboso=False)
+
+    # Las reglas de reabastecimiento, en manual: si el planificador diario está
+    # en automático, crea solicitudes de presupuesto que el alumno no ha hecho.
+    reglas = api.buscar_ids("stock.warehouse.orderpoint", [["trigger", "=", "auto"]])
+    if reglas:
+        api.escribir("stock.warehouse.orderpoint", reglas, {"trigger": "manual"})
+        resumen["triggers"] = len(reglas)
+    else:
+        resumen["triggers"] = 0
+
+    return resumen
 
 
 def _validar_albaran(api: Odoo, picking_id: int, fecha: str) -> None:
@@ -466,8 +567,10 @@ def main(argv=None) -> int:
     p.add_argument("--alumno", required=True, type=int)
     p.add_argument("--seco", action="store_true", help="solo enseña el plan, no escribe")
     p.add_argument("--forzar", action="store_true", help="carga aunque ya haya histórico")
+    p.add_argument("--reparar", action="store_true",
+                   help="pone al día una base ya cargada (proveedores, tarifas, disparadores) y sale")
     p.add_argument("--solo-proveedores", action="store_true",
-                   help="repara las fichas de proveedor de los productos y sale")
+                   help="igual que --reparar (se mantiene por compatibilidad)")
     p.add_argument("--url", default=os.environ.get("ODOO_URL", "http://odoo:8069"))
     p.add_argument("--bd", default=os.environ.get("ODOO_BD", "empresa"))
     p.add_argument("--usuario", default=os.environ.get("ODOO_USUARIO", "admin"))
@@ -501,19 +604,21 @@ def main(argv=None) -> int:
         return 1
     print(f"Conectado a {args.url} (base {args.bd}, {api.version()})")
 
-    if args.solo_proveedores:
-        # Reparación: asigna el proveedor del catálogo a los productos que no lo
-        # tengan. No toca nada más. Sirve cuando en Inventario aparecen
-        # productos «sin proveedor» y la regla de reabastecimiento no propone
-        # compras.
+    if args.reparar or args.solo_proveedores:
+        # Pone al día una base cargada con una versión anterior del repositorio.
+        # No toca el histórico ni las operaciones hechas por el alumno.
         try:
-            productos = _productos_odoo(api)
-            contactos = _contactos_odoo(api)
-            creadas = _proveedores_producto(api, m, productos, contactos)
+            resumen = _reparar(api, m)
         except ErrorOdoo as exc:
             print(f"\nERROR: {exc}", file=sys.stderr)
             return 1
-        print(f"\nFichas de proveedor creadas: {creadas}.")
+        print("\nReparación terminada:")
+        print(f"  listas de precios activadas en Ajustes: {'sí' if resumen['ajuste'] else 'ya estaban'}")
+        print(f"  proveedores creados:                    {resumen['proveedores']}")
+        print(f"  reglas de descuento creadas:            {resumen['reglas']}")
+        print(f"  fichas de proveedor creadas:            {resumen['fichas']}")
+        print(f"  reglas de reabastecimiento en manual:   {resumen['triggers']}")
+        print("\nEjecuta verificar.py para comprobar que todo está en verde.")
         return 0
 
     marca = api.buscar("ir.config_parameter", [["key", "=", CLAVE_MARCA]], ["value"], limite=1)
