@@ -39,9 +39,37 @@ pedido → recepción → factura**, y luego el pago.
 
 ## Los pasos
 
+### 0. ¿Odoo compra solo? No
+
+Conviene tenerlo claro antes de tocar nada, porque es la duda de todo el mundo al
+ver el aviso de reposición:
+
+- **Odoo no envía ningún pedido a ningún proveedor.** Ni en la 19 ni en ninguna
+  otra versión. No hay correo saliente en el aula y, aunque lo hubiera, el envío
+  es siempre un acto humano.
+- Lo que hace la **regla de reabastecimiento** (el mínimo y el máximo de cada
+  producto) es *proponer*. La propuesta aparece en **Inventario → Operaciones →
+  Abastecimiento** con la cantidad que falta para llegar al máximo.
+- Esa regla tiene un **disparador**:
+  - *Manual*: solo propone. Tú decides si compras. **Es como están las del
+    repositorio**, para que veas la propuesta antes de que se convierta en algo.
+  - *Automático*: el planificador (un proceso que corre a diario, o el botón
+    *Ejecutar planificador*) crea **borradores** de pedido de compra agrupados
+    por proveedor. Borradores: *Solicitudes de presupuesto*, sin confirmar. Nadie
+    las envía.
+- Si un producto **no tiene proveedor**, Odoo no puede proponer nada: no sabe a
+  quién comprar. Sale marcado en Inventario y la regla no genera propuesta. Se
+  arregla con `cargar_historico.py --solo-proveedores`, que asigna a cada
+  producto el proveedor de su catálogo con su precio y su plazo de entrega.
+
+> En una empresa real el disparador suele estar en automático y alguien revisa
+> cada mañana las solicitudes de presupuesto antes de confirmarlas. Automatizar
+> la *propuesta* es lo que ahorra trabajo; automatizar la *compra* es lo que
+> arruina a una empresa.
+
 ### 1. Ver qué falta reponer
 
-**Inventario → Operaciones → Abastecimiento**. Si no hay propuestas, ejecuta
+**Inventario → Operaciones → Abastecimiento**. Si no hay propuestas, pulsa
 **Abastecimiento: ejecutar planificador** (arriba a la derecha). Odoo compara el
 stock con las reglas de mínimo y máximo de cada producto y propone cantidades.
 
@@ -116,9 +144,19 @@ compras de **servicio** (no mueven stock) y otros de mercancía.
 ## Si algo falla
 
 **El planificador no propone nada.** O el producto no tiene regla de
-reabastecimiento (mínimo/máximo), o su stock está por encima del mínimo. Se
-configura en la ficha del producto, pestaña *Inventario* → *Reglas de
-reabastecimiento*.
+reabastecimiento (mínimo/máximo), o no tiene proveedor, o su stock está por
+encima del mínimo. La regla se configura en la ficha del producto, pestaña
+*Inventario* → *Reglas de reabastecimiento*; el proveedor, en la pestaña
+*Compra* (y se repara con `cargar_historico.py --solo-proveedores`).
+
+**En Inventario aparecen productos «sin proveedor».** No tienen ficha de
+proveedor (`product.supplierinfo`): el planificador no sabe a quién comprar y no
+propone nada. Se arregla con `cargar_historico.py --solo-proveedores`.
+
+**Veo solicitudes de presupuesto que no he creado yo.** Alguna regla tiene el
+disparador en *Automático* y el planificador diario las ha creado. Son
+borradores: ni se han confirmado ni se han enviado. Se descartan sin más, o se
+cambia el disparador a *Manual* en la regla.
 
 **«No se puede validar: cantidad mayor que la reservada».** Estás poniendo más
 cantidad de la que el sistema espera. Revisa las unidades: a veces el CSV trae

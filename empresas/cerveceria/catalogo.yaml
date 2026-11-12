@@ -117,6 +117,17 @@ proveedores:
     provincia: Murcia
     dominio: envasado-meseta.example
 
+  - clave: PRV-MERCH
+    nombre: Merchandising Cervecero S.L.
+    actividad: Vasos, camisetas y growlers serigrafiados
+    letra_cif: B
+    cond_pago: 30 días
+    calle: Calle del Horno, 17
+    cp: "28012"
+    poblacion: Madrid
+    provincia: Madrid
+    dominio: merch-cervecero.example
+
 productos:
   # --- Materias primas y aprovisionamientos: no se venden -----------------
   - ref: CER-001
@@ -226,6 +237,7 @@ productos:
   - ref: CER-020
     nombre: Rubia del Norte, barril 30 l
     categoria: CERV-BARRIL
+    compra: false
     coste: 44.00
     pvp: 98.00
     minimo: 6
@@ -233,6 +245,7 @@ productos:
   - ref: CER-021
     nombre: Rubia del Norte, barril 20 l
     categoria: CERV-BARRIL
+    compra: false
     coste: 31.00
     pvp: 76.00
     minimo: 4
@@ -240,6 +253,7 @@ productos:
   - ref: CER-022
     nombre: IPA Lúpulo Norte, barril 30 l
     categoria: CERV-BARRIL
+    compra: false
     coste: 47.50
     pvp: 108.00
     minimo: 4
@@ -247,6 +261,7 @@ productos:
   - ref: CER-023
     nombre: Tostada del Norte, barril 30 l
     categoria: CERV-BARRIL
+    compra: false
     coste: 46.00
     pvp: 105.00
     minimo: 3
@@ -254,6 +269,7 @@ productos:
   - ref: CER-024
     nombre: Trigo del Norte, barril 20 l
     categoria: CERV-BARRIL
+    compra: false
     coste: 33.00
     pvp: 80.00
     minimo: 3
@@ -261,6 +277,7 @@ productos:
   - ref: CER-025
     nombre: Edición de temporada, barril 30 l
     categoria: CERV-BARRIL
+    compra: false
     coste: 52.00
     pvp: 110.00
     minimo: 2
@@ -270,6 +287,7 @@ productos:
   - ref: CER-030
     nombre: Rubia del Norte, botella 33 cl
     categoria: CERV-BOTELLA
+    compra: false
     coste: 0.62
     pvp: 1.75
     minimo: 120
@@ -277,6 +295,7 @@ productos:
   - ref: CER-031
     nombre: IPA Lúpulo Norte, botella 33 cl
     categoria: CERV-BOTELLA
+    compra: false
     coste: 0.72
     pvp: 2.10
     minimo: 96
@@ -284,6 +303,7 @@ productos:
   - ref: CER-032
     nombre: Tostada del Norte, botella 33 cl
     categoria: CERV-BOTELLA
+    compra: false
     coste: 0.68
     pvp: 1.95
     minimo: 96
@@ -291,6 +311,7 @@ productos:
   - ref: CER-033
     nombre: Trigo del Norte, botella 33 cl
     categoria: CERV-BOTELLA
+    compra: false
     coste: 0.66
     pvp: 1.90
     minimo: 72
@@ -298,6 +319,7 @@ productos:
   - ref: CER-034
     nombre: Sin alcohol Norte, botella 33 cl
     categoria: CERV-BOTELLA
+    compra: false
     coste: 0.55
     pvp: 1.60
     minimo: 72
@@ -305,6 +327,7 @@ productos:
   - ref: CER-035
     nombre: Edición de temporada, botella 33 cl
     categoria: CERV-BOTELLA
+    compra: false
     coste: 0.85
     pvp: 2.45
     minimo: 48
@@ -314,6 +337,7 @@ productos:
   - ref: CER-040
     nombre: Rubia del Norte, botella 75 cl
     categoria: CERV-BOTELLA
+    compra: false
     coste: 1.45
     pvp: 3.90
     minimo: 48
@@ -321,6 +345,7 @@ productos:
   - ref: CER-041
     nombre: IPA Lúpulo Norte, botella 75 cl
     categoria: CERV-BOTELLA
+    compra: false
     coste: 1.60
     pvp: 4.30
     minimo: 36
@@ -328,6 +353,7 @@ productos:
   - ref: CER-042
     nombre: Edición de temporada, botella 75 cl
     categoria: CERV-BOTELLA
+    compra: false
     coste: 1.85
     pvp: 5.20
     minimo: 24
@@ -337,6 +363,7 @@ productos:
   - ref: CER-050
     nombre: Pack degustación 6 × 33 cl
     categoria: CERV-BOTELLA
+    compra: false
     coste: 4.40
     pvp: 12.90
     minimo: 12
@@ -344,6 +371,7 @@ productos:
   - ref: CER-051
     nombre: Pack Rubia del Norte 12 × 33 cl
     categoria: CERV-BOTELLA
+    compra: false
     coste: 8.20
     pvp: 22.50
     minimo: 8
@@ -351,6 +379,7 @@ productos:
   - ref: CER-052
     nombre: Pack temporada 3 × 75 cl
     categoria: CERV-BOTELLA
+    compra: false
     coste: 5.40
     pvp: 15.90
     minimo: 8
@@ -360,6 +389,7 @@ productos:
   - ref: CER-060
     nombre: Vaso cervecero 0,5 l con logo
     categoria: MERCH
+    proveedor: PRV-MERCH
     coste: 2.10
     pvp: 5.90
     minimo: 24
@@ -367,6 +397,7 @@ productos:
   - ref: CER-061
     nombre: Camiseta Lúpulo Norte
     categoria: MERCH
+    proveedor: PRV-MERCH
     coste: 6.40
     pvp: 16.90
     minimo: 10
@@ -374,6 +405,7 @@ productos:
   - ref: CER-062
     nombre: Growler de acero inoxidable 2 l
     categoria: MERCH
+    proveedor: PRV-MERCH
     coste: 11.50
     pvp: 27.90
     minimo: 6

@@ -240,3 +240,22 @@ no una vista con acción propia: no tiene botón *Importar*. Por eso no se gener
 `3-reglas-tarifa.csv`; las reglas las crea `cargar_historico.py` (una regla
 global por lista) y `verificar.py` comprueba el porcentaje. Lo mismo vale para
 cualquier otra lista incrustada: si no tiene menú propio, no se importa.
+
+## 16. Odoo no compra solo, y sin proveedor no propone nada
+
+La regla de reabastecimiento (`stock.warehouse.orderpoint`) solo compara stock con
+mínimo y máximo. Tiene un disparador:
+
+- `trigger='manual'`: la propuesta se queda en **Inventario → Operaciones →
+  Abastecimiento** hasta que alguien la convierte en pedido.
+- `trigger='auto'`: el planificador diario crea **borradores** de compra
+  agrupados por proveedor. Nunca se confirman ni se envían solos.
+
+En el repositorio las reglas se crean en `manual` a propósito: con `auto`, el cron
+diario aparecía con solicitudes de presupuesto que el alumno no había hecho.
+
+Y hay una dependencia que no es obvia: **sin ficha de proveedor
+(`product.supplierinfo`), el planificador no propone compra**. El producto sale
+como «sin proveedor» en Inventario y la regla se queda muda. Las fichas las crea
+`cargar_historico.py` (precio = coste, plazo 5–9 días) y se pueden reparar con
+`--solo-proveedores`.

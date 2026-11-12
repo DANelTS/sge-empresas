@@ -176,8 +176,49 @@ def _reglas_reabastecimiento(api: Odoo, m) -> None:
             "location_id": ubicacion_id,
             "product_min_qty": p["minimo"],
             "product_max_qty": p.get("maximo") or (p["minimo"] * 3),
-            "trigger": "auto",
+            # "manual": la regla solo *propone*. Con "auto", el planificador
+            # diario crea los borradores de compra por su cuenta y el alumno se
+            # encuentra pedidos que no ha hecho. En el aula interesa ver la
+            # propuesta y decidir.
+            "trigger": "manual",
         })
+
+
+def _proveedores_producto(api: Odoo, m, productos: dict, contactos: dict,
+                          verboso: bool = True) -> int:
+    """Crea la ficha de proveedor (product.supplierinfo) de cada producto.
+
+    Sin ella Odoo no sabe a quién comprar: el producto sale como «sin
+    proveedor» en Inventario y la regla de reabastecimiento no propone nada.
+    Es idempotente: si la ficha ya existe para ese producto y proveedor, no se
+    toca.
+    """
+    plazo = {p["clave"]: 5 + (i % 5) for i, p in enumerate(m.proveedores)}
+    creadas = 0
+    for p in m.productos:
+        clave = p.get("proveedor")
+        if not clave or not p.get("compra", True) or p["tipo"] == "servicio":
+            continue
+        socio = contactos.get(clave)
+        plantilla = productos.get(p["ref"], {}).get("plantilla")
+        if not socio or not plantilla:
+            continue
+        ya = api.buscar_ids("product.supplierinfo",
+                            [["product_tmpl_id", "=", plantilla], ["partner_id", "=", socio]],
+                            limite=1)
+        if ya:
+            continue
+        api.crear("product.supplierinfo", {
+            "product_tmpl_id": plantilla,
+            "partner_id": socio,
+            "price": p["coste"],
+            "delay": plazo.get(clave, 7),
+            "min_qty": 1,
+        })
+        creadas += 1
+    if verboso:
+        print(f"  proveedor asignado a {creadas} productos")
+    return creadas
 
 
 def _validar_albaran(api: Odoo, picking_id: int, fecha: str) -> None:
@@ -284,6 +325,11 @@ def cargar(api: Odoo, e: catalogo.Empresa, m: maestros.Maestros, plan: historico
                                                               empresa["id"])])]
         if valores:
             api.escribir("product.template", productos[p["ref"]]["plantilla"], valores)
+
+    # ---- 1b. Ficha de proveedor de cada producto -------------------------
+    if verboso:
+        print("Asignando proveedor a los productos…")
+    _proveedores_producto(api, m, productos, contactos, verboso)
 
     # ---- 2. Stock inicial ------------------------------------------------
     if verboso:
@@ -420,6 +466,8 @@ def main(argv=None) -> int:
     p.add_argument("--alumno", required=True, type=int)
     p.add_argument("--seco", action="store_true", help="solo enseña el plan, no escribe")
     p.add_argument("--forzar", action="store_true", help="carga aunque ya haya histórico")
+    p.add_argument("--solo-proveedores", action="store_true",
+                   help="repara las fichas de proveedor de los productos y sale")
     p.add_argument("--url", default=os.environ.get("ODOO_URL", "http://odoo:8069"))
     p.add_argument("--bd", default=os.environ.get("ODOO_BD", "empresa"))
     p.add_argument("--usuario", default=os.environ.get("ODOO_USUARIO", "admin"))
@@ -452,6 +500,21 @@ def main(argv=None) -> int:
         print(f"No se puede conectar con Odoo en {args.url}: {exc}", file=sys.stderr)
         return 1
     print(f"Conectado a {args.url} (base {args.bd}, {api.version()})")
+
+    if args.solo_proveedores:
+        # Reparación: asigna el proveedor del catálogo a los productos que no lo
+        # tengan. No toca nada más. Sirve cuando en Inventario aparecen
+        # productos «sin proveedor» y la regla de reabastecimiento no propone
+        # compras.
+        try:
+            productos = _productos_odoo(api)
+            contactos = _contactos_odoo(api)
+            creadas = _proveedores_producto(api, m, productos, contactos)
+        except ErrorOdoo as exc:
+            print(f"\nERROR: {exc}", file=sys.stderr)
+            return 1
+        print(f"\nFichas de proveedor creadas: {creadas}.")
+        return 0
 
     marca = api.buscar("ir.config_parameter", [["key", "=", CLAVE_MARCA]], ["value"], limite=1)
     if marca and not args.forzar:

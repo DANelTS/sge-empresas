@@ -105,7 +105,8 @@ def comprobar_impuestos(api: Odoo, inf: Informe, m: maestros.Maestros) -> None:
 def comprobar_maestros(api: Odoo, inf: Informe, m: maestros.Maestros, e) -> None:
     inf.titulo("Datos maestros")
     productos = api.buscar("product.product", [["default_code", "!=", False]],
-                           ["default_code", "taxes_id", "supplier_taxes_id", "type"])
+                           ["default_code", "taxes_id", "supplier_taxes_id", "type",
+                            "seller_ids", "purchase_ok"])
     por_ref = {p["default_code"]: p for p in productos}
     faltan = [p["ref"] for p in m.productos if p["ref"] not in por_ref]
     if faltan:
@@ -130,6 +131,19 @@ def comprobar_maestros(api: Odoo, inf: Informe, m: maestros.Maestros, e) -> None
                 "Ejecuta cargar_historico.py: es quien asigna los impuestos")
     else:
         inf.bien("todos los productos tienen IVA de venta y de compra")
+
+    # Proveedor de cada producto: sin ficha (product.supplierinfo) la regla de
+    # reabastecimiento no puede proponer la compra y el producto sale «sin
+    # proveedor» en Inventario.
+    sin_proveedor = [p["ref"] for p in m.productos
+                     if p.get("compra", True) and p["tipo"] != "servicio"
+                     and (por_ref.get(p["ref"]) or {}).get("purchase_ok")
+                     and not (por_ref.get(p["ref"]) or {}).get("seller_ids")]
+    if sin_proveedor:
+        inf.mal(f"{len(sin_proveedor)} productos sin proveedor: {', '.join(sin_proveedor[:8])}",
+                "Ejecuta cargar_historico.py --solo-proveedores (o vuelve a cargarlo)")
+    else:
+        inf.bien("todos los productos que se compran tienen proveedor")
 
     contactos = api.buscar("res.partner", [["ref", "!=", False]], ["ref", "vat", "property_payment_term_id"])
     refs = {c["ref"] for c in contactos}

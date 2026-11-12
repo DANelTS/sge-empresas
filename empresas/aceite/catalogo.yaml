@@ -115,6 +115,27 @@ proveedores:
     provincia: Ciudad Real
     dominio: transporte-mancha.example
 
+  - clave: PRV-CONSERVAS
+    nombre: Conservas del Guadalquivir S.L.
+    actividad: Conservas vegetales, vinagres y encurtidos
+    letra_cif: B
+    cond_pago: 30 días
+    calle: Polígono La Isla, calle del Río, 8
+    cp: "41700"
+    poblacion: Dos Hermanas
+    provincia: Sevilla
+    dominio: conservas-guadalquivir.example
+  - clave: PRV-COSMETICA
+    nombre: Cosmética del Olivar S.L.
+    actividad: Jabones y cremas con aceite de oliva
+    letra_cif: B
+    cond_pago: 30 días
+    calle: Camino de la Almazara, 3
+    cp: "23400"
+    poblacion: Úbeda
+    provincia: Jaén
+    dominio: cosmetica-olivar.example
+
 productos:
   # --- Aceite de oliva: 4 % -----------------------------------------------
   - ref: ACI-001
@@ -243,6 +264,7 @@ productos:
   - ref: ACI-024
     nombre: Pimientos asados en conserva 400 g
     categoria: DESPENSA
+    proveedor: PRV-CONSERVAS
     coste: 2.30
     pvp: 4.80
     minimo: 12
@@ -250,6 +272,7 @@ productos:
   - ref: ACI-025
     nombre: Tomate triturado en conserva 400 g
     categoria: DESPENSA
+    proveedor: PRV-CONSERVAS
     coste: 1.45
     pvp: 3.20
     minimo: 12
@@ -257,6 +280,7 @@ productos:
   - ref: ACI-026
     nombre: Vinagre de vino 500 ml
     categoria: DESPENSA
+    proveedor: PRV-CONSERVAS
     coste: 1.55
     pvp: 3.60
     minimo: 12
@@ -266,6 +290,7 @@ productos:
   - ref: ACI-030
     nombre: Jabón de aceite de oliva 100 g
     categoria: COSMETICA
+    proveedor: PRV-COSMETICA
     coste: 3.20
     pvp: 7.50
     minimo: 20
@@ -273,6 +298,7 @@ productos:
   - ref: ACI-031
     nombre: Jabón de aceite de oliva y lavanda 100 g
     categoria: COSMETICA
+    proveedor: PRV-COSMETICA
     coste: 3.40
     pvp: 7.90
     minimo: 20
@@ -280,6 +306,7 @@ productos:
   - ref: ACI-032
     nombre: Crema hidratante de aceite de oliva 50 ml
     categoria: COSMETICA
+    proveedor: PRV-COSMETICA
     coste: 5.60
     pvp: 12.90
     minimo: 12
@@ -287,6 +314,7 @@ productos:
   - ref: ACI-033
     nombre: Crema de manos de aceite de oliva 75 ml
     categoria: COSMETICA
+    proveedor: PRV-COSMETICA
     coste: 4.20
     pvp: 9.90
     minimo: 12
